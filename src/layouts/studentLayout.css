@@ -1,0 +1,17 @@
+
+body{
+    background-color: #00BF33;
+}
+.bigContainer{
+    background-color: inherit;
+    min-height: 100vh;
+    width: 100vw;
+    padding:10px;
+    box-sizing: border-box;
+}
+.mainContainer{
+    background-color: #F1F5F9;
+    border-radius: 25px;
+}
+
+  
