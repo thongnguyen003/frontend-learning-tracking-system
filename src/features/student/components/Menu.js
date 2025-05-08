@@ -1,9 +1,9 @@
 import React from "react";
-import "./menu.css";
-import webIcon from "./webIcon.svg";
-import clasIcon from './class.svg';
-import homeIcon from './home.svg';
-import routineIcon from './routinesvg.svg';
+import "../styles/menu.css";
+import webIcon from "../../../assets/icons/webIcon.svg";
+import clasIcon from '../../../assets/icons/class.svg';
+import homeIcon from '../../../assets/icons/home.svg';
+import routineIcon from '../../../assets/icons/routinesvg.svg';
 const Menu = ()=>{
     return(
         <aside  className="col-md-1 ">

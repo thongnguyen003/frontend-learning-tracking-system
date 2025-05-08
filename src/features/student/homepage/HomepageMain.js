@@ -1,6 +1,6 @@
 import React from "react";
-import Item from "./Item";
-const  Homepage = ({course})=>{
+import Item from "./components/Item";
+const  HomepageMain = ({course})=>{
 
     return(
         <main className="homepage my-3">
@@ -11,9 +11,9 @@ const  Homepage = ({course})=>{
                     {Array.isArray(course) ? (
                       course.map((e, index) => (
                         <Item
-                          key={index} // Thêm key để tránh lỗi khi render danh sách
+                          key={index} 
                           course_name={e.course_name}
-                          teacher_name={e.teacher?.teacher_name} // Kiểm tra `teacher` tồn tại
+                          teacher_name={e.teacher?.teacher_name}
                           students_count={e.students_count}
                           start_day={e.start_day}
                         />
@@ -27,4 +27,4 @@ const  Homepage = ({course})=>{
         </main>
     );
 }
-export default Homepage;
+export default HomepageMain;
