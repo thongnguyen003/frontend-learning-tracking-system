@@ -1,25 +1,16 @@
 import React from "react";
-import "./header.css"; 
+import styles from "./header.module.css";
 
-const Header = ({children}) => {
+const Header = ({ children, userName, userRole }) => {
   return (
-    <div className="d-flex justify-content-between align-items-center border-bottom py-2" style={{height:"70px"}}>
-        {children}
-      <div className="d-flex align-items-center">
-      <div
-          style={{
-            width: "32px",
-            height: "32px",
-            borderRadius: "50%",
-            backgroundColor: "#ccc",
-            marginRight:'3px',
-          }}
-        ></div>
+    <div className={styles.headerContainer}>
+      {children}
+      <div className={styles.userInfo}>
+        <div className={styles.avatar}></div>
         <div className="me-2 text-start">
-          <div className="fw-semibold">Huỳnh Hữu Hậu</div>
-          <small className="text-muted">Student</small>
+          <div className="fw-semibold">{userName}</div>
+          <small className="text-muted">{userRole}</small>
         </div>
-        
       </div>
     </div>
   );
