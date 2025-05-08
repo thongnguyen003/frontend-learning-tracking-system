@@ -1,25 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
-
+import React from "react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import StudentHomepage from './features/student/pages/StudentHomepage';
+import Login from './features/Auth/Login'
+import StudentProfile from './pages/StudentProfile';
+import GoalsPage from './features/student/Course-page/CourseGoal';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Router>
+          <Routes>
+            {/* Cập nhật cách khai báo Route với element */}
+            <Route path="/" element={<StudentHomepage />} />
+            <Route path="/profile" element={<StudentProfile />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/courseGoal" element={<GoalsPage />}  />
+          </Routes>
+      </Router>
   );
 }
-
 export default App;
