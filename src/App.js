@@ -1,21 +1,21 @@
 import './App.css';
 import React from "react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import StudentHomepage from './pages/StudentHomepage';
-// function App() {
-//   return (
-//       <Router>
-//           <Routes>
-//             {/* Cập nhật cách khai báo Route với element */}
-//             <Route path="/" element={<StudentHomepage />} />
-//           </Routes>
-//       </Router>
-//   );
-// }
-import GoalsPage from './pages/Course-page/CourseGoal';
-
+import Login from './features/Auth/Login'
 function App() {
-  return <GoalsPage />;
+  return (
+    <Router>
+      <ToastContainer position="top-right" autoClose={3000} />
+      <Routes>
+        {/* Cập nhật cách khai báo Route với element */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<StudentHomepage />} />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
