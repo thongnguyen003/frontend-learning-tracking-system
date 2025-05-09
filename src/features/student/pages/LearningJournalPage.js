@@ -1,7 +1,7 @@
 import React from "react";
 import { useState,useEffect } from "react";
 import StudentLayout from "../../../layouts/StudentLayout";
-import HomepageMain from "../homepage/HomepageMain";
+import LearningJournal from "../journal/LearningJournal";
 const HeaderElement = ()=>{
   return(
     <div className="d-flex align-items-center">
@@ -10,12 +10,12 @@ const HeaderElement = ()=>{
     </div>
   );
 }
-const StudentHomepage = ()=>{
+const LearningJournalPage = ()=>{
 const [course,setCourse] = useState([]);
 useEffect(()=>{
   const fetchCourse = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/course/getByStudentId/6');
+      const response = await fetch('http://127.0.0.1:8000/api/course/getByStudentId/11');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -29,9 +29,9 @@ useEffect(()=>{
   fetchCourse();
 },[]);
   return(
-    <StudentLayout  HeaderElement={<HeaderElement/> }>
-      <HomepageMain course={course}></HomepageMain>
+    <StudentLayout HeaderElement={<HeaderElement/>}>
+      <LearningJournal ></LearningJournal>
     </StudentLayout>
   );
 }
-export default StudentHomepage;
+export default LearningJournalPage;

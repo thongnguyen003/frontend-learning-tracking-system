@@ -8,10 +8,11 @@ const  HomepageMain = ({course})=>{
             <div class="row">
                 {
                     <div className="row">
-                    {Array.isArray(course) ? (
+                    {Array.isArray(course) && (course.length >0) ? (
                       course.map((e, index) => (
                         <Item
-                          key={index} 
+                          key={index}
+                          idh = {e.course_students[0]?.id || 1}
                           course_name={e.course_name}
                           teacher_name={e.teacher?.teacher_name}
                           students_count={e.students_count}
