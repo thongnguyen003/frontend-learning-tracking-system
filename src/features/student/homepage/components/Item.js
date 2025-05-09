@@ -4,7 +4,7 @@ const Item = ({idh,course_name,teacher_name,start_day,students_count})=>{
     const navigate = useNavigate(); // Đưa hook useNavigate ra ngoài
 
     const redictor = () => {
-        navigate(`/course/${idh}`); // Chuyển hướng đến đường dẫn với tham số index
+        navigate(`/courseGoal/`); // Chuyển hướng đến đường dẫn với tham số index
     };
     return (
         <div className="col-md-3" onClick={redictor}>

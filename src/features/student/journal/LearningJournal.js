@@ -32,14 +32,14 @@ const inClassRows = [
 ];
 
 const selfRows = [
-    { id: "1", date: "22-11-2025", topic: "Noun", description: "countable and uncountable nouns kkklllllllllllllllllkkkkkkkkkkkkhhhhhhhhhhhhhhhhhhhhh" },
+    { id: "1", date: "22-11-2025", topic: "Noun", description: "countable and uncountable nouns " },
     { id: "2", date: "23-11-2025", topic: "Adjective", description: "Prefix of adjective" },
     { id: "3", date: "26-11-2025", topic: "Relative clause", description: "Syntax is important" },
 ];
 
 return (
-    <>
-    <div className="d-flex mb-4 mt-3">
+    <div style={{width:"100%"}}>
+        <div className="d-flex mb-4 mt-3">
         {["Week1", "Week2", "Week3", "Week4"].map((week) => (
         <TabButton
             key={week}
@@ -74,7 +74,7 @@ return (
             <DetailBox></DetailBox>
         </div>
     </div>
-    </>
+    </div>
 );
 }
 export default LearningJournal;

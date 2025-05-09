@@ -6,9 +6,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import StudentHomepage from './features/student/pages/StudentHomepage';
 import Login from './features/Auth/Login'
 import StudentProfile from './pages/StudentProfile';
-import GoalsPage from './features/student/Course-page/CourseGoal';
-import LearningJournalPage from './features/student/pages/LearningJournalPage';
-import StudentLayout from './layouts/StudentLayout';
+import CoursePage from './features/student/pages/CoursePage';
+import LearningGoals from './features/student/Course-page/CourseGoal';
+import LearningJournal from './features/student/journal/LearningJournal';
 function App() {
   return (
       <Router>
@@ -17,7 +17,10 @@ function App() {
             <Route path="/" element={<StudentHomepage />} />
             <Route path="/profile" element={<StudentProfile />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/course" element={<GoalsPage />}  />
+            <Route path="/courseGoal/" element={<CoursePage/>}>
+                          <Route path = 'goal' element = {<LearningGoals></LearningGoals>}></Route>
+                          <Route path = 'learningJournal' element = {<LearningJournal></LearningJournal>}></Route>
+            </Route>
           </Routes>
       </Router>
   );

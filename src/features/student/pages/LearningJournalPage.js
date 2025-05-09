@@ -2,11 +2,11 @@ import React from "react";
 import { useState,useEffect } from "react";
 import StudentLayout from "../../../layouts/StudentLayout";
 import LearningJournal from "../journal/LearningJournal";
+import { Link } from "react-router-dom";
 const HeaderElement = ()=>{
   return(
     <div className="d-flex align-items-center">
-      <span className="me-3  fs-5" style={{ cursor: "pointer" }}><a>&larr; Back</a></span>
-      <span className=" fs-5">IT English</span>
+      <span className="me-3  fs-5" style={{ cursor: "pointer" }}><Link to="/">&larr; IT English</Link></span>
     </div>
   );
 }
