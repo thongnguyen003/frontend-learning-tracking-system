@@ -8,7 +8,6 @@ const HeaderElement = () => {
     </div>
   );
 };
-
 const PortfolioPage = () => {
   const [profile, setProfile] = useState(null);
 
