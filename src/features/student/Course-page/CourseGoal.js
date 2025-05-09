@@ -27,19 +27,6 @@ export default function LearningGoals() {
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col p-4 md:p-6 lg:p-8">
-          <div className="flex items-center justify-between border-b border-gray-300 pb-2 mb-6">
-            <h1 className="text-green-600 text-lg font-normal select-none">IT English</h1>
-            <div className="flex items-center space-x-4">
-              <FontAwesomeIcon icon={faBell} className="text-gray-600 text-sm cursor-pointer" />
-              <div className="flex items-center space-x-2 cursor-default select-none">
-                <div className="w-7 h-7 rounded-full bg-gray-400"></div>
-                <div className="text-xs font-normal text-black leading-tight">
-                  <div>Huỳnh Hữu Hậu</div>
-                  <div>Student</div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Goals List */}
           <div className="space-y-4 flex-1 overflow-auto pr-2">
