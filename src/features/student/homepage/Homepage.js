@@ -1,7 +1,7 @@
 import React from "react";
 import Item from "./Item";
 const  Homepage = ({course})=>{
-
+  
     return(
         <main className="homepage my-3">
             <p className="fs-5 mb-3">List Course</p>
