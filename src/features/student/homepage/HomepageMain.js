@@ -1,7 +1,6 @@
 import React from "react";
 import Item from "./components/Item";
 const  HomepageMain = ({course})=>{
-
     return(
         <main className="homepage my-3">
             <p className="fs-5 mb-3">List Course</p>
@@ -9,7 +8,9 @@ const  HomepageMain = ({course})=>{
                 {
                     <div className="row">
                     {Array.isArray(course) && (course.length >0) ? (
-                      course.map((e, index) => (
+                      course.map((e, index) => {
+                        console.log(e.course_students);
+                        return((
                         <Item
                           key={index}
                           idh = {e.course_students[0]?.id || 1}
@@ -18,7 +19,8 @@ const  HomepageMain = ({course})=>{
                           students_count={e.students_count}
                           start_day={e.start_day}
                         />
-                      ))
+                      ));
+                      })
                     ) : (
                       <p>No courses available.</p>
                     )}

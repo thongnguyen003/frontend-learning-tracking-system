@@ -44,14 +44,13 @@ const PortfolioProfile = ({ profile }) => {
     setPassword({ ...password, [name]: value });
   };
 
-  const handleSubmitPassword = async () => {
+  const handleSubmitPassword = async (id) => {
     if (password.current && password.new) {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/student/change-password", {
-          method: "POST",
+        const response = await fetch(`http://127.0.0.1:8000/api/student/change-password/${id}`, {
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${profile.token}`, // Sử dụng token nếu cần
           },
           body: JSON.stringify({
             current_password: password.current,

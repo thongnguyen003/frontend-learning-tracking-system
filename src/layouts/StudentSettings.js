@@ -27,7 +27,7 @@ const StudentSettings = () => {
         {/* Content */}
         <div className="settings-content">
           {/* {activeTab === "general" && <General />} */}
-          {activeTab === "changepassword" && <ChangePassword studentId={8} />}
+          {activeTab === "changepassword" && <ChangePassword studentId={1} />}
         </div>
       </div>
     );

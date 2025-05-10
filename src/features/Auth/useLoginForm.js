@@ -16,7 +16,7 @@ function useLoginForm() {
             toast.success(res.message);
 
             if (res.role === 'student') {
-                navigate('/');
+                navigate('/student');
             } else if (res.role === 'teacher') {
                 navigate('/teacher');
             }
