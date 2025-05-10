@@ -10,16 +10,17 @@ const Course = () => {
 
   return (
     <>
-        <div className="bg-[#f0f4fb] min-h-screen flex items-start justify-center p-4">
-            <div className="flex w-full h-full max-w-none min-h-screen">
-                <aside className="flex flex-col items-start gap-1 pr-6 border-r border-[#d6d6f7]">
-                <div className="bg-[#00b72f] text-white text-[13px] font-semibold rounded px-2 py-[2px] mb-2 select-none">
-                    <Link to = 'goal'>Goals</Link>
-                </div>
-                <div className="text-[13px] font-normal select-none"><Link to = 'learningJournal'>Learning Journal</Link></div>
+        <div className="  items-start justify-center pl-4">
+            <div className="d-flex " style={{boxSizing:"borderbox"}}>
+                <aside className="flex flex-col mr-6 items-start p-6 gap-1  border-r border-[#d6d6f7]" style={{width:"240px"}}>
+                  <div className="bg-[#00b72f] text-white text-[13px] font-semibold rounded px-2 py-[2px] mb-2 select-none">
+                      <Link to = 'goal'>Goals</Link>
+                  </div>
+                  <div className="text-[13px] font-normal select-none"><Link to = 'learningJournal'>Learning Journal</Link></div>
                 </aside>
                 <Outlet></Outlet>
             </div>
+            
         </div>
     </>
   );

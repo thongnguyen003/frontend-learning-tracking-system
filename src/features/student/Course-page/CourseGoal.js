@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faBell, faPencilAlt, faTrashAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
-
+import { useParams } from "react-router-dom";
 export default function LearningGoals() {
   const [goals, setGoals] = useState([]);
 
@@ -22,8 +22,8 @@ export default function LearningGoals() {
   }, []);
 
   return (
-    <div className="bg-[#ecf5f5] min-h-screen font-sans">
-      <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="bg-[#ecf5f5]  font-sans">
+      <div className="flex flex-col md:flex-row ">
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col p-4 md:p-6 lg:p-8">
