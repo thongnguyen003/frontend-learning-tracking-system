@@ -16,7 +16,7 @@ const ChangePassword = ({ studentId }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/student/change-password/${studentId}`, // Sử dụng backticks cho template literal
+        `http://localhost:8000/api/student/change-password/${studentId}`, 
         {
           method: "PUT",
           headers: {

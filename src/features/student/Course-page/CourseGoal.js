@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faBell, faPencilAlt, faTrashAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { useParams } from "react-router-dom";
 
 export default function LearningGoals() {
   const [goals, setGoals] = useState([]);
-
+  let {id} = useParams();
   useEffect(() => {
+    
+
     // Fetch data from the API
     const fetchGoals = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/course-goals/1');
+        const response = await fetch(`http://127.0.0.1:8000/api/course-goals/${id}`);
         const data = await response.json();
         console.log('Fetched data:', data);
         setGoals(data);
@@ -22,24 +25,11 @@ export default function LearningGoals() {
   }, []);
 
   return (
-    <div className="bg-[#ecf5f5] min-h-screen font-sans">
-      <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="bg-[#ecf5f5]  font-sans">
+      <div className="flex flex-col md:flex-row ">
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col p-4 md:p-6 lg:p-8">
-          <div className="flex items-center justify-between border-b border-gray-300 pb-2 mb-6">
-            <h1 className="text-green-600 text-lg font-normal select-none">IT English</h1>
-            <div className="flex items-center space-x-4">
-              <FontAwesomeIcon icon={faBell} className="text-gray-600 text-sm cursor-pointer" />
-              <div className="flex items-center space-x-2 cursor-default select-none">
-                <div className="w-7 h-7 rounded-full bg-gray-400"></div>
-                <div className="text-xs font-normal text-black leading-tight">
-                  <div>Huỳnh Hữu Hậu</div>
-                  <div>Student</div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Goals List */}
           <div className="space-y-4 flex-1 overflow-auto pr-2">
