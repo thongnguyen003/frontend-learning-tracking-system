@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faBell, faPencilAlt, faTrashAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from "react-router-dom";
+
 export default function LearningGoals() {
   const [goals, setGoals] = useState([]);
-
+  let {id} = useParams();
   useEffect(() => {
+    
+
     // Fetch data from the API
     const fetchGoals = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/course-goals/1');
+        const response = await fetch(`http://127.0.0.1:8000/api/course-goals/${id}`);
         const data = await response.json();
         console.log('Fetched data:', data);
         setGoals(data);

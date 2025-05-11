@@ -2,11 +2,11 @@ import React from "react";
 function TabButton({ active, children, onClick }) {
     return (
         <button
-        type="button"
-        className={`tab-btn ${active ? "active" : ""}`}
-        onClick={onClick}
-        >
-        {children}
+            type="button"
+            className={`tab-btn ${active ? "active" : ""}`}
+            onClick={onClick}
+            >
+            {children}
         </button>
     );
 }

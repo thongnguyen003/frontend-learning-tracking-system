@@ -1,12 +1,16 @@
-import React from 'react';
+import React ,{useEffect}from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import Menu from "../components/Menu"; 
-import { Outlet, Link,Routes, Route} from "react-router-dom";
+import { Outlet, Link,Routes, Route,useNavigate} from "react-router-dom";
 // import Header from "../components/header"; // Nếu cần, hãy nhập đúng cách
 import LearningGoals from "./CourseGoal";
 
 const Course = () => {
+const navigate = useNavigate();
+useEffect(()=>{
+  navigate('goal')
+},useNavigate)
 
   return (
     <>

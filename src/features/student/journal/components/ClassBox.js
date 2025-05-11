@@ -1,6 +1,6 @@
 import React from "react";
 
-const DetailBox = ({data}) => {
+const ClassBox = ({data}) => {
   return (
     <div
       className="bg-white rounded shadow-sm p-3"
@@ -37,85 +37,44 @@ const DetailBox = ({data}) => {
       >
         {data.description}
       </textarea>
-
-      <label className="form-label text-muted" htmlFor="duration">
-        Duration
+      <label className="form-label text-muted" htmlFor="concentration">
+        Assessement
       </label>
-      <input
-        id="duration"
-        type="text"
-        value={data.duration}
-        className="form-control"
-      />
-
-      <label className="form-label text-muted" htmlFor="duration2">
-        URL
-      </label>
-      <input
-        id="duration2"
-        type="text"
-        value={data.resources}
-        className="form-control"
-      />
+      <select id="concentration" className="form-select">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+      </select>
 
       <label className="form-label text-muted" htmlFor="activity">
-        Activity
+        Difficult
       </label>
       <textarea
         id="activity"
         rows="2"
         className="form-control"
       >
-        {data.activity}
+        {data.difficult}
       </textarea>
-
-      <label className="form-label text-muted" htmlFor="concentration">
-        Concentration
-      </label>
-      <select id="concentration" className="form-select">
-        <option>true</option>
-        <option>false</option>
-      </select>
-
-      <label className="form-label text-muted" htmlFor="follow_plan">
-        Follow Plan
-      </label>
-      <select id="follow_plan" className="form-select">
-        <option>true</option>
-        <option>false</option>
-      </select>
-
-      <label className="form-label text-muted" htmlFor="evaluation">
-        Evaluation
+      <label className="form-label text-muted" htmlFor="activity">
+        Flan
       </label>
       <textarea
-        id="evaluation"
+        id="activity"
         rows="2"
         className="form-control"
       >
-        {data.evaluation}
+        {data.plan}
       </textarea>
-
-      <label className="form-label text-muted" htmlFor="reinforcing_learning">
-        Reinforcing Learning
+      <label className="form-label text-muted" htmlFor="activity">
+        Solution
       </label>
       <textarea
-        id="reinforcing_learning"
+        id="activity"
         rows="2"
         className="form-control"
       >
-        {data.reinforcing_learning}
-      </textarea>
-
-      <label className="form-label text-muted" htmlFor="notes">
-        Notes
-      </label>
-      <textarea
-        id="notes"
-        rows="3"
-        className="form-control"
-      >
-       {data.notes}
+        {data.solution}
       </textarea>
 
       <div className="d-flex gap-2 mt-3">
@@ -136,4 +95,4 @@ const DetailBox = ({data}) => {
   );
 };
 
-export default DetailBox;
+export default ClassBox;
