@@ -1,79 +1,119 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import "../styles/learningJournal.css";
 import TabButton from "./components/TabButton";
 import TableSection from "./components/TableSection";
 import DetailBox from "./components/DetailBox";
+import GoalBox from "./components/GoalBox";
+import ClassBox from "./components/ClassBox";
+
+import {  useParams } from "react-router-dom";
+
 function    LearningJournal() {
-const [activeWeek, setActiveWeek] = useState("Week1");
+    let {id} = useParams();
+    const [goal,setGoal]=useState([]);
+    const [journalClass,setJournalClass]=useState([]);
+    const [journalSelf,setJournalSelf]=useState([]);
+    const [data,setData]=useState([]);
+    const [activeWeek, setActiveWeek] = useState(0);
+    const [detaiStatus, setDetail] = useState([]);
+    useEffect(()=>{
+        const fetchData = async () => {
+            try {
+            const response = await fetch(`http://127.0.0.1:8000/api/journal/getByCourseStudentId/16`);
+            const data = await response.json();
+            const result = data.original;
+            setData(result);
+            
+            console.log(result[0].id);
+            } catch (error) {
+            console.error('Error fetching goals:', error);
+            }
+        };
+        console.log('data:', data);
+        fetchData();
+    },[]);
+    useEffect(()=>{
+        if(data.length>0){
+            setActiveWeek(data[0].id);
+            let curentData = data.filter( (e)=> e.id == data[0].id);
+            setJournalClass(curentData[0].journal_classes);
+            setJournalSelf(curentData[0].journal_selfs);
+            setGoal(curentData[0].journal_goals)
+            console.log(journalSelf);
+        }
+    },[data]);
+    useEffect(()=>{
+        let curentData = data.filter( (e)=> e.id == activeWeek)
+        console.log(curentData);
+        setJournalClass(curentData.journal_classes);
+        setJournalSelf(curentData.journal_selfs);
+        setGoal(curentData.journal_goals)
+    },[activeWeek])
+    useEffect(()=>{
+        console.log("hello"+detaiStatus)
+    },[detaiStatus]);
 
-const smaillGoalColumns = [
-    { label: "#", key: "id", width: "2.5rem" },
-    { label: "Title", key: "title" },
-    { label: "Date", key: "date", width: "7rem" },
-    { label: "Status", key: "status", width: "5rem" },
-];
 
-const smaillGoalRows = [
-    { id: "1", title: "Syntax is important", date: "12-12-2025", status: "good" },
-    { id: "2", title: "Syntax is important", date: "11-12-2025", status: "good" },
-    { id: "3", title: "Syntax is important", date: "10-12-2025", status: "good" },
-];
+        const smaillGoalColumns = [
+            { label: "#", key: "id", width: "2.5rem" },
+            { label: "Title", key: "title" },
+            { label: "Date", key: "date", width: "7rem" },
+            { label: "Status", key: "status", width: "5rem" },
+        ];
+        const inClassColumns = [
+            { label: "Date", key: "date", width: "7rem" },
+            { label: "Topic", key: "topic", width: "7rem" },
+            { label: "Description", key: "description" },
+        ];
 
-const inClassColumns = [
-    { label: "Date", key: "date", width: "7rem" },
-    { label: "Topic", key: "topic", width: "7rem" },
-    { label: "Description", key: "description" },
-];
-
-const inClassRows = [
-    { id: "1", date: "22-11-2025", topic: "Noun", description: "countable and uncountable nouns" },
-    { id: "2", date: "23-11-2025", topic: "Adjective", description: "Prefix of adjective" },
-    { id: "3", date: "26-11-2025", topic: "Relative clause", description: "Syntax is important" },
-];
-
-const selfRows = [
-    { id: "1", date: "22-11-2025", topic: "Noun", description: "countable and uncountable nouns " },
-    { id: "2", date: "23-11-2025", topic: "Adjective", description: "Prefix of adjective" },
-    { id: "3", date: "26-11-2025", topic: "Relative clause", description: "Syntax is important" },
-];
 
 return (
     <div style={{width:"100%"}}>
         <div className="d-flex mb-4 mt-3">
-        {["Week1", "Week2", "Week3", "Week4"].map((week) => (
-        <TabButton
-            key={week}
-            active={activeWeek === week}
-            onClick={() => setActiveWeek(week)}
-        >
-            {week}
-        </TabButton>
-        ))}
-    </div>
+            {data.map((week,index) => (
+            <TabButton
+                key={week.id}
+                active={activeWeek === week.id}
+                onClick={() => setActiveWeek(week.id)}
+            >
+                {"week"+(index+1)}
+            </TabButton>
+            ))}
+        </div>
 
-    <div className="d-flex flex-row"  >
-        <div className="flex-grow-1" style={{height:"420px",overflowY: "auto"}}>
-            <TableSection
-                title="Smaill Goal"
-                columns={smaillGoalColumns}
-                rows={smaillGoalRows}
-            />
-            <TableSection
-                title="In class"
-                columns={inClassColumns}
-                rows={inClassRows}
-            />
-            <TableSection
-                title="Self"
-                columns={inClassColumns}
-                rows={selfRows}
-            />
+        <div className="d-flex flex-row pb-0"  >
+            <div className="flex-grow d-flex flex-column gap-3 pb-0" style={{height:"420px",overflowY: "auto"}}>
+                <TableSection
+                    title="1"
+                    columns={smaillGoalColumns}
+                    rows={goal}
+                    click = {setDetail}
+                />
+                <TableSection
+                    title="2"
+                    columns={inClassColumns}
+                    rows={journalClass}
+                    click = {setDetail}
+                />
+                <TableSection
+                    title="3"
+                    columns={inClassColumns}
+                    rows={journalSelf}
+                    click = {setDetail}
+                />
+            </div>
+            {/* part 2 */}
+            <div className={`pl-3 ${detaiStatus && detaiStatus.length > 0 ? "" : "d-none"}`} style={{ height:"420px",overflowY: "auto"}}>
+                {detaiStatus[0] ==1 
+                ?
+                <GoalBox data={goal.filter((e)=> e.id == detaiStatus[1])[0]}></GoalBox>
+                : detaiStatus[0] ==2 
+                ?<ClassBox data={journalClass.filter((e)=> e.id == detaiStatus[1])[0]}></ClassBox>
+                : detaiStatus[0] == 3 
+                ?<DetailBox data={journalSelf.filter((e)=> e.id == detaiStatus[1])[0]}></DetailBox>
+                : "invalid"}
+            </div>
         </div>
-        {/* part 2 */}
-        <div className="pl-3" style={{ height:"420px",overflowY: "auto"}}>
-            <DetailBox></DetailBox>
-        </div>
-    </div>
     </div>
 );
 }
