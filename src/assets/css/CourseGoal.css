@@ -1,0 +1,23 @@
+.course-goal-container {
+  background-color: #ecf5f5;
+  font-family: sans-serif;
+}
+
+.course-goal-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .course-goal-content {
+    flex-direction: row;
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .course-goal-content {
+    padding: 2rem;
+  }
+}

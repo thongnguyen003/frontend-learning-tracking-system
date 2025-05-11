@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { MdEmail, MdVisibility, MdVisibilityOff } from 'react-icons/md';
-
 import useLoginForm from './useLoginForm';
-import './css.css';
+import '../../assets/css/login.css';
 
 function Login() {
     const {
@@ -13,6 +12,7 @@ function Login() {
         role,
         setRole,
         handleSubmit,
+        handleLogout,
     } = useLoginForm();
 
     const [showPassword, setShowPassword] = useState(false);
@@ -93,6 +93,9 @@ function Login() {
                         </div>
                         <button type="submit" className="login-button">Log In</button>
                     </form>
+                    {localStorage.getItem('user') && (
+                        <button onClick={handleLogout} className="login-button mt-3">Log Out</button>
+                    )}
                 </div>
             </div>
         </div>

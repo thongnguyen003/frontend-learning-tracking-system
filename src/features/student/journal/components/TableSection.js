@@ -1,20 +1,20 @@
 import React from "react";
-import { MdExplicit } from "react-icons/md";
  
-function TableSection({ title, columns, rows }) {
+function TableSection({ title, columns, rows, click }) {
     return (
-        <div className="table-container">
+        <div className="table-container pb-0 mb-0">
             <div className="table-header">
                 <div>
                 <i className="fas fa-chevron-down"></i>
-                {title}
+                {title == 1 ? "Smaill Goal" : title ==2 ? "In class"  : title ==3 ? "Self" :""}
                 </div>
                 <button className="create-btn" type="button">
                 <i className="fas fa-plus"></i>
                 Create
                 </button>
             </div>
-            <table className="table mb-0">
+            {rows && rows.length >0 ?
+            <table className="table mb-0 pb-0">
                 <thead>
                 <tr>
                     {columns.map((col, i) => (
@@ -32,14 +32,15 @@ function TableSection({ title, columns, rows }) {
                 {rows.map((row, i) => (
                     <tr key={i}>
                     {columns.map((col, j) => (
-                        <td key={j} className={j === 0 ? "text-muted" : ""}>
-                        {row[col.key] || ""}
+                        <td onClick={()=>click([title,row.id])}  key={j} className={j === 0 ? "text-muted" : ""}>
+                        {row[col.key]|| ""}
                         </td>
                     ))}
                     </tr>
                 ))}
                 </tbody>
             </table>
+            : "Don't available data"}
         </div>
     );
 }
