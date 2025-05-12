@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import "../styles/learningJournal.css";
+import "../../styles/learningJournal.css";
 import TabButton from "./components/TabButton";
 import TableSection from "./components/TableSection";
 import DetailBox from "./components/DetailBox";
