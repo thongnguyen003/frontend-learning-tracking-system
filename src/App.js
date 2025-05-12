@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import StudentHomepage from './features/student/pages/StudentHomepage';
 import PortfolioProfile from './pages/ProfilePage';
 import Login from './features/Auth/Login'
-import StudentProfile from './pages/StudentProfile';
+import StudentProfile from "./features/student/profile/PortfolioProfile"
 import CoursePage from './features/student/pages/CoursePage';
 import LearningGoals from './features/student/Course-page/CourseGoal';
 import LearningJournal from './features/student/journal/LearningJournal';
@@ -20,8 +20,8 @@ function App() {
             <Route path="/profile" element={<StudentProfile />} />
             <Route path="/" element={<Login />} />
             <Route path="/courseGoal/:id" element={<CoursePage/>}>
-                          <Route path = 'goal' element = {<LearningGoals></LearningGoals>}></Route>
-                          <Route path = 'learningJournal' element = {<LearningJournal></LearningJournal>}></Route>
+              <Route path = 'goal' element = {<LearningGoals></LearningGoals>}></Route>
+              <Route path = 'learningJournal' element = {<LearningJournal></LearningJournal>}></Route>
             </Route>
           </Routes>
       </Router>
