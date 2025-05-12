@@ -1,16 +1,16 @@
 import React from "react";
 import { useState,useEffect } from "react";
-import StudentLayout from "../layouts/StudentLayout";
-import Homepage from "../features/student/homepage/Homepage";
+import StudentLayout from "../../../layouts/StudentLayout";
+import LearningJournal from "../journal/LearningJournal";
+import { Link } from "react-router-dom";
 const HeaderElement = ()=>{
   return(
     <div className="d-flex align-items-center">
-      <span className="me-3  fs-5" style={{ cursor: "pointer" }}><a>&larr; Back</a></span>
-      <span className=" fs-5">IT English</span>
+      <span className="me-3  fs-5" style={{ cursor: "pointer" }}><Link to="/student">&larr; IT English</Link></span>
     </div>
   );
 }
-const StudentHomepage = ()=>{
+const LearningJournalPage = ()=>{
 const [course,setCourse] = useState([]);
 useEffect(()=>{
   const fetchCourse = async () => {
@@ -19,8 +19,8 @@ useEffect(()=>{
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const result = await response.json(); // Parse JSON từ response
-      setCourse(result.original || []); // Cập nhật state
+      const result = await response.json();
+      setCourse(result.original || []); 
       console.log(result.original || []);
     } catch (error) {
       console.error('Failed to fetch course:', error);
@@ -30,8 +30,8 @@ useEffect(()=>{
 },[]);
   return(
     <StudentLayout HeaderElement={<HeaderElement/>}>
-      <Homepage course={course}></Homepage>
+      <LearningJournal ></LearningJournal>
     </StudentLayout>
   );
 }
-export default StudentHomepage;
+export default LearningJournalPage;

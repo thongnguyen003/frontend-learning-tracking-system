@@ -1,7 +1,7 @@
 import React from "react";
-import "./studentLayout.css";
-import Menu from "../components/leftMenuStudent/Menu";
-import Header from "../components/headerStudent/header";
+import "../assets/css/studentLayout.css";
+import Menu from "../features/student/components/Menu";
+import Header from "../features/student/components/header";
 const StudentLayout = ({HeaderElement,children}) => {
   return (
     <div className="bigContainer d-flex ">

@@ -17,8 +17,8 @@ const ChangePasswordForm = () => {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/student/change-password', {
-        method: 'POST',
+      const response = await fetch('http://127.0.0.1:8000/api/student/change-password/1', {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`,  // Nếu bạn dùng token authentication
