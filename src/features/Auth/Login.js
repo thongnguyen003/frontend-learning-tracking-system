@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MdEmail, MdVisibility, MdVisibilityOff } from 'react-icons/md';
 
 import useLoginForm from './useLoginForm';
-import './css.css';
+import '../../assets/css/auth.css';
 
 function Login() {
     const {

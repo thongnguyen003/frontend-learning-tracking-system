@@ -1,7 +1,7 @@
 import React from "react";
 import { useState,useEffect } from "react";
 import StudentLayout from "../../../layouts/StudentLayout";
-import Course from "../Course-page/Course";
+import Course from "../course/Course";
 import { Link } from "react-router-dom";
 const HeaderElement = ()=>{
   return(

@@ -4,7 +4,7 @@ import { faPlus, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-ico
 import Menu from "../components/Menu"; 
 import { Outlet, Link,Routes, Route,useNavigate} from "react-router-dom";
 // import Header from "../components/header"; // Nếu cần, hãy nhập đúng cách
-import LearningGoals from "./CourseGoal";
+import LearningGoals from "./goal/Goal";
 
 const Course = () => {
 const navigate = useNavigate();
