@@ -4,9 +4,7 @@ import React ,{useEffect}from 'react';
 // import Menu from "../components/Menu"; 
 import { Outlet, Link,useNavigate} from "react-router-dom";
 // import Header from "../components/header"; // Nếu cần, hãy nhập đúng cách
-// import LearningGoals from "./CourseGoal";
 import '../../../assets/css/Course.css';
-
 const Course = () => {
 const navigate = useNavigate();
 useEffect(()=>{

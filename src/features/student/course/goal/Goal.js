@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
-import { useApi } from '../../../hooks/useApi';
+import { useApi } from '../../../../hooks/useApi';
 import GoalsList from './GoalsList';
 import AddGoalForm from './AddGoalForm';
-import '../../../assets/css/CourseGoal.css';
+import '../../../../assets/css/courseGoal.css';
 
 export default function CourseGoal() {
   const [goals, setGoals] = useState([]);

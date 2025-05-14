@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "./PortfolioProfile.css";
-import GeneralInfoTab from "./GeneralInfoTab";
-import ChangePasswordTab from "./ChangePasswordTab";
+import "../styles/PortfolioProfile.css"
+import GeneralInfoTab from "./components/GeneralInfoTab";
+import ChangePasswordTab from "./components/ChangePassword";
 const PortfolioProfile = ({ profile }) => {
   const [activeTab, setActiveTab] = useState("general");
   const [form, setForm] = useState({

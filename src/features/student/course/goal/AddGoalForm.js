@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../../assets/css/AddGoalForm.css';
+import '../../../../assets/css/AddGoalForm.css'; // Import your CSS file here
 
 export default function AddGoalForm({ newGoalContent, onNewGoalChange, onAddGoal, loading, error }) {
   return (
