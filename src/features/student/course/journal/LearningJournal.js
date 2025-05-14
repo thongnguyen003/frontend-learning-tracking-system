@@ -8,7 +8,7 @@ import ClassBox from "./components/ClassBox";
 
 import {  useParams } from "react-router-dom";
 
-function    LearningJournal() {
+function LearningJournal() {
     let {id} = useParams();
     const [goal,setGoal]=useState([]);
     const [journalClass,setJournalClass]=useState([]);

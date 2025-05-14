@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ChangePassword = ({ studentId }) => {
+function ChangePassword({ studentId }) {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,7 +16,7 @@ const ChangePassword = ({ studentId }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/api/student/change-password/${studentId}`, 
+        `http://localhost:8000/api/student/change-password/${studentId}`,
         {
           method: "PUT",
           headers: {
@@ -91,6 +91,6 @@ const ChangePassword = ({ studentId }) => {
       {message && <p className="mt-3">{message}</p>}
     </div>
   );
-};
+}
 
 export default ChangePassword;
