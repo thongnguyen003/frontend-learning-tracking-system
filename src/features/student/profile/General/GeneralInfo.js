@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import "../../styles/PortfolioProfile.css";
+import "../../styles/GeneralInfor.css"
 
 function GeneralInfo() {
   const [profile] = useOutletContext() ||{};
@@ -48,7 +48,7 @@ function GeneralInfo() {
   }
 
   return (
-    <div className="container">
+    <div className="container mt-4">
       <div className="avatar-upload">
         <img src={avatar} alt="avatar" className="avatar" />
         <label className="upload-btn" style={{ cursor: "pointer" }}>
