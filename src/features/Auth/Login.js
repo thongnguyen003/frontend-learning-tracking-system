@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { MdEmail, MdVisibility, MdVisibilityOff } from 'react-icons/md';
+import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 import useLoginForm from './useLoginForm';
+import DotsOutsideWrapper from '../../assets/animation/DotsOutsideWrapper';
+import LoginSlideshow from '../../assets/animation/LoginSlideshow';
 import '../../assets/css/login.css';
 
 function Login() {
@@ -9,96 +11,86 @@ function Login() {
         setEmail,
         password,
         setPassword,
-        role,
-        setRole,
         handleSubmit,
-        handleLogout,
     } = useLoginForm();
 
     const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
     return (
-        <div className="login-wrapper">
-            <div className="login-card">
-                <div className="login-image d-none d-md-flex">
-                    <div className="image-overlay"></div>
-                    <img
-                        src="https://d1hjkbq40fs2x4.cloudfront.net/2017-08-21/files/landscape-photography_1645.jpg"
-                        alt="Students"
-                        className="login-img"
-                    />
-                </div>
-                <div className="login-content">
-                    <h3 className="login-title">Log in to Website</h3>
-                    <p className="login-subtitle">Enter your details below</p>
-                    <div className="login-group">
-                        <div className="role-buttons">
-                            <button
-                                type="button"
-                                className={`role-button ${role === 'student' ? 'active' : ''}`}
-                                onClick={() => setRole('student')}
-                            >
-                                Student
-                            </button>
-                            <button
-                                type="button"
-                                className={`role-button ${role === 'teacher' ? 'active' : ''}`}
-                                onClick={() => setRole('teacher')}
-                            >
-                                Teacher
-                            </button>
+        <>
+            <DotsOutsideWrapper count={10} />
+            <div className="login-wrapper">
+                <div className="login-card">
+                    <div className="login-content">
+                        <div className="logo-top">
+                            <img
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8vwCh6Kbk3ejpOOLqa770YBsfTM2Vkq0M8A&s"
+                                alt="Logo"
+                                className="logo-image"
+                            />
                         </div>
-                    </div>
-                    <form className="login-form" onSubmit={handleSubmit}>
-                        <div className="login-group login-input-group">
-                            <label htmlFor="email" className="login-label">Email address</label>
-                            <div className="input-with-icon">
-                                <MdEmail className="input-icon" />
+
+                        <h2>Sign In to Colorlib</h2>
+                        <form onSubmit={handleSubmit}>
+                            <div className="input-group">
                                 <input
                                     type="email"
-                                    className="login-input"
-                                    id="email"
+                                    placeholder="Username"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Enter your email"
                                     required
                                 />
                             </div>
-                        </div>
-                        <div className="login-group login-input-group">
-                            <label htmlFor="password" className="login-label">Password</label>
-                            <div className="input-with-icon">
+
+                            <div className="input-group password-group">
                                 <input
                                     type={showPassword ? "text" : "password"}
-                                    className="login-input"
-                                    id="password"
+                                    placeholder="Password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    placeholder="Enter your password"
                                     required
                                 />
                                 <button
                                     type="button"
-                                    className="password-toggle-button"
+                                    className="toggle-password"
                                     onClick={togglePasswordVisibility}
                                     aria-label={showPassword ? "Hide password" : "Show password"}
                                 >
-                                    {showPassword ? <MdVisibilityOff /> : <MdVisibility />}
+                                    {showPassword ? <MdVisibilityOff size={20} /> : <MdVisibility size={20} />}
                                 </button>
                             </div>
-                        </div>
-                        <button type="submit" className="login-button">Log In</button>
-                    </form>
-                    {localStorage.getItem('user') && (
-                        <button onClick={handleLogout} className="login-button mt-3">Log Out</button>
-                    )}
+
+                            <div className="options-row">
+                                <label className="remember-me">
+                                    <input
+                                        type="checkbox"
+                                        checked={rememberMe}
+                                        onChange={() => setRememberMe(!rememberMe)}
+                                    />
+                                    Remember me
+                                </label>
+                                <a href="#" className="forgot-password">Forgot Password</a>
+                            </div>
+
+                            <button type="submit" className="btn-login">
+                                Log In
+                            </button>
+                        </form>
+
+                        <h3 className="sign-in-with-text">
+                            Every day is a new beginning. Take a deep breath and start again.
+                        </h3>
+                    </div>
+
+                    <LoginSlideshow />
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

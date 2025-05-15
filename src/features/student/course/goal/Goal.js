@@ -9,52 +9,56 @@ export default function CourseGoal() {
   const [goals, setGoals] = useState([]);
   const [editingGoal, setEditingGoal] = useState(null);
   const [newGoalContent, setNewGoalContent] = useState('');
-  const { apiCall, loading, error } = useApi();
+  const [errorMessage, setErrorMessage] = useState('');
+  const { apiCall, loading } = useApi();
   let { id } = useParams();
 
   useEffect(() => {
     const fetchGoals = async () => {
       try {
+        setErrorMessage('');
         const data = await apiCall(`/course-goals/getByCourseStudentId/${id}`, 'GET');
         setGoals(data);
-      } catch (error) {
-        console.error('Error fetching goals:', error);
+      } catch {
+        setErrorMessage('Error loading goals. Please try again.');
       }
     };
 
     fetchGoals();
-  }, [id, apiCall]);
+  }, [id]);
 
   const addGoal = async () => {
     if (!newGoalContent.trim()) return;
     try {
-      // Add default state and date fields to satisfy backend requirement
-      const createdGoal = await apiCall('/course-goals', 'POST', { 
-        content: newGoalContent, 
-        course_student_id: id, 
+      setErrorMessage('');
+      const createdGoal = await apiCall('/course-goals', 'POST', {
+        content: newGoalContent,
+        course_student_id: id,
         state: 'active',
-        date: new Date().toISOString().split('T')[0] // format YYYY-MM-DD
+        date: new Date().toISOString().split('T')[0]
       });
       setGoals(prevGoals => [...prevGoals, createdGoal]);
       setNewGoalContent('');
-    } catch (error) {
-      console.error('Error adding goal:', error);
+    } catch {
+      setErrorMessage('Error adding new goal. Please try again.');
     }
   };
 
   const startEditGoal = (goal) => {
     setEditingGoal(goal);
+    setErrorMessage('');
   };
 
   const cancelEdit = () => {
     setEditingGoal(null);
+    setErrorMessage('');
   };
 
   const saveEditGoal = async () => {
     if (!editingGoal.content.trim()) return;
     try {
-      // Add required fields for update
-      const updatedGoal = await apiCall(`/course-goals/${editingGoal.id}`, 'PUT', { 
+      setErrorMessage('');
+      const updatedGoal = await apiCall(`/course-goals/${editingGoal.id}`, 'PUT', {
         content: editingGoal.content,
         course_student_id: id,
         state: editingGoal.state || 'active',
@@ -62,29 +66,53 @@ export default function CourseGoal() {
       });
       setGoals(prevGoals => prevGoals.map(g => (g.id === updatedGoal.id ? updatedGoal : g)));
       setEditingGoal(null);
-    } catch (error) {
-      console.error('Error updating goal:', error);
+    } catch {
+      setErrorMessage('Error saving goal changes. Please try again.');
     }
   };
 
   const deleteGoal = async (goalId) => {
     try {
+      setErrorMessage('');
       await apiCall(`/course-goals/${goalId}`, 'DELETE');
       setGoals(prevGoals => prevGoals.filter(g => g.id !== goalId));
-    } catch (error) {
-      console.error('Error deleting goal:', error);
+    } catch {
+      setErrorMessage('Error deleting goal. Please try again.');
+    }
+  };
+
+  const toggleGoalStatus = async (goal) => {
+    try {
+      setErrorMessage('');
+      const updatedGoal = await apiCall(`/course-goals/${goal.id}`, 'PUT', {
+        content: goal.content,
+        course_student_id: id,
+        state: goal.state,
+        date: goal.date || new Date().toISOString().split('T')[0],
+      });
+      setGoals(prevGoals =>
+        prevGoals.map(g => (g.id === updatedGoal.id ? updatedGoal : g))
+      );
+    } catch {
+      setErrorMessage('Error updating goal status. Please try again.');
     }
   };
 
   const handleEditChange = (e) => {
+    if (!editingGoal) return;
     setEditingGoal({ ...editingGoal, content: e.target.value });
   };
 
   return (
-    <div className="course-goal-container">
+    <div className="course-goal-containers">
       <div className="course-goal-content">
 
-        {/* Main Content */}
+        {errorMessage && (
+          <div style={{ color: 'red', marginBottom: '1rem', fontWeight: 'bold' }}>
+            {errorMessage}
+          </div>
+        )}
+
         <div className="flex-1 flex flex-col p-4 md:p-6 lg:p-8">
 
           <GoalsList
@@ -95,6 +123,7 @@ export default function CourseGoal() {
             onEditSave={saveEditGoal}
             onDelete={deleteGoal}
             onEditChange={handleEditChange}
+            onToggleStatus={toggleGoalStatus}
           />
 
           <AddGoalForm
@@ -102,7 +131,7 @@ export default function CourseGoal() {
             onNewGoalChange={(e) => setNewGoalContent(e.target.value)}
             onAddGoal={addGoal}
             loading={loading}
-            error={error}
+            error={errorMessage}
           />
         </div>
       </div>

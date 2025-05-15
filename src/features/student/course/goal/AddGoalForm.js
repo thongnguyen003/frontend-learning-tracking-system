@@ -1,24 +1,67 @@
-import React from 'react';
-import '../../../../assets/css/AddGoalForm.css'; // Import your CSS file here
+import React, { useState } from 'react';
+import '../../../../assets/css/AddGoalForm.css';
 
-export default function AddGoalForm({ newGoalContent, onNewGoalChange, onAddGoal, loading, error }) {
+export default function AddGoalForm({
+  newGoalContent,
+  onNewGoalChange,
+  onAddGoal,
+  loading,
+  error
+}) {
+  const [showForm, setShowForm] = useState(false);
+
+  const handleToggleForm = () => {
+    setShowForm(!showForm);
+  };
+
+  const handleSubmit = () => {
+    if (newGoalContent.trim() === '') return;
+    onAddGoal();
+    if (!error) setShowForm(false);
+  };
+
   return (
     <div className="add-goal-form-container">
-      <input
-        type="text"
-        placeholder="Add new goal"
-        value={newGoalContent}
-        onChange={onNewGoalChange}
-        className="add-goal-input"
-      />
+      {/* Nút + ẩn khi form đang mở */}
       <button
-        onClick={onAddGoal}
-        disabled={loading}
-        className="add-goal-button"
+        onClick={handleToggleForm}
+        className={`add-goal-toggle-button ${showForm ? 'hidden' : ''}`}
+        title="Add Goal"
       >
-        {loading ? 'Adding...' : 'Add Goal'}
+        +
       </button>
-      {error && <div className="add-goal-error">{error}</div>}
+
+      {/* Form modal nằm giữa màn hình */}
+      {showForm && (
+        <div className="add-goal-overlay" onClick={handleToggleForm}>
+          <div className="add-goal-form" onClick={e => e.stopPropagation()}>
+            <input
+              type="text"
+              placeholder="What's your goal?"
+              value={newGoalContent}
+              onChange={onNewGoalChange}
+              className="add-goal-input"
+              autoFocus
+            />
+            <div className="add-goal-buttons">
+              <button
+                onClick={handleSubmit}
+                disabled={loading}
+                className="add-goal-button"
+              >
+                {loading ? 'Adding...' : 'Add Goal'}
+              </button>
+              <button
+                onClick={handleToggleForm}
+                className="add-goal-cancel-button"
+              >
+                Cancel
+              </button>
+            </div>
+            {error && <div className="add-goal-error">{error}</div>}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

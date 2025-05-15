@@ -10,7 +10,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
     config => {
-        console.log('Request config:', config); // Debug
+        console.log('Request config:', config);
         return config;
     },
     error => Promise.reject(error)

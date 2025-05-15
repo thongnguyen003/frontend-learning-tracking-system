@@ -9,7 +9,7 @@ const Course = () => {
 const navigate = useNavigate();
 useEffect(()=>{
   navigate('goal')
-},[navigate])
+},[])
 
   return (
     <>
