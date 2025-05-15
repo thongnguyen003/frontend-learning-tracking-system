@@ -13,7 +13,7 @@ const HeaderElement = ()=>{
     );
 }
 const ProfilePage = () => {
-    const [profile, setProfile] = useState([]);
+    const [profile, setProfile] = useState({});
     useEffect (()=>{
         const fetchProfile = async ()=>{
             try{
@@ -22,7 +22,7 @@ const ProfilePage = () => {
                     throw new Error(`HTTP error! Status:${response.status}`);
                 }
                 const result = await response.json();
-                setProfile(result.original || []);
+                setProfile(result.original || {});
             }
             catch(error){
                 console.error('Failed to fetch course', error);
@@ -33,7 +33,7 @@ const ProfilePage = () => {
     return(
     
         <StudentLayout HeaderElement={<HeaderElement />}>
-            <Profile/>
+            <Profile profile = {profile} setProfile = {setProfile}> </Profile>
         </StudentLayout>
     )
 }

@@ -5,11 +5,14 @@ import Menu from "../components/Menu";
 import "../styles/menu.css"
 import { Outlet, Link, Routes, Route, useNavigate } from "react-router-dom";
 import GeneralInfo from "./general/GeneralInfo";
-const Profile= () =>{
+import "../../../layouts/StudentSetting.css"
+const Profile = ({Profile}) =>{
+
   const navigate = useNavigate();
   useEffect(()=>{
     navigate('general')
-  }, useNavigate)
+  }, [useNavigate]);
+
   return(
     <div className="  items-start justify-center pl-4">
         <div className="d-flex " style={{boxSizing:"borderbox"}}>
@@ -19,7 +22,7 @@ const Profile= () =>{
               </div>
               <div className="text-[13px] font-normal select-none"><Link to = 'changePassword'>Change Password </Link></div>
             </aside>
-            <Outlet></Outlet>
+            <Outlet context={[Profile]}></Outlet>
         </div>
     </div>
   )
