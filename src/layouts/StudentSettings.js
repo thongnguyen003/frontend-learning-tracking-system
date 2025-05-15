@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
-import ChangePassword from "../features/student/profile/ChangePassword";
+import ChangePassword from "../features/student/profile/components/ChangePassword";
 import "../layouts/StudentSetting.css";
 
 const StudentSettings = () => {
