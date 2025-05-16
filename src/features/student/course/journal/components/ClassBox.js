@@ -1,10 +1,19 @@
-import React from "react";
-
+import React,{useState} from "react";
+import JournalMessage from "../../message/JournalMessage";
+import "../../../../../../src/assets/css/globalStyle.css"
 const ClassBox = ({data}) => {
+  const [choosePart,setChoose]=useState(true);
   return (
     <div className="bg-white rounded shadow-sm p-3" style={{ width: "420px"}} >
-      {/* <Detail data={data}></Detail> */}
-      
+        <div className="d-flex border-bottom mb-3">
+            <button onClick={() => setChoose(true)}  className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}> Detail </button>
+            <button onClick={() => setChoose(false)} className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}> Contact</button>
+        </div>
+          {choosePart ? (
+              <Detail data={data} />
+          ) : (
+              <JournalMessage type="class" id={data.id} />
+          )}
     </div>
   );
 };

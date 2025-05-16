@@ -18,7 +18,6 @@
   box-sizing: border-box;
 }
 .course-goal-content {
-  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 1rem;

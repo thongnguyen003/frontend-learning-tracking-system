@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAuth } from '../../services/authService';
+import { useAuth } from '../hook/authService.js';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
