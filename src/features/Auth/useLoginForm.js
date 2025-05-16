@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { login } from './authService';
+import { useAuth } from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -8,6 +8,7 @@ function useLoginForm() {
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('student');
     const navigate = useNavigate();
+    const { login, logout } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,6 +26,16 @@ function useLoginForm() {
         }
     };
 
+    const handleLogout = async () => {
+        try {
+            const res = await logout(role);
+            toast.success(res.message);
+            navigate('/login');
+        } catch (err) {
+            toast.error('Logout failed: ' + (err.response?.data?.message || err.message));
+        }
+    };
+
     return {
         email,
         setEmail,
@@ -33,6 +44,7 @@ function useLoginForm() {
         role,
         setRole,
         handleSubmit,
+        handleLogout,
     };
 }
 
