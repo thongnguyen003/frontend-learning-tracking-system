@@ -1,36 +1,138 @@
 import React, { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faBell, faPencilAlt, faTrashAlt, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from "react-router-dom";
+import { useApi } from '../../../../hooks/useApi';
+import GoalsList from './GoalsList';
+import AddGoalForm from './AddGoalForm';
+import '../../../../assets/css/courseGoal.css';
 
-export default function LearningGoals() {
+export default function CourseGoal() {
   const [goals, setGoals] = useState([]);
-  let {id} = useParams();
-  useEffect(() => {
-    
+  const [editingGoal, setEditingGoal] = useState(null);
+  const [newGoalContent, setNewGoalContent] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const { apiCall, loading } = useApi();
+  let { id } = useParams();
 
-    // Fetch data from the API
+  useEffect(() => {
     const fetchGoals = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/course-goals/${id}`);
-        const data = await response.json();
-        console.log('Fetched data:', data);
+        setErrorMessage('');
+        const data = await apiCall(`/course-goals/getByCourseStudentId/${id}`, 'GET');
         setGoals(data);
-      } catch (error) {
-        console.error('Error fetching goals:', error);
+      } catch {
+        setErrorMessage('Error loading goals. Please try again.');
       }
     };
 
     fetchGoals();
-  }, []);
+  }, [id]);
+
+  const addGoal = async () => {
+    if (!newGoalContent.trim()) return;
+    try {
+      setErrorMessage('');
+      const createdGoal = await apiCall('/course-goals', 'POST', {
+        content: newGoalContent,
+        course_student_id: id,
+        state: 'active',
+        date: new Date().toISOString().split('T')[0]
+      });
+      setGoals(prevGoals => [...prevGoals, createdGoal]);
+      setNewGoalContent('');
+    } catch {
+      setErrorMessage('Error adding new goal. Please try again.');
+    }
+  };
+
+  const startEditGoal = (goal) => {
+    setEditingGoal(goal);
+    setErrorMessage('');
+  };
+
+  const cancelEdit = () => {
+    setEditingGoal(null);
+    setErrorMessage('');
+  };
+
+  const saveEditGoal = async () => {
+    if (!editingGoal.content.trim()) return;
+    try {
+      setErrorMessage('');
+      const updatedGoal = await apiCall(`/course-goals/${editingGoal.id}`, 'PUT', {
+        content: editingGoal.content,
+        course_student_id: id,
+        state: editingGoal.state || 'active',
+        date: editingGoal.date || new Date().toISOString().split('T')[0]
+      });
+      setGoals(prevGoals => prevGoals.map(g => (g.id === updatedGoal.id ? updatedGoal : g)));
+      setEditingGoal(null);
+    } catch {
+      setErrorMessage('Error saving goal changes. Please try again.');
+    }
+  };
+
+  const deleteGoal = async (goalId) => {
+    try {
+      setErrorMessage('');
+      await apiCall(`/course-goals/${goalId}`, 'DELETE');
+      setGoals(prevGoals => prevGoals.filter(g => g.id !== goalId));
+    } catch {
+      setErrorMessage('Error deleting goal. Please try again.');
+    }
+  };
+
+  const toggleGoalStatus = async (goal) => {
+    try {
+      setErrorMessage('');
+      const updatedGoal = await apiCall(`/course-goals/${goal.id}`, 'PUT', {
+        content: goal.content,
+        course_student_id: id,
+        state: goal.state,
+        date: goal.date || new Date().toISOString().split('T')[0],
+      });
+      setGoals(prevGoals =>
+        prevGoals.map(g => (g.id === updatedGoal.id ? updatedGoal : g))
+      );
+    } catch {
+      setErrorMessage('Error updating goal status. Please try again.');
+    }
+  };
+
+  const handleEditChange = (e) => {
+    if (!editingGoal) return;
+    setEditingGoal({ ...editingGoal, content: e.target.value });
+  };
 
   return (
-    <div className="bg-[#ecf5f5]  font-sans">
-      <div className="flex flex-col md:flex-row ">
+    <div className="course-goal-containers">
+      <div className="course-goal-content">
 
-        {/* Main Content */}
+        {errorMessage && (
+          <div style={{ color: 'red', marginBottom: '1rem', fontWeight: 'bold' }}>
+            {errorMessage}
+          </div>
+        )}
+
         <div className="flex-1 flex flex-col p-4 md:p-6 lg:p-8">
 
+          <GoalsList
+            goals={goals}
+            editingGoal={editingGoal}
+            onEditStart={startEditGoal}
+            onEditCancel={cancelEdit}
+            onEditSave={saveEditGoal}
+            onDelete={deleteGoal}
+            onEditChange={handleEditChange}
+            onToggleStatus={toggleGoalStatus}
+          />
+
+          <AddGoalForm
+            newGoalContent={newGoalContent}
+            onNewGoalChange={(e) => setNewGoalContent(e.target.value)}
+            onAddGoal={addGoal}
+            loading={loading}
+            error={errorMessage}
+          />
           {/* Goals List */}
           <div className="space-y-4 flex-1 overflow-auto pr-2">
             { goals && goals.length >0 ?
