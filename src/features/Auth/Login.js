@@ -16,7 +16,6 @@ function Login() {
     } = useLoginForm();
 
     const [showPassword, setShowPassword] = useState(false);
-
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };

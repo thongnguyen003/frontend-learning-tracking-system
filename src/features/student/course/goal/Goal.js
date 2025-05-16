@@ -33,7 +33,8 @@ export default function LearningGoals() {
 
           {/* Goals List */}
           <div className="space-y-4 flex-1 overflow-auto pr-2">
-            {goals.map((goal, index) => (
+            { goals && goals.length >0 ?
+            goals.map((goal, index) => (
               <div key={goal.id} className="flex items-center bg-white rounded-lg shadow-md p-4">
                 <div className="flex flex-col justify-center items-center w-10 h-10 border border-gray-300 rounded-md text-sm font-normal text-black select-none">
                   {index + 1}
@@ -54,7 +55,9 @@ export default function LearningGoals() {
                   <FontAwesomeIcon icon={faTrashAlt} className="text-lg" />
                 </button>
               </div>
-            ))}
+            ))
+          : "Không có dữ liệu"
+          }
           </div>
 
           {/* Add Button */}
