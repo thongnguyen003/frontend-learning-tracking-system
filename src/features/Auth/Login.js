@@ -13,10 +13,8 @@ function Login() {
         setPassword,
         handleSubmit,
     } = useLoginForm();
-
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
-
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };

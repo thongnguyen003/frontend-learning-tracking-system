@@ -1,7 +1,7 @@
 import React from "react";
 import "../assets/css/studentLayout.css";
 import Menu from "../features/student/components/Menu";
-import Header from "../features/student/components/header";
+import Header from "../features/student/components/Header";
 const StudentLayout = ({HeaderElement, children, fullScreen = false}) => {
   return (
     <div className={`bigContainer d-flex${fullScreen ? ' fullScreen' : ''}`}>

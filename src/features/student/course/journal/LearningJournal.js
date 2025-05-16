@@ -19,12 +19,10 @@ function    LearningJournal() {
     useEffect(()=>{
         const fetchData = async () => {
             try {
-            const response = await fetch(`http://127.0.0.1:8000/api/journal/getByCourseStudentId/16`);
+            const response = await fetch(`http://127.0.0.1:8000/api/journal/getByCourseStudentId/${id}`);
             const data = await response.json();
             const result = data.original;
             setData(result);
-            
-            console.log(result[0].id);
             } catch (error) {
             console.error('Error fetching goals:', error);
             }
@@ -43,11 +41,14 @@ function    LearningJournal() {
         }
     },[data]);
     useEffect(()=>{
-        let curentData = data.filter( (e)=> e.id == activeWeek)
-        console.log(curentData);
-        setJournalClass(curentData.journal_classes);
-        setJournalSelf(curentData.journal_selfs);
-        setGoal(curentData.journal_goals)
+        if(data && data.length>0){
+            let curentData = data.filter( (e)=> e.id == activeWeek)[0];
+            console.log(data)
+            console.log(curentData)
+            setJournalClass(curentData.journal_classes);
+            setJournalSelf(curentData.journal_selfs);
+            setGoal(curentData.journal_goals)
+        }
     },[activeWeek])
     useEffect(()=>{
         console.log("hello"+detaiStatus)
@@ -74,7 +75,7 @@ return (
             <TabButton
                 key={week.id}
                 active={activeWeek === week.id}
-                onClick={() => setActiveWeek(week.id)}
+                onClick={() => {setDetail([]); setActiveWeek(week.id)}}
             >
                 {"week"+(index+1)}
             </TabButton>
