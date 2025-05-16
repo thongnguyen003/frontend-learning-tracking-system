@@ -17,7 +17,6 @@ function App() {
       <Router>
           <Routes>
             {/* Cập nhật cách khai báo Route với element */}
-            {/* <Route path="/portfolio" element={<PortfolioProfile />} /> */}
             <Route path="/student" element={<StudentHomepage />} />
             <Route path="/profile" element={<StudentProfile />} />
             <Route path="/" element={<Login />} />
