@@ -16,6 +16,7 @@ function    LearningJournal() {
     const [data,setData]=useState([]);
     const [activeWeek, setActiveWeek] = useState(0);
     const [detaiStatus, setDetail] = useState([]);
+    
     useEffect(()=>{
         const fetchData = async () => {
             try {
