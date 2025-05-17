@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../../../assets/css/AddGoalForm.css';
+import '../../styles/addGoalForm.css';
 
 export default function AddGoalForm({
   newGoalContent,
