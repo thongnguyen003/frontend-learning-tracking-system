@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import useLoginForm from './useLoginForm';
+import useLoginForm from './components/useLoginForm.js';
 import DotsOutsideWrapper from '../../assets/animation/DotsOutsideWrapper';
 import LoginSlideshow from '../../assets/animation/LoginSlideshow';
-import '../../assets/css/login.css';
+import './styles/login.css';
 
 function Login() {
     const {

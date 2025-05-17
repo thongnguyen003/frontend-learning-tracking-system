@@ -70,8 +70,8 @@ function    LearningJournal() {
 
 
 return (
-    <div style={{width:"100%"}}>
-        <div className="d-flex mb-4 mt-3">
+    <div className="w-100 " style={{width:"100%"}}>
+        <div className="d-flex mb-4 mt-3 w-100" >
             {data.map((week,index) => (
             <TabButton
                 key={week.id}
@@ -81,9 +81,10 @@ return (
                 {"week"+(index+1)}
             </TabButton>
             ))}
+            
         </div>
 
-        <div className="d-flex flex-row pb-0"  >
+        <div className="d-flex flex-row pb-0 w-100"  >
             <div className="flex-grow d-flex flex-column gap-3 pb-0" style={{height:"420px",overflowY: "auto"}}>
                 <TableSection
                     title="1"
