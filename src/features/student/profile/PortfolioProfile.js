@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/portfolioProfile.css"
+import "../../student/styles/PortfolioProfile.css"
 import GeneralInfoTab from "./components/GeneralInfoTab";
 import ChangePasswordTab from "./components/ChangePassword";
 const PortfolioProfile = ({ profile }) => {
