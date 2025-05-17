@@ -4,7 +4,6 @@ import { useApi } from '../../../../hooks/useApi';
 import GoalsList from './GoalsList';
 import AddGoalForm from './AddGoalForm';
 import '../../styles/courseGoal.css';
-
 export default function CourseGoal() {
   const [goals, setGoals] = useState([]);
   const [editingGoal, setEditingGoal] = useState(null);
