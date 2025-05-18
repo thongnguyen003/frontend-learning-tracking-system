@@ -16,15 +16,14 @@ function    LearningJournal() {
     const [data,setData]=useState([]);
     const [activeWeek, setActiveWeek] = useState(0);
     const [detaiStatus, setDetail] = useState([]);
+    
     useEffect(()=>{
         const fetchData = async () => {
             try {
-            const response = await fetch(`http://127.0.0.1:8000/api/journal/getByCourseStudentId/16`);
+            const response = await fetch(`http://127.0.0.1:8000/api/journal/getByCourseStudentId/${id}`);
             const data = await response.json();
             const result = data.original;
             setData(result);
-            
-            console.log(result[0].id);
             } catch (error) {
             console.error('Error fetching goals:', error);
             }
@@ -43,11 +42,14 @@ function    LearningJournal() {
         }
     },[data]);
     useEffect(()=>{
-        let curentData = data.filter( (e)=> e.id == activeWeek)
-        console.log(curentData);
-        setJournalClass(curentData.journal_classes);
-        setJournalSelf(curentData.journal_selfs);
-        setGoal(curentData.journal_goals)
+        if(data && data.length>0){
+            let curentData = data.filter( (e)=> e.id == activeWeek)[0];
+            console.log(data)
+            console.log(curentData)
+            setJournalClass(curentData.journal_classes);
+            setJournalSelf(curentData.journal_selfs);
+            setGoal(curentData.journal_goals)
+        }
     },[activeWeek])
     useEffect(()=>{
         console.log("hello"+detaiStatus)
@@ -68,20 +70,21 @@ function    LearningJournal() {
 
 
 return (
-    <div style={{width:"100%"}}>
-        <div className="d-flex mb-4 mt-3">
+    <div className="w-100 " style={{width:"100%"}}>
+        <div className="d-flex mb-4 mt-3 w-100" >
             {data.map((week,index) => (
             <TabButton
                 key={week.id}
                 active={activeWeek === week.id}
-                onClick={() => setActiveWeek(week.id)}
+                onClick={() => {setDetail([]); setActiveWeek(week.id)}}
             >
                 {"week"+(index+1)}
             </TabButton>
             ))}
+            
         </div>
 
-        <div className="d-flex flex-row pb-0"  >
+        <div className="d-flex flex-row pb-0 w-100"  >
             <div className="flex-grow d-flex flex-column gap-3 pb-0" style={{height:"420px",overflowY: "auto"}}>
                 <TableSection
                     title="1"

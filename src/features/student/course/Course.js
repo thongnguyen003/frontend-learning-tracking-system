@@ -1,28 +1,45 @@
-import React ,{useEffect}from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import Menu from "../components/Menu"; 
-import { Outlet, Link,Routes, Route,useNavigate} from "react-router-dom";
+import React ,{useEffect, useState}from 'react';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPlus, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+// import Menu from "../components/Menu"; 
+import { Outlet, Link,useNavigate} from "react-router-dom";
 // import Header from "../components/header"; // Nếu cần, hãy nhập đúng cách
-import LearningGoals from "./goal/Goal";
-
+import '../../../../src/features/student/styles/course.css';
+import "../../../assets/css/globalStyle.css";
 const Course = () => {
-const navigate = useNavigate();
-useEffect(()=>{
-  navigate('goal')
-},useNavigate)
+  const [navigateBar,setNavigateBar]=useState(true);
+  const navigate = useNavigate();
+  useEffect(()=>{
+    navigate('goal')
+  },[])
 
   return (
     <>
-        <div className="  items-start justify-center pl-4">
-            <div className="d-flex " style={{boxSizing:"borderbox"}}>
-                <aside className="flex flex-col mr-6 items-start p-6 gap-1  border-r border-[#d6d6f7]" style={{width:"240px"}}>
-                  <div className="bg-[#00b72f] text-white text-[13px] font-semibold rounded px-2 py-[2px] mb-2 select-none">
-                      <Link to = 'goal'>Goals</Link>
-                  </div>
-                  <div className="text-[13px] font-normal select-none"><Link to = 'learningJournal'>Learning Journal</Link></div>
+        <div className="course-layout-container">
+            <div className="course-layout-inner">
+                <aside className="course-sidebar  p-3 ">
+                  <nav className="d-flex flex-column gap-2">
+                    <button
+                      className={`p-2 rounded ${navigateBar ? "globalActive " : ""}`}
+                      onClick={() => setNavigateBar(true)}
+                    >
+                      <Link to="goal">
+                        Goals
+                      </Link>
+                    </button>
+                    <button
+                      className={`p-2 rounded ${!navigateBar ? "globalActive " : ""}`}
+                      onClick={() => setNavigateBar(false)}
+                    >
+                      <Link to="learningJournal" >
+                        Learning Journal
+                      </Link>
+                    </button>
+                  </nav>
                 </aside>
-                <Outlet></Outlet>
+                <div className="outlet" >
+                  <Outlet></Outlet>
+                </div>
             </div>
             
         </div>

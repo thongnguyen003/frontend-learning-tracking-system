@@ -1,12 +1,28 @@
-import React from "react";
-
+import React,{useState} from "react";
+import JournalMessage from "../../message/JournalMessage";
+import "../../../../../../src/assets/css/globalStyle.css"
 const DetailBox = ({data}) => {
+  const [choosePart,setChoose]=useState(true);
   return (
-    <div
-      className="bg-white rounded shadow-sm p-3"
-      style={{ width: "420px"}}
-    >
-      <label className="form-label text-muted" htmlFor="date">
+    <div className="bg-white rounded shadow-sm p-3" style={{ width: "420px"}} >
+        <div className="d-flex border-bottom mb-3">
+            <button onClick={() => setChoose(true)}  className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}> Detail </button>
+            <button onClick={() => setChoose(false)} className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}> Contact</button>
+        </div>
+          {choosePart ? (
+              <Detail data={data} />
+          ) : (
+              <JournalMessage type="self" id={data.id} />
+          )}
+    </div>
+  );
+};
+
+export default DetailBox;
+const Detail = ({data})=>{
+  return(
+    <div>
+        <label className="form-label text-muted" htmlFor="date">
         Date
       </label>
       <input
@@ -23,8 +39,8 @@ const DetailBox = ({data}) => {
         id="topic"
         rows="2"
         className="form-control"
+        value={data.topic || ""}
       >
-        {data.topic}
       </textarea>
 
       <label className="form-label text-muted" htmlFor="description">
@@ -34,8 +50,8 @@ const DetailBox = ({data}) => {
         id="description"
         rows="3"
         className="form-control"
+        value={data.description || ""}
       >
-        {data.description}
       </textarea>
 
       <label className="form-label text-muted" htmlFor="duration">
@@ -65,8 +81,8 @@ const DetailBox = ({data}) => {
         id="activity"
         rows="2"
         className="form-control"
+        value={data.activity || ""}
       >
-        {data.activity}
       </textarea>
 
       <label className="form-label text-muted" htmlFor="concentration">
@@ -92,8 +108,8 @@ const DetailBox = ({data}) => {
         id="evaluation"
         rows="2"
         className="form-control"
+        value={data.evaluation || ""}
       >
-        {data.evaluation}
       </textarea>
 
       <label className="form-label text-muted" htmlFor="reinforcing_learning">
@@ -103,8 +119,8 @@ const DetailBox = ({data}) => {
         id="reinforcing_learning"
         rows="2"
         className="form-control"
+        value={data.reinforcing_learning || ""}
       >
-        {data.reinforcing_learning}
       </textarea>
 
       <label className="form-label text-muted" htmlFor="notes">
@@ -114,8 +130,8 @@ const DetailBox = ({data}) => {
         id="notes"
         rows="3"
         className="form-control"
+        value={data.notes || ""}
       >
-       {data.notes}
       </textarea>
 
       <div className="d-flex gap-2 mt-3">
@@ -134,6 +150,4 @@ const DetailBox = ({data}) => {
       </div>
     </div>
   );
-};
-
-export default DetailBox;
+}

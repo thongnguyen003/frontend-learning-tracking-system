@@ -1,19 +1,36 @@
-import React from "react";
-
+import React,{useState} from "react";
+import JournalMessage from "../../message/JournalMessage";
+import "../../../../../../src/assets/css/globalStyle.css"
 const GoalBox = ({data}) => {
+  const [choosePart,setChoose]=useState(true);
   return (
-    <div
-      className="bg-white rounded shadow-sm p-3"
-      style={{ width: "420px"}}
-    >
-        <label className="form-label text-muted" htmlFor="topic">
+    <div className="bg-white rounded shadow-sm p-3" style={{ width: "420px"}} >
+        <div className="d-flex border-bottom mb-3">
+            <button onClick={() => setChoose(true)}  className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}> Detail </button>
+            <button onClick={() => setChoose(false)} className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}> Contact</button>
+        </div>
+          {choosePart ? (
+              <Detail data={data} />
+          ) : (
+              <JournalMessage type="goal" id={data.id} />
+          )}
+    </div>
+  );
+};
+
+export default GoalBox;
+const Detail = ({data})=>{
+  return(
+    <div>
+      <label className="form-label text-muted" htmlFor="topic">
             Title
         </label>
         <textarea
             id="topic"
             rows="2"
             className="form-control"
-        >{data.title}</textarea>
+            value={data.title}
+        ></textarea>
         <label className="form-label text-muted" htmlFor="concentration"> Assess </label>
         <select id="concentration" className="form-select">
             <option>Good</option>
@@ -43,6 +60,4 @@ const GoalBox = ({data}) => {
         </div>
     </div>
   );
-};
-
-export default GoalBox;
+}
