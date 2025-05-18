@@ -6,6 +6,7 @@
 
 .course-layout-inner {
   display: flex;
+  flex: 1;
   box-sizing: border-box;
 }
 
@@ -17,6 +18,9 @@
   gap: 0.25rem;
   border-right: 1px solid #d6d6f7;
   width: 240px;
+}
+.outlet{
+  flex:1;
 }
 
 .course-sidebar-goal-link {

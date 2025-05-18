@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 import { useApi } from '../../../../hooks/useApi';
 import GoalsList from './GoalsList';
 import AddGoalForm from './AddGoalForm';
-import '../../../../assets/css/CourseGoal.css';
-
+import '../../styles/courseGoal.css';
 export default function CourseGoal() {
   const [goals, setGoals] = useState([]);
   const [editingGoal, setEditingGoal] = useState(null);
