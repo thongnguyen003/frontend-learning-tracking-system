@@ -2,7 +2,7 @@ import React from "react";
 import Item from "./components/Item";
 const  HomepageMain = ({course})=>{
     return(
-        <main className="homepage my-3">
+        <main  style={{width:"100%",boxSizing:"border-box"}}>
             <p className="fs-5 mb-3">List Course</p>
             <div class="row">
                 {

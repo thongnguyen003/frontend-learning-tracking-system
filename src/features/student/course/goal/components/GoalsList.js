@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import '../../styles/goalsList.css';
+import '../../../styles/goalsList.css';
 const GoalsList = ({
   goals,
   editingGoal,
