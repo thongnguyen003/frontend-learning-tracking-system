@@ -1,0 +1,195 @@
+/* Wrapper to center the login card vertically and horizontally */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fff;
+}
+
+/* Main card container */
+.login-card {
+  display: flex;
+  width: 60%;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+/* Left content - form and text */
+.login-content {
+  flex: 1;
+  padding: 40px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-content h2 {
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 28px;
+  text-align: center;
+}
+
+.login-content p {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Logo on top */
+.logo-top {
+  display: block;
+  margin: 0 auto 20px auto;
+  width: 100px;
+  height: auto;
+}
+
+.logo-image {
+  width: 100px;
+  height: auto;
+}
+
+/* Input group styles */
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Password group with toggle button */
+.password-group {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #999;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Remember me and forgot password row */
+.options-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.remember-me input {
+  cursor: pointer;
+}
+
+.forgot-password {
+  color: #999;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Login button */
+.btn-login {
+  width: 100%;
+  background-color: #27ae60;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-login:hover {
+  background-color: #219150;
+}
+
+/* Text below login button */
+.sign-in-with-text {
+  text-align: center;
+  color: #999;
+  margin-bottom: 40px;
+  font-size: 17px;
+}
+
+/* Social buttons container */
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Each social button */
+.social-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: opacity 0.3s ease;
+}
+
+.social-btn:hover {
+  opacity: 0.8;
+}
+
+/* Right side image */
+.login-image {
+  flex: 1;
+  background-color: #ffffff;
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.login-image img {
+  max-width: 100%;
+  height: auto;
+}
+.dots-outside-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
