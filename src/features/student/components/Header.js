@@ -7,14 +7,15 @@ const Header = ({children}) => {
   const [user,setUser]= useState(null);
   useEffect(()=>{
       const findUser = JSON.parse(sessionStorage.getItem('current_user'));
-      if(!findUser){
+      if(!sessionStorage.getItem('current_user')){
         navigate("/");
         toast.error('Please login to your account!');
-      }
+      }else{
       setUser(findUser.account);
+      }
   },[sessionStorage.getItem('current_user')])
   return (
-    <div className="d-flex justify-content-between align-items-center border-bottom py-2" style={{height:"70px"}}>
+    <header className="d-flex justify-content-between align-items-center py-2 border-bottom " style={{minHeight:"5rem"}}>
         {children}
       <div className="d-flex align-items-center">
       <div style={{width: "32px", height: "32px", borderRadius: "50%",backgroundColor: "#ccc", marginRight:'3px', }}>
@@ -26,7 +27,7 @@ const Header = ({children}) => {
         </div>
         
       </div>
-    </div>
+    </header>
   );
 };
 

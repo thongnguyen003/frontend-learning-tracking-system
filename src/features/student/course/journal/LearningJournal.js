@@ -70,8 +70,8 @@ function    LearningJournal() {
 
 
 return (
-    <div className="w-100 " style={{width:"100%"}}>
-        <div className="d-flex mb-4 mt-3 w-100" >
+    <div className="w-100 h-100 d-flex flex-column position-relative" style={{overflowY: "auto"}} >
+        <div className="d-flex mb-4 mt-3 position-sticky top-0" style={{}} >
             {data.map((week,index) => (
             <TabButton
                 key={week.id}
@@ -84,8 +84,8 @@ return (
             
         </div>
 
-        <div className="d-flex flex-row pb-0 w-100"  >
-            <div className="flex-grow d-flex flex-column gap-3 pb-0" style={{height:"420px",overflowY: "auto"}}>
+        <div className="d-flex pb-0 flex-1"  style={{flex:1}}  >
+            <div className="flex-grow d-flex flex-column gap-3 pb-0 rounded-3" style={{flex:1,overflowY: "auto"}}>
                 <TableSection
                     title="1"
                     columns={smaillGoalColumns}
@@ -106,7 +106,7 @@ return (
                 />
             </div>
             {/* part 2 */}
-            <div className={`pl-3 ${detaiStatus && detaiStatus.length > 0 ? "" : "d-none"}`} style={{ height:"420px",overflowY: "auto"}}>
+            <div className={`pl-3 ${detaiStatus && detaiStatus.length > 0 ? "" : "d-none"}`} style={{ height:"100%",overflowY: "auto"}}>
                 {detaiStatus[0] ==1 
                 ?
                 <GoalBox data={goal.filter((e)=> e.id == detaiStatus[1])[0]}></GoalBox>

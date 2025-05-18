@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import { useApi } from '../../../../hooks/useApi';
-import GoalsList from './GoalsList';
-import AddGoalForm from './AddGoalForm';
+import GoalsList from './components/GoalsList';
+import AddGoalForm from './components/AddGoalForm';
 import '../../styles/courseGoal.css';
 export default function CourseGoal() {
   const [goals, setGoals] = useState([]);
@@ -112,7 +112,7 @@ export default function CourseGoal() {
           </div>
         )}
 
-        <div className="flex-1 flex flex-col p-4 md:p-6 lg:p-8">
+        <div className="flex-1 flex flex-col p-4 md:p-6 lg:p-8" style={{overflow:"hidden"}}>
 
           <GoalsList
             goals={goals}
