@@ -6,7 +6,12 @@
   height: 100vh;
   background-color: #fff;
 }
-
+.input-group select {
+  width: 25%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 /* Main card container */
 .login-card {
   display: flex;
