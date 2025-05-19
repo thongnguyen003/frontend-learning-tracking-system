@@ -1,6 +1,11 @@
 import React from "react";
  
-function TableSection({ title, columns, rows, click }) {
+function TableSection({ title, columns, rows, click, setShowAddModal=false }) {
+    const clickAddButton = () => {
+        if(title == 1){
+            setShowAddModal ('goal')
+        }
+    }
     return (
         <div className="table-container pb-0 mb-0">
             <div className="table-header">
@@ -8,7 +13,7 @@ function TableSection({ title, columns, rows, click }) {
                 <i className="fas fa-chevron-down"></i>
                 {title == 1 ? "Smaill Goal" : title ==2 ? "In class"  : title ==3 ? "Self" :""}
                 </div>
-                <button className="create-btn" type="button">
+                <button className="create-btn" type="button" onClick={clickAddButton}>
                 <i className="fas fa-plus"></i>
                 Create
                 </button>
