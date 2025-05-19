@@ -4,13 +4,13 @@ import Menu from "../features/student/components/Menu";
 import Header from "../features/student/components/header";
 const StudentLayout = ({HeaderElement,children}) => {
   return (
-    <div className="bigContainer d-flex ">
+    <div className="bigContainer ">
         <Menu ></Menu>
-        <div className="mainContainer col-md-11 px-3">
+        <div className="mainContainer ">
             {/* header */}
             <Header>{HeaderElement}</Header>
             {/* main */}
-            {children}
+            <div className="mainBody">{children}</div>
         </div>
     </div>
   );

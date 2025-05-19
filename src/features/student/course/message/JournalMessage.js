@@ -2,10 +2,12 @@ import React,{ useState,useEffect } from "react";
 import Item from "./component/Item";
 function JournalMessage({type,id}) {
     const [listTeacher,setTeacher]=useState(null);
-    const [changeData,setChance]=useState(false);
+    const [changeData,setChance]=useState(false);//use render if send request to delete, update, create, I am supper AI (joke)
     const [listMessage,setMessage]=useState(null);
     const [statusDetailForm,setStatusDetail]=useState(false);
     const [statusForm,setStatusForm]=useState(false);
+    const [tongLeDetail,settongLeDetail]= useState(0);
+    const [tongLeUpdate,setTongLeUpdate]=useState(0);
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -126,29 +128,32 @@ function JournalMessage({type,id}) {
             </div>)
             :(<button type="button" onClick={()=>setStatusForm(!statusForm)} className="btn btn-warning position-sticky top-0 right-0"> Add new message</button>)} 
         {listMessage && listMessage.length > 0 ? (
-            listMessage.map((messageContainer, index) => (
-            <div key={index} className="mb-4 bg-light rounded-3 p-2">
-                {messageContainer.detail_messages && messageContainer.detail_messages.length > 0 ? (
-                messageContainer.detail_messages.map((e, subIndex) => (
-                    <Item key={subIndex} data={e} />
-                ))
-                ) : (
-                <div className="text-muted">Don't have detail message.</div>
-                )}
-                {statusDetailForm == messageContainer.id ? 
-                (<form onSubmit={handleSubmitDetail}>
-                    <input name="content" id="date" type="text" className="form-control"  />
-                    <input name="message_id" value={messageContainer.id} hidden></input>
-                    <div className="d-flex gap-2 mt-3">
-                        <button type="submit" className="btn btn-success"> Send</button>
-                        <button  onClick={()=>setStatusDetail(!statusDetailForm)} type="button" className="btn btn-warning"> Cancel</button>
-                    </div>
-                </form>)
-                :
-                (<button type="button" onClick={()=>setStatusDetail(messageContainer.id)} className="btn btn-warning"> Reply</button>)
-                }
-            </div>
-            ))
+            listMessage.map((messageContainer, index) => 
+                ((messageContainer.detail_messages && messageContainer.detail_messages.length > 0)
+                    &&(<div key={index} className="mb-4 bg-light rounded-3 p-2">
+                        {messageContainer.detail_messages && messageContainer.detail_messages.length > 0 ? (
+                            messageContainer.detail_messages.map((e, subIndex) => (
+                                <Item setChance={setChance} changeData={changeData} tongLeUpdate={tongLeUpdate} setTongLeUpdate={setTongLeUpdate} tongLeDetail={tongLeDetail} settongLeDetail={settongLeDetail} key={subIndex} data={e} />
+                            ))
+                        ) 
+                        : (
+                        <div className="text-muted">Don't have detail message.</div>
+                        )}
+                        {statusDetailForm == messageContainer.id ? 
+                        (<form onSubmit={handleSubmitDetail}>
+                            <input name="content" id="date" type="text" className="form-control"  />
+                            <input name="message_id" value={messageContainer.id} hidden></input>
+                            <div className="d-flex gap-2 mt-3">
+                                <button type="submit" className="btn btn-success"> Send</button>
+                                <button  onClick={()=>setStatusDetail(!statusDetailForm)} type="button" className="btn btn-warning"> Cancel</button>
+                            </div>
+                        </form>)
+                        :
+                        (<button type="button" onClick={()=>setStatusDetail(messageContainer.id)} className="btn btn-warning"> Reply</button>)
+                        }
+                    </div>)
+                )
+            )
         ) : (
             <div className="text-muted">Don't have message.</div>
         )}
