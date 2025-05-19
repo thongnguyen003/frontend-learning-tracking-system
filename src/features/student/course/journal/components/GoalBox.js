@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import JournalMessage from "../../message/JournalMessage";
 import "../../../../../../src/assets/css/globalStyle.css";
 
-const GoalBox = ({ data, onDelete }) => {
+const GoalBox = ({ data, onDelete, changeOposite }) => {
   const [choosePart, setChoose] = useState(true);
   const [title, setTitle] = useState(data.title);
   const [state, setState] = useState(data.state);
@@ -28,6 +28,7 @@ const GoalBox = ({ data, onDelete }) => {
       if (response.ok) {
         const result = await response.json();
         console.log("Goal updated:", result);
+        changeOposite()
         // Optionally, you can trigger a re-fetch of goals or update the state
       } else {
         console.error("Error updating goal");
@@ -45,7 +46,8 @@ const GoalBox = ({ data, onDelete }) => {
 
       if (response.ok) {
         console.log("Goal deleted");
-        onDelete(data.id); // Call the parent handler to update the UI
+        changeOposite()
+
       } else {
         console.error("Error deleting goal");
       }
