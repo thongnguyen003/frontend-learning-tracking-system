@@ -17,6 +17,7 @@ const GeneralInfoTab = ({ form, handleChange, handleSave }) => {
       reader.readAsDataURL(file);
     }
   };
+  
   return (
     <>
       <div className="avatar-upload">
