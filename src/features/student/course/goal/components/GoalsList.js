@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import '../../styles/goalsList.css';
+import JournalMessage from '../../message/JournalMessage';
 
+import '../../../styles/goalsList.css';
 const GoalsList = ({
   goals,
   editingGoal,
@@ -142,60 +143,10 @@ const GoalsList = ({
 
       {selectedGoal && (
         <div className="message-section">
-          <div className="message-display">
-  <h3>Messages for {selectedGoal.content}</h3>
-
-  {messages.length > 0 ? (
-    messages.map((message) => {
-      const displayName =
-        message.teacher?.teacher_name ||
-        message.teacher?.name ||
-        message.student?.name ||
-        'Unknown';
-
-      return (
-        <div key={message.id} className="message-item">
-          <strong>{displayName}</strong>: {message.content}
-        </div>
-      );
-    })
-  ) : (
-    // Kiểm tra xem có class_teachers không trước khi map
-    selectedGoal?.course_goal?.course_student?.student?.class?.class_teachers && selectedGoal.course_goal.course_student.student.class.class_teachers.length > 0 ? (
-      <div>
-        <h4>Teachers in this class:</h4>
-        {selectedGoal.course_goal.course_student.student.class.class_teachers.map((ct) => (
-          <div key={ct.id} className="message-item">
-            <strong>{ct.teacher?.teacher_name || 'No teacher name'}</strong>
-          </div>
-        ))}
-      </div>
-    ) : (
-      <p>No messages or teachers available.</p>
-    )
-  )}
-</div>
-
-
-          <div className="message-add">
-            <select
-              value={newMessage.teacherId}
-              onChange={(e) => setNewMessage({ ...newMessage, teacherId: e.target.value })}
-            >
-              <option value="">Select Teacher</option>
-              {teachers.map((teacher) => (
-                <option key={teacher.id} value={teacher.id}>
-                  {teacher.teacher_name}
-                </option>
-              ))}
-            </select>
-            <textarea
-              value={newMessage.content}
-              onChange={(e) => setNewMessage({ ...newMessage, content: e.target.value })}
-              placeholder="Write your message here"
-            ></textarea>
-            <button onClick={handleAddMessage}>Add Message</button>
-          </div>
+          
+            <JournalMessage type={"course" } id={selectedGoal.id}> 
+              
+            </JournalMessage>
         </div>
       )}
     </div>
