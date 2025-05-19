@@ -1,5 +1,5 @@
 import React, {useState } from "react";
-const GeneralInfoTab = ({ form, handleChange }) => { 
+const GeneralInfoTab = ({ form, handleChange, handleSave }) => { 
   const [avatar, setAvatar] = useState(
     localStorage.getItem("studentAvatar") || 
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfw1A_cRtYdAWexnjtTAgB89uuh4KDA98zwQ&s"
@@ -34,7 +34,7 @@ const GeneralInfoTab = ({ form, handleChange }) => {
       <div className="form-grid">
         <div className="form-group">
           <label>Name</label>
-          <input name="name" value={form.name} onChange={handleChange} />
+          <input name="student_name" value={form.student_name} onChange={handleChange} />
         </div>
 
         <div className="form-group">
@@ -46,20 +46,20 @@ const GeneralInfoTab = ({ form, handleChange }) => {
           <label>Your Birthdate</label>
           <input
             type="date"
-            name="birthdate"
-            value={form.birthdate}
+            name="day_of_birth"
+            value={form.day_of_birth}
             onChange={handleChange}
           />
         </div>
 
         <div className="form-group">
           <label>Email</label>
-          <input name="email" value={form.email} onChange={handleChange} />
+          <input name="email" value={form.email} readOnly/>
         </div>
 
         <div className="form-group">
           <label>Your phone</label>
-          <input name="phone" value={form.phone} onChange={handleChange} />
+          <input name="phone_number" value={form.phone_number} onChange={handleChange} />
         </div>
 
         <div className="form-group">
@@ -90,9 +90,14 @@ const GeneralInfoTab = ({ form, handleChange }) => {
 
         <div className="form-group">
           <label>Your Class</label>
-          <input name="class" value={form.class} onChange={handleChange} />
+          <input name="class_id" value={form.class_id} readOnly />
         </div>
       </div>
+       <div className="d-flex justify-content-end">
+          <button type="submit" className="btn btn-primary" onClick={handleSave}>
+            Save
+          </button>
+        </div>
     </>
   );
 };
