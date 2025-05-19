@@ -94,7 +94,7 @@ const Item = ({data,changeData,setChance,settongLeDetail,tongLeDetail,tongLeUpda
                     </div>
                     <div style={{width:"30px",height:"30px"}} className="position-relative">
                        {
-                        (roleBoolean && user.id == currentUser.id)&&  <img name={data.id} onClick={handletongLeDetail}  style={{width:"100%",height:"100%"}} src={more}></img>
+                        (roleBoolean)&&  <img name={data.id} onClick={handletongLeDetail}  style={{width:"100%",height:"100%"}} src={more}></img>
                        }
                         { (data.id == tongLeDetail  )&&(
                             <div className="position-absolute bg-white border shadow-sm" style={{ transform: "translateY(0)", right: "20px",top: "100%", width: "150px"}}>

@@ -10,25 +10,27 @@ const HeaderElement = () => {
 };
 const PortfolioPage = () => {
   const [profile, setProfile] = useState(null);
-
+  const [change, setChange] = useState(true);
+  const studentId = JSON.parse(sessionStorage.getItem("current_user")).account.id;
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/students");
+        const response = await fetch(`http://127.0.0.1:8000/api/student/${studentId}`);
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const result = await response.json();
         console.log("Profile fetched:", result);
-        setProfile(result.data || {}); // Lưu kết quả vào state
+        setProfile(result || {}); // Lưu kết quả vào state
+        setChange(true);
       } catch (error) {
         console.error("Error fetching profile:", error);
       }
     };
     fetchProfile();
-  }, []);
+  }, [change]);
 
   return (
     <StudentLayout HeaderElement={<HeaderElement />}>
-      <Portfolio profile={profile} />
+      <Portfolio profile={profile} setChange={setChange} />
     </StudentLayout>
   );
 };
