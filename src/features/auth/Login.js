@@ -12,7 +12,10 @@ function Login() {
         password,
         setPassword,
         handleSubmit,
+        role,          
+        setRole       
     } = useLoginForm();
+    
     const [showPassword, setShowPassword] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
     const togglePasswordVisibility = () => {
@@ -21,7 +24,7 @@ function Login() {
 
     return (
         <>
-            <DotsOutsideWrapper count={10} />
+            {/* <DotsOutsideWrapper count={10} /> */}
             <div className="login-wrapper">
                 <div className="login-card">
                     <div className="login-content">
@@ -33,7 +36,7 @@ function Login() {
                             />
                         </div>
 
-                        <h2>Sign In to Colorlib</h2>
+                        <h2>Sign In to Your Account</h2>
                         <form onSubmit={handleSubmit}>
                             <div className="input-group">
                                 <input
@@ -73,6 +76,13 @@ function Login() {
                                     Remember me
                                 </label>
                                 <a href="#" className="forgot-password">Forgot Password</a>
+                            </div>
+                            {/* <p className="or-texts">Chose your role</p> */}
+                            <div className="input-group">
+                                <select value={role} onChange={(e) => setRole(e.target.value)} required>
+                                    <option value="student">Student</option>
+                                    <option value="teacher">Teacher</option>
+                                </select>
                             </div>
 
                             <button type="submit" className="btn-login">
