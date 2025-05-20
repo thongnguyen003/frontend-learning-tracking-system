@@ -24,7 +24,7 @@ function Login() {
 
     return (
         <>
-            <DotsOutsideWrapper count={10} />
+            {/* <DotsOutsideWrapper count={10} /> */}
             <div className="login-wrapper">
                 <div className="login-card">
                     <div className="login-content">
