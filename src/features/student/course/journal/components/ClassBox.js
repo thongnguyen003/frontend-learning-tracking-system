@@ -1,218 +1,169 @@
-// import React,{useState} from "react";
-// import JournalMessage from "../../message/JournalMessage";
-// import "../../../../../../src/assets/css/globalStyle.css"
-// const ClassBox = ({data}) => {
-//   const [choosePart,setChoose]=useState(true);
-//   return (
-//     <div className="bg-white rounded shadow-sm p-3" style={{ width: "420px"}} >
-//         <div className="d-flex border-bottom mb-3">
-//             <button onClick={() => setChoose(true)}  className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}> Detail </button>
-//             <button onClick={() => setChoose(false)} className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}> Contact</button>
-//         </div>
-//           {choosePart ? (
-//               <Detail data={data} />
-//           ) : (
-//               <JournalMessage type="class" id={data.id} />
-//           )}
-//     </div>
-//   );
-// };
-
-// export default ClassBox;
-// const Detail = ({data})=>{
-//   return(
-//     <div>
-//       <label className="form-label text-muted" htmlFor="date">
-//         Date
-//       </label>
-//         <input id="date" type="text" value={data.date} className="form-control"/>
-//       <label className="form-label text-muted" htmlFor="topic">Topic</label>
-//       <textarea id="topic" rows="2" className="form-control" value={data.topic || ""}></textarea> 
-//       <label className="form-label text-muted" htmlFor="description">
-//         Description
-//       </label>
-//       <textarea id="description" rows="3" className="form-control" value={data.description || ""} ></textarea>
-//       <label className="form-label text-muted" htmlFor="concentration">
-//         Assessement
-//       </label>
-//       <select id="concentration" className="form-select">
-//         <option>1</option>
-//         <option>2</option>
-//         <option>3</option>
-//       </select>
-//       <label className="form-label text-muted" htmlFor="activity"> Difficult </label>
-//       <textarea id="activity" rows="2" className="form-control" value={data.difficult || ""}></textarea>
-//       <label className="form-label text-muted" htmlFor="activity">Flan</label>
-//       <textarea id="activity" rows="2" className="form-control" value={data.plan || ""} >
-//       </textarea>
-//       <label className="form-label text-muted" htmlFor="activity"> Solution </label>
-//       <textarea id="activity" rows="2" className="form-control" value={data.solution || ""} ></textarea>
-
-//       <div className="d-flex gap-2 mt-3">
-//         <button
-//           type="button"
-//           className="btn btn-success"
-//         >
-//           <i className="fas fa-pen"></i> Edit
-//         </button>
-//         <button
-//           type="button"
-//           className="btn btn-warning"
-//         >
-//           <i className="fas fa-trash-alt"></i> Delete
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
-import React, { useState } from "react";
-import axios from "axios";
+import React,{useState} from "react";
+import { useParams } from "react-router-dom";
 import JournalMessage from "../../message/JournalMessage";
-import "../../../../../../src/assets/css/globalStyle.css";
+import "../../../../../../src/assets/css/globalStyle.css"
+import { useApi } from "../../../../../hooks/useApi";
+const ClassBox = ({data}) => {
+  const [classes, setClasses] = useState([]);
+  const [choosePart,setChoose]=useState(true);
+  const [editClasses, setEditClasses] = useState();
+  const [errorMessage, setErrorMessage] = useState('');
+  const { apiCall, loading } = useApi();
+  let { id } = useParams();
 
-const ClassBox = ({ data, onDeleted }) => {
-  const [choosePart, setChoose] = useState(true);
+    const startEditClasses = (classes) => {
+    setEditClasses(classes);
+    setErrorMessage('');
+  };
+
+  const cancelEdit = () => {
+    setEditClasses(null);
+    setErrorMessage('');
+  };
+
+  const saveEditClasses = async () => {
+    if (!editClasses || !editClasses.topic?.trim()) return;
+    try {
+      setErrorMessage('');
+      const updatedClass = await apiCall(`/journal/journal-classes/${editClasses.id}`, 'PUT', {
+        topic: editClasses.topic,
+        description: editClasses.description,
+        difficulty: editClasses.difficulty,
+        plan: editClasses.plan,
+        solution: editClasses.solution,
+        assessment: editClasses.assessment,
+        journal_id : id,
+        date: editClasses.date || new Date().toISOString().split('T')[0]
+
+      });
+      setClasses(prevClass => prevClass.map(cls => (cls.id === updatedClass.id ? updatedClass : cls)));
+      setEditClasses(null);
+    } catch {
+      setErrorMessage('Error saving goal changes. Please try again.');
+    }
+  };
+
+  const handleDeleteClass = async () => {
+  if (!window.confirm("Are you sure you want to delete this class?")) return;
+
+  try {
+    await apiCall(`/journal/journal-classes/${data.id}`, 'DELETE');
+    // Sau khi xoá, bạn có thể redirect hoặc reload lại danh sách nếu ở view lớn hơn
+    alert("Class deleted successfully.");
+  } catch (error) {
+    alert("Failed to delete class.");
+  }
+};
+
+  const handleEditChange = (field, value) => {
+  if (!editClasses) return;
+  setEditClasses({ ...editClasses, [field]: value });
+};
 
   return (
-    <div className="bg-white rounded shadow-sm p-3" style={{ width: "420px" }}>
-      <div className="d-flex border-bottom mb-3">
-        <button
-          onClick={() => setChoose(true)}
-          className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}
-        >
-          Detail
-        </button>
-        <button
-          onClick={() => setChoose(false)}
-          className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}
-        >
-          Contact
-        </button>
-      </div>
-      {choosePart ? (
-        <Detail data={data} onDeleted={onDeleted} />
-      ) : (
-        <JournalMessage type="class" id={data.id} />
-      )}
+    <div className="bg-white rounded shadow-sm p-3" style={{ width: "420px"}} >
+        <div className="d-flex border-bottom mb-3">
+            <button onClick={() => setChoose(true)}  className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}> Detail </button>
+            <button onClick={() => setChoose(false)} className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}> Contact</button>
+        </div>
+          {choosePart ? (
+              <Detail data={data}
+              classes={classes}
+              editClasses={editClasses}
+              onEditStart={startEditClasses}
+              onEditCancel={cancelEdit}
+              onEditSave={saveEditClasses}
+               onDelete={handleDeleteClass}
+              onEditChange={handleEditChange} />
+          ) : (
+              <JournalMessage type="class" id={data.id} />
+          )}
     </div>
   );
 };
 
 export default ClassBox;
 
-const Detail = ({ data, onDeleted }) => {
-  const [formData, setFormData] = useState({ ...data });
+const Detail = ({
+  data,
+  editClasses,
+  onEditStart,
+  onEditCancel,
+  onEditSave,
+  onEditChange,
+  onDelete
+}) => {
+  const currentData = editClasses || data;
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
-  };
-
-  const handleEdit = async () => {
-    try {
-      await axios.put(`/api/journals/${data.id}`, formData);
-      alert("Journal updated successfully!");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to update journal");
-    }
-  };
-
-  const handleDelete = async () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this journal?");
-    if (!confirmDelete) return;
-
-    try {
-      await axios.delete(`/api/journals/${data.id}`);
-      alert("Journal deleted successfully!");
-      if (onDeleted) onDeleted();
-    } catch (err) {
-      console.error(err);
-      alert("Failed to delete journal");
-    }
-  };
-
-  return (
+  return(
     <div>
-      <label className="form-label text-muted" htmlFor="date">
+      <label className="form-label text-muted" htmlFor="date" type="datetime-local">
         Date
       </label>
-      <input
-        id="date"
-        type="text"
-        className="form-control"
-        value={formData.date || ""}
-        onChange={handleChange}
-      />
-
+        <input id="date" type="datetime-local" value={currentData.date || ""} className="form-control"/>
       <label className="form-label text-muted" htmlFor="topic">Topic</label>
-      <textarea
-        id="topic"
-        rows="2"
-        className="form-control"
-        value={formData.topic || ""}
-        onChange={handleChange}
+      <textarea id="topic" rows="2" className="form-control" 
+      value={currentData.topic || ""}
+      onChange={e => onEditChange("topic", e.target.value)}
+      readOnly={!editClasses} ></textarea> 
+      <label className="form-label text-muted" htmlFor="description">
+        Description
+      </label>
+      <textarea id="description" rows="3" className="form-control" 
+      value={currentData.description || ""}
+      onChange={e => onEditChange("description", e.target.value)}
+      readOnly={!editClasses}
       ></textarea>
-
-      <label className="form-label text-muted" htmlFor="description">Description</label>
-      <textarea
-        id="description"
-        rows="3"
-        className="form-control"
-        value={formData.description || ""}
-        onChange={handleChange}
-      ></textarea>
-
-      <label className="form-label text-muted" htmlFor="assessment">Assessment</label>
-      <select
-        id="assessment"
-        className="form-select"
-        value={formData.assessment || "1"}
-        onChange={handleChange}
-      >
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
+      <label className="form-label text-muted" htmlFor="assessment">
+        Assessment
+      </label>
+      <select id="assessment" className="form-select"
+        value={currentData.assessment || ""}
+        onChange={e => onEditChange("assessment", e.target.value)}
+        disabled={!editClasses}> 
+        <option value='1'>1</option>
+        <option value='2'>2</option>
+        <option value='3'>3</option>
       </select>
-
-      <label className="form-label text-muted" htmlFor="difficult">Difficult</label>
-      <textarea
-        id="difficult"
-        rows="2"
-        className="form-control"
-        value={formData.difficult || ""}
-        onChange={handleChange}
+      <label className="form-label text-muted" htmlFor="difficulty"> Difficult </label>
+      <textarea id="difficulty" rows="2" className="form-control" 
+        value={currentData.difficulty || ""}
+        onChange={e => onEditChange("difficulty", e.target.value)}
+        readOnly={!editClasses}
       ></textarea>
-
       <label className="form-label text-muted" htmlFor="plan">Plan</label>
-      <textarea
-        id="plan"
-        rows="2"
-        className="form-control"
-        value={formData.plan || ""}
-        onChange={handleChange}
+      <textarea id="plan" rows="2" className="form-control"
+        value={currentData.plan || ""}
+        onChange={e => onEditChange("plan", e.target.value)}
+        readOnly={!editClasses}
+       >
+      </textarea>
+      <label className="form-label text-muted" htmlFor="plan"> Solution </label>
+      <textarea id="solution" rows="2" className="form-control" 
+        value={currentData.solution || ""}
+        onChange={e => onEditChange("solution", e.target.value)}
+        readOnly={!editClasses}
       ></textarea>
-
-      <label className="form-label text-muted" htmlFor="solution">Solution</label>
-      <textarea
-        id="solution"
-        rows="2"
-        className="form-control"
-        value={formData.solution || ""}
-        onChange={handleChange}
-      ></textarea>
-
-      <div className="d-flex gap-2 mt-3">
-        <button type="button" className="btn btn-success" onClick={handleEdit}>
-          <i className="fas fa-pen"></i> Edit
-        </button>
-        <button type="button" className="btn btn-warning" onClick={handleDelete}>
-          <i className="fas fa-trash-alt"></i> Delete
-        </button>
+       <div className="d-flex gap-2 mt-3">
+        {!editClasses ? (
+          <>
+            <button className="btn btn-success" onClick={() => onEditStart(data)}>
+              <i className="fas fa-pen"></i> Edit
+            </button>
+            <button className="btn btn-warning" onClick={onDelete}>
+              <i className="fas fa-trash-alt"></i> Delete
+            </button>
+          </>
+        ) : (
+          <>
+            <button className="btn btn-primary" onClick={onEditSave}>
+              Save
+            </button>
+            <button className="btn btn-secondary" onClick={onEditCancel}>
+              Cancel
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
