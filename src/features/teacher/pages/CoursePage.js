@@ -1,7 +1,7 @@
 import React from "react";
 import { useState,useEffect } from "react";
 import StudentLayout from "../../../layouts/StudentLayout";
-import HomepageMain from "../homepage/HomepageMain";
+import HomepageMain from "../../student/homepage/HomepageMain";
 import { Link } from "react-router-dom";
 const HeaderElement = ()=>{
   return(
@@ -10,11 +10,11 @@ const HeaderElement = ()=>{
       </div>
   );
 }
-const StudentHomepage = ()=>{
+const CoursePageT = ()=>{
   return(
     <StudentLayout  HeaderElement={<HeaderElement/> }>
       <HomepageMain ></HomepageMain>
     </StudentLayout>
   );
 }
-export default StudentHomepage;
+export default CoursePageT;
