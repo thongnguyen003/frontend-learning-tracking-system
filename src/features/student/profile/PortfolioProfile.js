@@ -45,7 +45,7 @@ const PortfolioProfile = ({ profile, setChange}) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${response.status}, message: ${response.message}`);
     }
 
     const data = await response.json();
