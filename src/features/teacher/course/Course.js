@@ -1,16 +1,16 @@
 import React ,{useEffect, useState}from 'react';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faPlus, faPencilAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-// import Menu from "../components/Menu"; 
+import Menu from "../components/Menu"; 
 import { Outlet, Link,useNavigate} from "react-router-dom";
-// import Header from "../components/header"; // Nếu cần, hãy nhập đúng cách
+import Header from "../components/header";
 import '../../../../src/features/student/styles/course.css';
 import "../../../assets/css/globalStyle.css";
 const Course = () => {
   const [navigateBar,setNavigateBar]=useState(true);
   const navigate = useNavigate();
   useEffect(()=>{
-    navigate('journal')
+    navigate('detailCourse')
   },[])
 
   return (
@@ -23,15 +23,15 @@ const Course = () => {
                       className={`p-2 rounded ${navigateBar ? "globalActive " : ""}`}
                       onClick={() => setNavigateBar(true)}
                     >
-                      <Link to="journal">
-                        Journal Info
+                      <Link to="detailCourse">
+                        Course Detail
                       </Link>
                     </button>
                     <button
                       className={`p-2 rounded ${!navigateBar ? "globalActive " : ""}`}
                       onClick={() => setNavigateBar(false)}
                     >
-                      <Link to="students" >
+                      <Link to="studentlist" >
                         Student List
                       </Link>
                     </button>

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import "../styles/header.css"; 
+import "../../student/styles/header.css"; 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 const Header = ({children}) => {
