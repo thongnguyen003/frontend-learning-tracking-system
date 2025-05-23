@@ -11,26 +11,9 @@ const HeaderElement = ()=>{
   );
 }
 const StudentHomepage = ()=>{
-const [course,setCourse] = useState([]);
-useEffect(()=>{
-  const fetchCourse = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:8000/api/course/getByStudentId/6');
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const result = await response.json();
-      setCourse(result.original || []); 
-      console.log(result.original || []);
-    } catch (error) {
-      console.error('Failed to fetch course:', error);
-    }
-  };
-  fetchCourse();
-},[]);
   return(
     <StudentLayout  HeaderElement={<HeaderElement/> }>
-      <HomepageMain course={course}></HomepageMain>
+      <HomepageMain ></HomepageMain>
     </StudentLayout>
   );
 }

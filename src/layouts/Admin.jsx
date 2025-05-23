@@ -21,7 +21,7 @@ const AdminLayout = ({ HeaderElement }) => {
                 {/* header */}
                 <Header onToggleMenu={toggleMenu}>{HeaderElement}</Header>
                 {/* main */}
-                <div className="mainBody p-2">
+                <div className="mainBody p-3 sm:p-4 md:p-5 lg:p-6 xl:p-7 2xl:p-8">
                     <Outlet />
                 </div>
             </div>
