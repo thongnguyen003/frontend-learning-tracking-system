@@ -1,5 +1,6 @@
 import React,{ useState,useEffect } from "react";
 import Item from "./component/Item";
+
 function JournalMessage({type,id}) {
     const [listTeacher,setTeacher]=useState(null);
     const [changeData,setChance]=useState(false);//use render if send request to delete, update, create, I am supper AI (joke)
@@ -11,6 +12,7 @@ function JournalMessage({type,id}) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+        const course_goal_id = type === "course" ? id : null;
         const journal_class_id = type === "class" ? id : null;
         const journal_goals_id = type === "goal" ? id : null;
         const journal_self_id = type === "self" ? id : null;
@@ -30,7 +32,7 @@ function JournalMessage({type,id}) {
             journal_class_id : journal_class_id,
             journal_goal_id : journal_goals_id,
             journal_self_id : journal_self_id,
-            course_goal_id :null
+            course_goal_id : course_goal_id
             }),
         });
 
@@ -41,6 +43,7 @@ function JournalMessage({type,id}) {
         console.log('Dữ liệu trả về:', data);
         setChance(!changeData);
         setStatusForm(!statusForm)
+        console.log("change thành công")
         } catch (error) {
         console.error('Lỗi khi gửi dữ liệu:', error);
         }
@@ -78,12 +81,13 @@ function JournalMessage({type,id}) {
     useEffect(()=>{
         const fetchData = async () => {
         try {
-            const path = type == "goal" ? "getByJournalGoal" : type == "class" ? "getByJournalClass" :"getByJournalSelf";
+            const path = type == "goal" ? "getByJournalGoal" : type == "class" ? "getByJournalClass" : type == "self" ? "getByJournalSelf" : "getByCourseGoal";
             const response = await fetch(`http://127.0.0.1:8000/api/message/${path}/${id}`);
             if (!response.ok) {
             throw new Error("Không thể tải dữ liệu");
             }
             const data = await response.json();
+            console.log(data)
             setTeacher(data.teacher);
             setMessage(data.message);
         } catch (error) {

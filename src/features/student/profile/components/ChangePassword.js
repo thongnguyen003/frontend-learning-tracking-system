@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { json } from "react-router-dom";
 
-const ChangePassword = ({ studentId }) => {
+const ChangePassword = ({  }) => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
+  const studentId = JSON.parse(sessionStorage.getItem("current_user")).account.id;
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
@@ -13,7 +15,6 @@ const ChangePassword = ({ studentId }) => {
       setMessage("New passwords do not match!");
       return;
     }
-
     try {
       const response = await fetch(
         `http://localhost:8000/api/student/change-password/${studentId}`, 

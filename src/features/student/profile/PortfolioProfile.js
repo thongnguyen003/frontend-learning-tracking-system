@@ -1,73 +1,62 @@
 import React, { useState, useEffect } from "react";
-import "../../student/styles/portfolioProfile.css"
+import "../../student/styles/portfolioProfile.css";
 import GeneralInfoTab from "./components/GeneralInfoTab";
 import ChangePasswordTab from "./components/ChangePassword";
-const PortfolioProfile = ({ profile }) => {
+const PortfolioProfile = ({ profile, setChange}) => {
   const [activeTab, setActiveTab] = useState("general");
   const [form, setForm] = useState({
-    name: "thuy",
-    birthdate: "13/3/2005",
-    phone: "012345678",
-    class: "",
-    hometown: "Dong giang",
-    email: "bnuochthithuy13032005@gmail.com",
-    gender: "female",
-  });
-
-  const [password, setPassword] = useState({
-    current: "",
-    new: "",
+    student_name: "",
+    day_of_birth: "",
+    phone_number: "",
+    class_id: "",
+    hometown: "",
+    email: "",
+    gender: "",
   });
 
   useEffect(() => {
     if (profile && Object.keys(profile).length > 0) {
       setForm({
-        name: profile.name || "",
-        birthdate: profile.day_of_birth || "",
-        phone: profile.phone_number || "",
-        class: profile.class_id || "",
+        student_name: profile.student_name || "",
+        day_of_birth: profile.day_of_birth || "",
+        phone_number: profile.phone_number || "",
+        class_id: profile.class_id || "",
         hometown: profile.hometown || "",
         email: profile.email || "",
         gender: profile.gender || "",
       });
     }
   }, [profile]);
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
-  const handlePasswordChange = (e) => {
-    const { name, value } = e.target;
-    setPassword({ ...password, [name]: value });
-  };
 
-  const handleSubmitPassword = async (id) => {
-    if (password.current && password.new) {
-      try {
-        const response = await fetch(`http://127.0.0.1:8000/api/student/change-password/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            current_password: password.current,
-            new_password: password.new,
-          }),
-        });
+ const handleSave = async () => {
+  try {
+    const response = await fetch(`http://localhost:8000/api/student/update-profile/${profile.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    });
 
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const result = await response.json();
-        console.log("Password updated:", result);
-      } catch (error) {
-        console.error("Error updating password:", error);
-      }
-    } else {
-      console.log("Please enter both current and new password.");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}, message: ${response.message}`);
     }
-  };
+
+    const data = await response.json();
+    setChange(false);
+    alert("Profile updated successfully!");
+    console.log("Response:", data);
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    alert("Failed to update profile.");
+  }
+};
 
   return (
     <div className="portfolio-container">
@@ -91,13 +80,9 @@ const PortfolioProfile = ({ profile }) => {
 
       <div className="main-content">
         {activeTab === "general" ? (
-          <GeneralInfoTab form={form} handleChange={handleChange} />
+          <GeneralInfoTab form={form} handleChange={handleChange} handleSave={handleSave} />
         ) : (
-          <ChangePasswordTab
-            password={password}
-            handlePasswordChange={handlePasswordChange}
-            handleSubmitPassword={handleSubmitPassword} 
-          />
+          <ChangePasswordTab />
         )}
       </div>
     </div>
