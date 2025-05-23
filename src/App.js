@@ -12,8 +12,9 @@ import LearningGoals from './features/student/course/goal/Goal';
 import LearningJournal from './features/student/course/journal/LearningJournal';
 import AdminLayout from './layouts/Admin';
 import AdminDashboard from './features/admin/pages/AdminDashboard';
-import Apps from './features/admin/pages/apps';
+import UserManagement from './features/admin/pages/UserManagement';
 import NetworkDetector from './components/common/NetworkDetector';
+import AddUsers from './features/admin/pages/MultiUserForm';
 import CoursePageT from "./features/teacher/pages/CoursePage";
 import ClassManagement from "./features/admin/pages/ClassManagement";
 function App() {
@@ -34,12 +35,14 @@ function App() {
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="users/UserManagement" element={<UserManagement />} />
+              <Route path="form/add-new-user" element={<AddUsers />} />
               <Route path="apps/chat" element={<Apps />} />
-            <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="apps/chat" element={<Apps />} />
-            <Route path="/admin/classes" element={<ClassManagement />} />
-
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="apps/chat" element={<Apps />} />
+              <Route path="/admin/classes" element={<ClassManagement />} />
             </Route>
+
             <Route path="/teacher" element={<CoursePageT></CoursePageT>}></Route>
           </Routes>
       </Router>
