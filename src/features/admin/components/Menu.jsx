@@ -19,6 +19,7 @@ const menuItems = [
     section: 'MAIN MENU',
     items: [
       { name: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
+      { name: 'Classes', path: '/admin/classes', icon: Box },
     ],
   },
   {
