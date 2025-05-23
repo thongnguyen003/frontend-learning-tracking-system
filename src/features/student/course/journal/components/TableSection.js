@@ -4,6 +4,10 @@ function TableSection({ title, columns, rows, click, setShowAddModal=false }) {
     const clickAddButton = () => {
         if(title == 1){
             setShowAddModal ('goal')
+        }else if(title == 2 ){
+            setShowAddModal('class')
+        }else if (title == 3){
+            setShowAddModal('self')
         }
     }
     return (
@@ -20,7 +24,7 @@ function TableSection({ title, columns, rows, click, setShowAddModal=false }) {
             </div>
             {rows && rows.length >0 ?
             <table className="table mb-0 pb-0">
-                <thead>
+                <thead>   
                 <tr>
                     {columns.map((col, i) => (
                     <th

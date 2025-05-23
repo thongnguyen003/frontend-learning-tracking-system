@@ -14,6 +14,7 @@ import AdminLayout from './layouts/Admin';
 import AdminDashboard from './features/admin/pages/AdminDashboard';
 import Apps from './features/admin/pages/apps';
 import NetworkDetector from './components/common/NetworkDetector';
+import CoursePageT from "./features/teacher/pages/CoursePage";
 import ClassManagement from "./features/admin/pages/ClassManagement";
 function App() {
   return (
@@ -32,11 +33,14 @@ function App() {
             </Route>
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="apps/chat" element={<Apps />} />
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="apps/chat" element={<Apps />} />
             <Route path="/admin/classes" element={<ClassManagement />} />
 
             </Route>
+            <Route path="/teacher" element={<CoursePageT></CoursePageT>}></Route>
           </Routes>
       </Router>
   );
