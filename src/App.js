@@ -14,6 +14,9 @@ import AdminLayout from './layouts/Admin';
 import AdminDashboard from './features/admin/pages/AdminDashboard';
 import Apps from './features/admin/pages/apps';
 import NetworkDetector from './components/common/NetworkDetector';
+import TeacherHomepage from "./features/teacher/pages/TeacherHomepage";
+import StudentList from "./features/teacher/pages/Students";
+
 function App() {
   return (
     <Router>
@@ -33,8 +36,10 @@ function App() {
               <Route index element={<AdminDashboard />} />
             <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="apps/chat" element={<Apps />} />
-
             </Route>
+            <Route path="/teacherhomepage" element={<TeacherHomepage />} />
+            <Route path="/studentlist" element={<StudentList />} />
+
           </Routes>
       </Router>
   );
