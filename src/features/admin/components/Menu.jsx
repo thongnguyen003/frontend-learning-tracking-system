@@ -19,35 +19,36 @@ const menuItems = [
     section: 'MAIN MENU',
     items: [
       { name: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
-    ],
-  },
-  {
-    section: 'APPS',
-    items: [
-      {
-        name: 'Apps',
-        path: '/admin/apps',
-        icon: AppWindow,
-        subItems: [
-          { name: 'Chat', path: '/admin/apps/chat' },
-          { name: 'Email', path: '/admin/apps/email' },
-        ],
-      },
-      { name: 'Charts', path: '/admin/charts', icon: BarChart },
-    ],
-  },
-  {
-    section: 'COMPONENTS',
-    items: [
-      { name: 'Bootstrap', path: '/admin/bootstrap', icon: Globe },
-      { name: 'Plugins', path: '/admin/plugins', icon: Plug },
-      { name: 'Widget', path: '/admin/widget', icon: Box },
+      { name: 'Classes', path: '/admin/classes', icon: Box },
     ],
   },
   {
     section: 'FORMS',
     items: [
-      { name: 'Forms', path: '/admin/forms', icon: ClipboardList },
+      {
+        name: 'Forms',
+        path: '/admin/forms',
+        icon: ClipboardList,
+        subItems: [
+          { name: 'Form Elements', path: '/admin/forms/elements' },
+          { name: 'Multi User Form', path: '/admin/form/add-new-user', icon: ClipboardList }
+        ],
+      },
+    ],
+  },
+  {
+    section: 'USERS',
+    items: [
+      {
+        name: 'Users',
+        path: '/admin/users',
+        icon: AppWindow,
+        subItems: [
+          { name: 'UserManagement', path: '/admin/users/UserManagement' },
+          { name: 'Email', path: '/admin/users/email' },
+        ],
+      },
+      { name: 'Charts', path: '/admin/charts', icon: BarChart },
     ],
   },
   {
@@ -90,7 +91,7 @@ const Menu = ({ isOpen, onClose }) => {
           } md:translate-x-0 md:w-[20%]`}
       >
         <div className="text-3xl font-extrabold mb-8 bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
-          Đăng Vai
+          INAUTRA
         </div>
         {menuItems.map((section, idx) => (
           <div key={idx} className="mb-6">
