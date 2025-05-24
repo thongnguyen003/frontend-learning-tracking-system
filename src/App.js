@@ -17,6 +17,11 @@ import NetworkDetector from './components/common/NetworkDetector';
 import AddUsers from './features/admin/pages/MultiUserForm';
 import CoursePageT from "./features/teacher/pages/CoursePage";
 import ClassManagement from "./features/admin/pages/ClassManagement";
+import CourseDetail from "./features/teacher/course/courseDetail/CourseDetail";
+import StudentList from "./features/teacher/course/studentList/studentList";
+import CourseTeacher from "./features/teacher/pages/CoursePage";
+
+
 function App() {
   return (
     <Router>
@@ -41,9 +46,17 @@ function App() {
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="apps/chat" element={<Apps />} />
               <Route path="/admin/classes" element={<ClassManagement />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="apps/chat" element={<Apps />} />
+            </Route>
+            
+            <Route path="/teacher" element={<CourseTeacher />} >
+                <Route path="studentlist" element={<StudentList></StudentList> }></Route>
+                <Route path="detailCourse" element={<CourseDetail></CourseDetail> }></Route>
             </Route>
 
             <Route path="/teacher" element={<CoursePageT></CoursePageT>}></Route>
+
           </Routes>
       </Router>
   );
