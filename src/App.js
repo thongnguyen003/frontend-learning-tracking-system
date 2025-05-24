@@ -37,9 +37,7 @@ function App() {
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="users/UserManagement" element={<UserManagement />} />
               <Route path="form/add-new-user" element={<AddUsers />} />
-              <Route path="apps/chat" element={<Apps />} />
               <Route path="dashboard" element={<AdminDashboard />} />
-              <Route path="apps/chat" element={<Apps />} />
               <Route path="/admin/classes" element={<ClassManagement />} />
             </Route>
 
