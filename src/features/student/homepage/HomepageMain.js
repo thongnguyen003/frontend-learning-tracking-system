@@ -7,8 +7,8 @@ const  HomepageMain = ()=>{
     useEffect(()=>{
       const fetchCourse = async () => {
         try {
-          const path = role == "student" ? 'getByStudentId' : 'getByClassId';
-          const response = await fetch(`http://127.0.0.1:8000/api/course/${path}/${id}`);
+          const path = role == "teacher" ? 'getByTeacherId' : 'getByClassId';
+          const response = await fetch(`http://127.0.0.1:8000/api/class/${path}/${id}`);
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }

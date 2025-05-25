@@ -15,5 +15,5 @@ const TeacherLayout = ({HeaderElement,children}) => {
     </div>
   );
 };
-
 export default TeacherLayout;
+

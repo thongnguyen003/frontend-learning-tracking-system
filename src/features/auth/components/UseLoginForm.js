@@ -22,6 +22,7 @@ function useLoginForm() {
                 toast.success('Wellcome to website!');
             } else if (res.role === 'teacher') {
                 navigate('/teacher');
+                toast.success('Welcome teacher!');
             }
         } catch (err) {
             toast.error('Login failed: ' + (err.response?.data?.message || err.message));
