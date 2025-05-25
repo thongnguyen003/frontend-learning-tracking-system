@@ -136,15 +136,15 @@ return (
                 )}
             </div>
             {/* part 2 */}
-            <div className={`pl-3 ${detaiStatus && detaiStatus.length > 0 ? "" : "d-none"}`} style={{ height:"100%",overflowY: "auto"}}>
+            <div className={`pl-3 ml-2${detaiStatus && detaiStatus.length > 0 ? "" : "d-none"}`} style={{ height:"100%",overflowY: "auto"}}>
                 {detaiStatus[0] ==1 
                 ?
                 <GoalBox changeOposite={changeOposite} data={goal.filter((e)=> e.id == detaiStatus[1])[0]}></GoalBox>
                 : detaiStatus[0] ==2 
-                ?<ClassBox data={journalClass.filter((e)=> e.id == detaiStatus[1])[0]}></ClassBox>
+                ?<ClassBox changeOposite={changeOposite} data={journalClass.filter((e)=> e.id == detaiStatus[1])[0]}></ClassBox>
                 : detaiStatus[0] == 3 
-                ?<DetailBox data={journalSelf.filter((e)=> e.id == detaiStatus[1])[0]}></DetailBox>
-                : "invalid"}
+                ?<DetailBox changeOposite={changeOposite} data={journalSelf.filter((e)=> e.id == detaiStatus[1])[0]}></DetailBox>
+                : ""}
 
             </div>
         </div>
