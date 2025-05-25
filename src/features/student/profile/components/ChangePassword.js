@@ -15,7 +15,6 @@ const ChangePassword = ({  }) => {
       setMessage("New passwords do not match!");
       return;
     }
-
     try {
       const response = await fetch(
         `http://localhost:8000/api/student/change-password/${studentId}`, 

@@ -1,6 +1,34 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
+import { useParams } from "react-router-dom";
 import Item from "./components/Item";
-const  HomepageMain = ({course})=>{
+const  HomepageMain = ()=>{
+    const [course,setCourse] = useState([]);
+    let id = JSON.parse(sessionStorage.getItem("current_user")).account.id;
+    const role = JSON.parse(sessionStorage.getItem("current_user")).role;
+    const { id: param } = useParams();
+    console.log(role)
+    console.log(param)
+    console.log(JSON.parse(sessionStorage.getItem("current_user")).account)
+    if (role === "teacher") {
+        id = param;
+    }
+    useEffect(()=>{
+      const fetchCourse = async () => {
+        try {
+          const path = role == "student" ? 'getByStudentId' : 'getByClassId';
+          const response = await fetch(`http://127.0.0.1:8000/api/course/${path}/${id}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          const result = await response.json();
+          setCourse(result.original || []); 
+          console.log(result.original || []);
+        } catch (error) {
+          console.error('Failed to fetch course:', error);
+        }
+      };
+      fetchCourse();
+    },[]);
     return(
         <main  style={{width:"100%",boxSizing:"border-box"}}>
             <p className="fs-5 mb-3">List Course</p>
