@@ -16,7 +16,7 @@ const [course,setCourse] = useState([]);
 useEffect(()=>{
   const fetchCourse = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/course/getByCourseId/9');
+      const response = await fetch('http://127.0.0.1:8000/api/class/getByTeacherId/4');
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 const Item = ({idh,classes_name,student_name,start_day,teacher_count})=>{
     const navigate = useNavigate(); // Đưa hook useNavigate ra ngoài
     const redictor = () => {
-        navigate(`/classes/${idh}`); // Chuyển hướng đến đường dẫn với tham số classes_student_id ->
+        navigate(`/class/${idh}`); // Chuyển hướng đến đường dẫn với tham số classes_student_id ->
     };
     return (
         <div className="col-md-3" onClick={redictor}>

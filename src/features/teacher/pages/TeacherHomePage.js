@@ -12,26 +12,9 @@ const HeaderElement = ()=>{
   );
 }
 const TeacherHomepage = ()=>{
-const [classes,setclasses] = useState([]);
-useEffect(()=>{
-  const fetchclasses = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:8000/api/class/getByTeacherId/4');
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const result = await response.json();
-      setclasses(result.original || []); 
-      console.log(result.original || []);
-    } catch (error) {
-      console.error('Failed to fetch classes:', error);
-    }
-  };
-  fetchclasses();
-},[]);
   return(
     <TeacherLayout  HeaderElement={<HeaderElement/> }>
-      <HomepageMain classes={classes}></HomepageMain>
+      <HomepageMain></HomepageMain>
     </TeacherLayout>
   );
 }
