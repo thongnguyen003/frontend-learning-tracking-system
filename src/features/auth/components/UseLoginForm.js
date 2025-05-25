@@ -21,6 +21,7 @@ function useLoginForm() {
                 navigate('/student');
                 toast.success('Wellcome to website!');
             } else if (res.role === 'teacher') {
+                sessionStorage.setItem('current_user',JSON.stringify({'role':'teacher','account':res.user}));
                 navigate('/teacher');
                 toast.success('Welcome teacher!');
             }

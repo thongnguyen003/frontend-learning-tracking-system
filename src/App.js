@@ -19,8 +19,8 @@ import AddUsers from './features/admin/pages/MultiUserForm';
 import ClassManagement from "./features/admin/pages/ClassManagement";
 import CourseDetail from "./features/teacher/course/courseDetail/CourseDetail";
 import StudentList from "./features/teacher/course/studentList/studentList";
-import CourseTeacher from "./features/teacher/pages/CoursePage";
-
+import DetailCourse from "./features/teacher/pages/DetailCoursePage";
+import CoursePageT from "./features/teacher/pages/CoursePage";
 
 import TeacherHomepage from './features/teacher/pages/TeacherHomePage'
 function App() {
@@ -47,15 +47,13 @@ function App() {
               <Route path="/admin/classes" element={<ClassManagement />} />
             <Route path="dashboard" element={<AdminDashboard />} />
             </Route>
-            
-            <Route path="/teacher" element={<CourseTeacher />} >
+            <Route path="/" element={<Login />} />
+            <Route path="/teacher" element={<TeacherHomepage/>}></Route>
+            <Route path="teacher/course/:id" element={<CoursePageT></CoursePageT>}></Route>
+            <Route path="student/course/detail" element={<DetailCourse />} >
                 <Route path="studentlist" element={<StudentList></StudentList> }></Route>
                 <Route path="detailCourse" element={<CourseDetail></CourseDetail> }></Route>
             </Route>
-
-            {/* <Route path="/teacher" element={<CoursePageT></CoursePageT>}></Route> */}
-
-            <Route path="/teacher" element={<TeacherHomepage/>}></Route>
           </Routes>
       </Router>
   );

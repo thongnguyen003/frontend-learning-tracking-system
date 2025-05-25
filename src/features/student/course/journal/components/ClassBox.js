@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import JournalMessage from "../../message/JournalMessage";
 import "../../../../../../src/assets/css/globalStyle.css"
 import { useApi } from "../../../../../hooks/useApi";
-const ClassBox = ({data}) => {
+const ClassBox = ({data,changeOposite}) => {
   const [classes, setClasses] = useState([]);
   const [choosePart,setChoose]=useState(true);
   const [editClasses, setEditClasses] = useState();
@@ -38,6 +38,7 @@ const ClassBox = ({data}) => {
       });
       setClasses(prevClass => prevClass.map(cls => (cls.id === updatedClass.id ? updatedClass : cls)));
       setEditClasses(null);
+      changeOposite()
     } catch {
       setErrorMessage('Error saving goal changes. Please try again.');
     }
@@ -50,6 +51,7 @@ const ClassBox = ({data}) => {
     await apiCall(`/journal/journal-classes/${data.id}`, 'DELETE');
     // Sau khi xoá, bạn có thể redirect hoặc reload lại danh sách nếu ở view lớn hơn
     alert("Class deleted successfully.");
+    changeOposite()
   } catch (error) {
     alert("Failed to delete class.");
   }
@@ -100,7 +102,7 @@ const Detail = ({
       <label className="form-label text-muted" htmlFor="date" type="datetime-local">
         Date
       </label>
-        <input id="date" type="datetime-local" value={currentData.date || ""} className="form-control"/>
+        <input id="date" type="date" value={currentData.date || ""} className="form-control"/>
       <label className="form-label text-muted" htmlFor="topic">Topic</label>
       <textarea id="topic" rows="2" className="form-control" 
       value={currentData.topic || ""}

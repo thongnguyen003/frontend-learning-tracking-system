@@ -11,14 +11,13 @@ const HomepageMain = () => {
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const path = role === "teacher" ? "getByTeacherId" : "getByClassId";
-        const response = await fetch(`http://127.0.0.1:8000/api/class/${path}/${id}`);
+        const response = await fetch(`http://127.0.0.1:8000/api/class/getByTeacherId/${id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const result = await response.json();
-        setClasses(result.original || []);
-        console.log(result.original || []);
+        setClasses(result || []);
+        console.log(result || []);
       } catch (error) {
         console.error("Failed to fetch classes:", error);
       }
@@ -40,10 +39,10 @@ const HomepageMain = () => {
             return (
               <Item
                 key={index}
-                idh={e.class_teachers?.[0]?.id || null}
+                idh={e.id}
                 classes_name={e.name}
-                student_count={studentCount}
-                teacher_count={teacherCount}
+                student_count={e.students_count}
+                teacher_count={e.class_teachers_count}
                 start_day={e.start_day}
               />
             );

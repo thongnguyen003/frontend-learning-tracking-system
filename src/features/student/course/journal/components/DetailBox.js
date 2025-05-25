@@ -110,8 +110,8 @@ const Detail = ({
       </label>
       <input
         id="date"
-        type="datetime-local"
-        value={formatDateTimeLocal(currentData.date)}
+        type="date"
+        value={currentData.date}
         className="form-control"
         onChange={e => onEditChange("date", e.target.value)}
       />
