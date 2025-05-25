@@ -10,6 +10,7 @@ import StudentProfile from "./features/student/profile/PortfolioProfile";
 import CoursePage from './features/student/pages/CoursePage';
 import LearningGoals from './features/student/course/goal/Goal';
 import LearningJournal from './features/student/course/journal/LearningJournal';
+import TeacherHomepage from './features/teacher/pages/TeacherHomePage'
 function App() {
   return (
     <Router>
@@ -23,6 +24,7 @@ function App() {
               <Route path = 'goal' element = {<LearningGoals></LearningGoals>}></Route>
               <Route path = 'learningJournal' element = {<LearningJournal></LearningJournal>}></Route>
             </Route>
+            <Route path="/teacher" element={<TeacherHomepage/>}></Route>
           </Routes>
       </Router>
   );
