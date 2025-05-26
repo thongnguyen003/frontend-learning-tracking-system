@@ -36,7 +36,7 @@ export function useAddNewUser() {
             .map((e) => e.trim())
             .filter((e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => { 
         e.preventDefault();
         if (!e.currentTarget.checkValidity()) {
             setValidated(true);
