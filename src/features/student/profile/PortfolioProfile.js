@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../student/styles/portfolioProfile.css";
 import GeneralInfoTab from "./components/GeneralInfoTab";
 import ChangePasswordTab from "./components/ChangePassword";
+import Achievement from "./components/Achievement";
 const PortfolioProfile = ({ profile, setChange}) => {
   const [activeTab, setActiveTab] = useState("general");
   const [form, setForm] = useState({
@@ -75,14 +76,22 @@ const PortfolioProfile = ({ profile, setChange}) => {
           >
             Change Password
           </button>
+          <button
+            className={`tab ${activeTab === "achievement" ? "active" : ""}`}
+            onClick={() => setActiveTab("achievement")}
+          >
+            Achievement
+          </button>
         </div>
       </div>
 
       <div className="main-content">
         {activeTab === "general" ? (
           <GeneralInfoTab form={form} handleChange={handleChange} handleSave={handleSave} />
-        ) : (
+        ) : activeTab === "password" ?  (
           <ChangePasswordTab />
+        ) : (
+          <Achievement></Achievement>
         )}
       </div>
     </div>

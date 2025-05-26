@@ -1,5 +1,10 @@
 const express = require("express")
+const cors = require("cors");
 const app = express()
+app.use(cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST", "PUT", "DELETE"], 
+}));
 const cloudinary = require("../../configs/cloudinary.js")
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const storage = new CloudinaryStorage({

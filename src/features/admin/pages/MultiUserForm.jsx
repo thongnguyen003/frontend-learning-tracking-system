@@ -21,30 +21,14 @@ const MultiUserForm = () => {
     const [classes, setClasses] = useState([]);
 
     // Fetch classes from API
-    // useEffect(() => {
-    //     const fetchClasses = async () => {
-    //         try {
-    //             const response = await apiCall('/admin/classes', 'GET');
-    //             setClasses(response.classes || []);
-    //         } catch (err) {
-    //             console.error('Error fetching classes:', err);
-    //         }
-    //     };
-    //     fetchClasses();
-    // }, []);
-
     useEffect(() => {
         const fetchClasses = async () => {
-            const useMock = true; // chuyển thành false khi muốn gọi API thực
-
-            if (useMock) {
-                const mockClasses = [
-                    { id: '1', name: 'pnv26' },
-                    { id: '2', name: 'pnv27' },
-                    { id: '3', name: 'pnv28' },
-                    { id: '4', name: 'pnv29' },
-                ];
-                setClasses(mockClasses);
+            const useMock = false;
+            try {
+                const response = await apiCall('/admin/classes', 'GET');
+                setClasses(response.data || []);
+            } catch (err) {
+                console.error('Error fetching classes:', err);
             }
         };
         fetchClasses();
