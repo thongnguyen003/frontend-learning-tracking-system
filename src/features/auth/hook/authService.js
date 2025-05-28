@@ -13,6 +13,7 @@ export function useAuth() {
       // Lưu thông tin user vào localStorage nếu cần
       localStorage.setItem('user', JSON.stringify(response.user));
       localStorage.setItem('role', response.role);
+      localStorage.setItem('token', response.token);
       return response;
     } catch (error) {
       throw error;

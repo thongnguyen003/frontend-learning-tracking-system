@@ -1,31 +1,31 @@
+// hooks/useApi.js
 import { useState } from 'react';
-import api from './api';
+import axios from 'axios';
 
-export function useApi() {
+export const useApi = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const apiCall = async (url, method = 'GET', data = null) => {
+    const apiCall = async (url, method, data = null) => {
         setLoading(true);
         setError(null);
-
         try {
-            console.log(`Calling ${method} ${url} with data:`, data);
-            const response = await api({
+            const response = await axios({
                 url,
                 method,
                 data,
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
             });
-            console.log(`Response from ${url}:`, response.data);
+            setLoading(false);
             return response.data;
         } catch (err) {
-            setError(err.response?.data?.message || err.message);
-            console.error(`Error in ${url}:`, err.response?.data);
-            throw err;
-        } finally {
             setLoading(false);
+            setError(err);
+            throw err;
         }
     };
 
     return { apiCall, loading, error };
-}
+};
