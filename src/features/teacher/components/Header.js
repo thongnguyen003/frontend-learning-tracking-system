@@ -1,5 +1,4 @@
 import React,{useState,useEffect} from "react";
-import "../../student/styles/header.css"; 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 const Header = ({children}) => {
@@ -24,6 +23,7 @@ const Header = ({children}) => {
         <div className="me-2 text-start">
           <div className="fw-semibold">{user?.name}</div>
           <small className="text-muted">Teacher</small>
+          <small className="text-muted">Student</small>
         </div>
         
       </div>

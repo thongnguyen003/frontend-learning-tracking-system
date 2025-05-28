@@ -1,9 +1,17 @@
 import React,{useState,useEffect} from "react";
+import { useParams } from "react-router-dom";
 import Item from "./components/Item";
 const  HomepageMain = ()=>{
     const [course,setCourse] = useState([]);
-    const id = JSON.parse(sessionStorage.getItem("current_user")).account.id;
+    let id = JSON.parse(sessionStorage.getItem("current_user")).account.id;
     const role = JSON.parse(sessionStorage.getItem("current_user")).role;
+    const { id: param } = useParams();
+    console.log(role)
+    console.log(param)
+    console.log(JSON.parse(sessionStorage.getItem("current_user")).account)
+    if (role === "teacher") {
+        id = param;
+    }
     useEffect(()=>{
       const fetchCourse = async () => {
         try {

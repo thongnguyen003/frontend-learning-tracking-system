@@ -1,5 +1,5 @@
 import React from "react";
-import "../assets/css/teacherLayout.css";
+// import "../assets/css/teacherLayout.css";
 import Menu from "../features/student/components/Menu";
 import Header from "../features/student/components/Header";
 const TeacherLayout = ({HeaderElement,children}) => {
@@ -15,5 +15,5 @@ const TeacherLayout = ({HeaderElement,children}) => {
     </div>
   );
 };
-
 export default TeacherLayout;
+
