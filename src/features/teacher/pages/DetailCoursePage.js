@@ -1,6 +1,6 @@
 import React from "react";
 import { useState,useEffect } from "react";
-import Course from "../course/Course";
+import DetailCourse from "../detail-course/DetailCourse";
 import { Link } from "react-router-dom";
 import TeacherLayout from "../../../layouts/TeacherLayout";
 const HeaderElement = ()=>{
@@ -31,7 +31,7 @@ useEffect(()=>{
 },[]);
   return(
     <TeacherLayout HeaderElement={<HeaderElement/>}>
-      <Course></Course>
+      <DetailCourse></DetailCourse>
     </TeacherLayout>
   );
 }
