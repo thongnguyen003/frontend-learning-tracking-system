@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 function useLoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState('student');
+    const [role, setRole] = useState('admin');
     const navigate = useNavigate();
     const { login, logout } = useAuth();
 
@@ -16,14 +16,20 @@ function useLoginForm() {
             const res = await login({ email, password, role });
             toast.success(res.message);
 
-            if (res.role === 'student') {
-                sessionStorage.setItem('current_user',JSON.stringify({'role':'student','account':res.user}));
-                navigate('/student');
-                toast.success('Wellcome to website!');
+            if (res.role === 'admin') {
+                sessionStorage.setItem('current_user',JSON.stringify({'role':'admin','account':res.user}));
+                navigate('/admin');
+                
+                toast.success('Welcome to website!');
             } else if (res.role === 'teacher') {
                 sessionStorage.setItem('current_user',JSON.stringify({'role':'teacher','account':res.user}));
                 navigate('/teacher');
                 toast.success('Welcome teacher!');
+            }
+            else if (res.role === 'student') {
+                sessionStorage.setItem('current_user',JSON.stringify({'role':'student','account':res.user}));
+                navigate('/student');
+                toast.success('Welcome student!');
             }
         } catch (err) {
             toast.error('Login failed: ' + (err.response?.data?.message || err.message));
