@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useApi } from '../hooks/useApi';
-import StudentCalendar from './StudentCalendar';
+import { useApi } from '../../../hooks/useApi';
+import StudentCalendar from '../../../components/common/StudentCalendar';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 

@@ -1,6 +1,5 @@
-// hooks/useApi.js
 import { useState, useCallback } from 'react';
-import axios from 'axios';
+import api from './api';
 
 export const useApi = () => {
   const [loading, setLoading] = useState(false);
@@ -10,7 +9,7 @@ export const useApi = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios({
+      const response = await api({
         url,
         method,
         data,
@@ -25,7 +24,7 @@ export const useApi = () => {
       setError(err);
       throw err;
     }
-  }, []); // Thêm useCallback để ổn định hàm
+  }, []);
 
   return { apiCall, loading, error };
 };

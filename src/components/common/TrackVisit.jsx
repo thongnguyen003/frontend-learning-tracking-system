@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import api from '../hooks/api'; // Giả sử bạn đã config axios instance
+import api from '../../hooks/api'; // Giả sử bạn đã config axios instance
 
 const TrackVisit = () => {
     useEffect(() => {

@@ -20,8 +20,9 @@ import CourseDetail from "./features/teacher/course/courseDetail/CourseDetail";
 import StudentList from "./features/teacher/course/studentList/studentList";
 import DetailCourse from "./features/teacher/pages/DetailCoursePage";
 import CoursePageT from "./features/teacher/pages/CoursePage";
-import Lich from "./features/StudentCalendar.jsx";
-import Dashboard from "./features/AdminDashboard.jsx";
+import Lich from "./components/common/StudentCalendar.jsx";
+import Dashboard from "./features/admin/pages/AdminDashboard.jsx";
+import TrackUsers from "./features/admin/pages/TrackUsers.jsx";
 
 import TeacherHomepage from './features/teacher/pages/TeacherHomePage'
 
@@ -50,6 +51,7 @@ function App() {
           <Route path="users/UserManagement" element={<UserManagement />} />
           <Route path="form/add-new-user" element={<AddUsers />} />
           <Route path="/admin/classes" element={<ClassManagement />} />
+          <Route path="/admin/users/TrackUsers" element={<TrackUsers />} />
         </Route>
         <Route path="/" element={<Login />} />
         <Route path="/teacher" element={<TeacherHomepage />}></Route>
