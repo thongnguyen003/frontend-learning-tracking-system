@@ -10,7 +10,6 @@ export function useAuth() {
         password,
         role,
       });
-      // Lưu thông tin user vào localStorage nếu cần
       localStorage.setItem('user', JSON.stringify(response.user));
       localStorage.setItem('role', response.role);
       localStorage.setItem('token', response.token);
@@ -23,7 +22,6 @@ export function useAuth() {
   const logout = async (role) => {
     try {
       const response = await apiCall('/logout', 'POST', { role });
-      // Xóa thông tin user khi logout
       localStorage.removeItem('user');
       localStorage.removeItem('role');
       return response;

@@ -4,8 +4,6 @@ import {
   LayoutDashboard,
   AppWindow,
   BarChart,
-  Globe,
-  Plug,
   Box,
   ClipboardList,
   Table,

@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import { useParams } from "react-router-dom";
 import JournalMessage from "../../message/JournalMessage";
 import "../../../../../../src/assets/css/globalStyle.css"
-import { useApi } from "../../../../../hooks/useApi";
+import {useApi} from "../../../../../hooks/useApi";
 const ClassBox = ({data,changeOposite}) => {
   const [classes, setClasses] = useState([]);
   const [choosePart,setChoose]=useState(true);

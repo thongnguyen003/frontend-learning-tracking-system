@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useApi } from '../../../hooks/useApi';
-import { useNavigate } from 'react-router-dom'; // Thêm useNavigate để điều hướng
 
 const UserManagement = () => {
     const { apiCall, loading, error } = useApi();
@@ -10,8 +9,6 @@ const UserManagement = () => {
     const [messageType, setMessageType] = useState('');
     const [editUser, setEditUser] = useState(null);
     const [userType, setUserType] = useState('all');
-    const [classes, setClasses] = useState([]);
-    const navigate = useNavigate(); // Khởi tạo useNavigate
 
     const fetchUsers = async () => {
         try {
@@ -22,12 +19,13 @@ const UserManagement = () => {
 
             const response = await apiCall(url, 'GET');
 
+            // Lấy dữ liệu user phù hợp
             let usersData = userType === 'all' ? response.users : response[userType];
             if (!Array.isArray(usersData)) usersData = [];
 
             usersData = usersData.map((user) => ({
                 ...user,
-                name: user.name || user.student_name || user.teacher_name || user.email?.split('@')[0] || 'No name',
+                name: user.name || user.student_name || 'No name',
             }));
 
             setUsers(usersData);
@@ -44,7 +42,7 @@ const UserManagement = () => {
         try {
             const response = await apiCall(`http://localhost:8000/api/admin/users/${id}`, 'DELETE', { role });
             setMessage(response.message);
-            setMessageType(response.success ? 'success' : 'warning');
+            setMessageType('success');
             fetchUsers();
         } catch (err) {
             setMessage(`Error: ${err.message}`);
@@ -52,20 +50,11 @@ const UserManagement = () => {
         }
     };
 
-    const fetchClasses = async () => {
-        try {
-            const response = await apiCall('http://localhost:8000/api/admin/classes', 'GET');
-            setClasses(response.data || []);
-        } catch (err) {
-            console.error('Error fetching classes:', err);
-        }
-    };
-
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
         try {
             const payload = { ...editUser };
-            if (!payload.password) delete payload.password;
+            if (!payload.password) delete payload.password; // Nếu password rỗng thì không gửi
 
             const response = await apiCall(`http://localhost:8000/api/admin/users/${editUser.id}`, 'PUT', payload);
             setMessage(response.message);
@@ -82,28 +71,28 @@ const UserManagement = () => {
         setEditUser({ ...user, password: '' });
     };
 
-    const handleTrackVisit = (studentId) => {
-        navigate(`/admin/Lich/${studentId}`); // Điều hướng đến trang StudentCalendar
-    };
-
     useEffect(() => {
         fetchUsers();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search, userType]);
-
-    useEffect(() => {
-        fetchClasses();
-    }, []);
 
     return (
         <div className="min-h-screen w-full">
             <div className="w-full h-full mx-auto">
+                {/* Message */}
                 {message && (
-                    <div className={`text-center p-2 mb-2 rounded ${messageType === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                    <div
+                        className={`text-center ${messageType === 'success'
+                            ? 'border-green-400 text-green-700'
+                            : 'border-red-400 text-red-700'
+                            }`}
+                    >
                         {message}
                     </div>
                 )}
 
-                <div className="flex flex-col sm:flex-row gap-4 mb-4 items-center">
+                {/* Controls */}
+                <div className="flex flex-col sm:flex-row gap-4 mb-1 items-center">
                     <select
                         value={userType}
                         onChange={(e) => setUserType(e.target.value)}
@@ -123,6 +112,7 @@ const UserManagement = () => {
                     />
                 </div>
 
+                {/* User Table */}
                 <div className="overflow-auto max-h-screen border rounded">
                     <table className="w-full border-collapse text-left">
                         <thead className="bg-gray-100 sticky top-0 z-10">
@@ -136,11 +126,15 @@ const UserManagement = () => {
                         <tbody>
                             {loading ? (
                                 <tr>
-                                    <td colSpan="4" className="p-4 text-center text-gray-600">Loading...</td>
+                                    <td colSpan="4" className="p-4 text-center text-gray-600">
+                                        Loading...
+                                    </td>
                                 </tr>
                             ) : users.length === 0 ? (
                                 <tr>
-                                    <td colSpan="4" className="p-4 text-center text-gray-600">No users found.</td>
+                                    <td colSpan="4" className="p-4 text-center text-gray-600">
+                                        No users found.
+                                    </td>
                                 </tr>
                             ) : (
                                 users.map((user) => (
@@ -164,14 +158,6 @@ const UserManagement = () => {
                                             >
                                                 Delete
                                             </button>
-                                            {user.role === 'student' && (
-                                                <button
-                                                    onClick={() => handleTrackVisit(user.id)}
-                                                    className="text-green-600 hover:underline"
-                                                >
-                                                    Track
-                                                </button>
-                                            )}
                                         </td>
                                     </tr>
                                 ))
@@ -180,6 +166,7 @@ const UserManagement = () => {
                     </table>
                 </div>
 
+                {/* Edit Modal */}
                 {editUser && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                         <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
@@ -190,7 +177,9 @@ const UserManagement = () => {
                                     <input
                                         type="text"
                                         value={editUser.name}
-                                        onChange={(e) => setEditUser({ ...editUser, name: e.target.value })}
+                                        onChange={(e) =>
+                                            setEditUser({ ...editUser, name: e.target.value })
+                                        }
                                         className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         required
                                     />
@@ -201,7 +190,9 @@ const UserManagement = () => {
                                     <input
                                         type="email"
                                         value={editUser.email}
-                                        onChange={(e) => setEditUser({ ...editUser, email: e.target.value })}
+                                        onChange={(e) =>
+                                            setEditUser({ ...editUser, email: e.target.value })
+                                        }
                                         className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         required
                                     />
@@ -212,7 +203,9 @@ const UserManagement = () => {
                                     <input
                                         type="password"
                                         value={editUser.password || ''}
-                                        onChange={(e) => setEditUser({ ...editUser, password: e.target.value })}
+                                        onChange={(e) =>
+                                            setEditUser({ ...editUser, password: e.target.value })
+                                        }
                                         className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         placeholder="Leave blank to keep unchanged"
                                     />
@@ -222,7 +215,9 @@ const UserManagement = () => {
                                     <label className="block mb-1 font-medium text-gray-700">Role</label>
                                     <select
                                         value={editUser.role}
-                                        onChange={(e) => setEditUser({ ...editUser, role: e.target.value })}
+                                        onChange={(e) =>
+                                            setEditUser({ ...editUser, role: e.target.value })
+                                        }
                                         className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         required
                                     >
@@ -236,16 +231,16 @@ const UserManagement = () => {
                                     <label className="block mb-1 font-medium text-gray-700">Class</label>
                                     <select
                                         value={editUser.class_id || ''}
-                                        onChange={(e) => setEditUser({ ...editUser, class_id: e.target.value })}
+                                        onChange={(e) =>
+                                            setEditUser({ ...editUser, class_id: e.target.value })
+                                        }
                                         className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         disabled={editUser.role !== 'student'}
                                     >
                                         <option value="">No Class</option>
-                                        {classes.map((cls) => (
-                                            <option key={cls.id} value={cls.id}>
-                                                {cls.name}
-                                            </option>
-                                        ))}
+                                        <option value="1">PNV26</option>
+                                        <option value="2">PNV27</option>
+                                        <option value="3">PNV28</option>
                                     </select>
                                 </div>
 

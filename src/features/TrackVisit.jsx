@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
-import api from '../hooks/api';
+import api from '../hooks/api'; // Giả sử bạn đã config axios instance
 
 const TrackVisit = () => {
     useEffect(() => {
         const trackVisit = async () => {
             const role = localStorage.getItem('role');
-            if (role === 'student') {
+            const token = localStorage.getItem('token');
+
+            if (role === 'student' && token) {
                 try {
-                    await api.post(
-                        '/track-visit',
-                        {},
-                        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-                    );
+                    await api.post('/track-visit', {}, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
                 } catch (error) {
                     console.error('Error tracking visit:', error);
                 }
@@ -22,4 +22,5 @@ const TrackVisit = () => {
 
     return null;
 };
+
 export default TrackVisit;
