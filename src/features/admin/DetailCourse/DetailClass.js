@@ -6,7 +6,6 @@ import StudentModal from './components/StudentModal';
 import CourseModal from './components/CourseModal';
 import TeacherEditModal from './components/TeacherEditModal';
 import StudentEditModal from './components/StudentEditModal';
-import CourseEditModal from './components/CourseEditModal';
 
 const Dashboard = () => {
   const [students, setStudents] = useState([]);
@@ -17,7 +16,6 @@ const Dashboard = () => {
   const [showCourseModal, setShowCourseModal] = useState(false);
   const [editTeacher, setEditTeacher] = useState(null);
   const [editStudent, setEditStudent] = useState(null);
-  const [editCourse, setEditCourse] = useState(null);
   const classId = 20;
 
   useEffect(() => {
@@ -37,7 +35,7 @@ const Dashboard = () => {
 
   const fetchTeachers = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/class-teachers/class/8/teachers`);
+      const response = await axios.get(`http://127.0.0.1:8000/api/class-teachers/class/${classId}/teachers`);
       setTeachers(response.data);
     } catch (error) {
       console.error("Error fetching teachers:", error);
@@ -53,20 +51,6 @@ const Dashboard = () => {
     }
   };
 
-  const handleEditTeacher = (teacher) => {
-    setEditTeacher(teacher);
-    setShowTeacherModal(true);
-  };
-
-  const handleEditStudent = (student) => {
-    setEditStudent(student);
-    setShowStudentModal(true);
-  };
-
-  const handleEditCourse = (course) => {
-    setEditCourse(course);
-    setShowCourseModal(true);
-  };
 
   const saveTeacher = async (updatedTeacher) => {
     try {
@@ -98,26 +82,39 @@ const Dashboard = () => {
       console.error("Error updating student:", error);
     }
   };
-
-  const saveCourse = (updatedCourse) => {
-    // Implement course saving logic (similar to students and teachers)
-    setShowCourseModal(false);
-  };
-
-  const deleteUser = async (id, role) => {
+  const deleteStudentFromClass = async (studentId) => {
+    console.log('deleteStudentFromClass called with studentId:', studentId);
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/users/${id}`, {
-        data: { role },
+      const res = await axios.put(`http://127.0.0.1:8000/api/admin/users/${studentId}`, {
+        class_id: null,
+        role: 'student',
       });
-      if (role === 'student') {
-        fetchStudents(); // Refresh students list
-      } else if (role === 'teacher') {
-        fetchTeachers(); // Refresh teachers list
-      }
+      console.log('API response:', res.data);
+      fetchStudents();
     } catch (error) {
-      console.error("Error deleting user:", error);
+      if (error.response) {
+        console.error("Error removing student from class:", error.response.data.message);
+      } else {
+        console.error("Error removing student from class:", error.message);
+      }
     }
   };
+
+
+
+const deleteUser = async (teacherId) => {
+  try {
+    await axios.delete(`http://127.0.0.1:8000/api/class-teachers/`, {
+      data: {
+        teacher_id: teacherId,
+        class_id: classId, // Sử dụng classId đã có trong component
+      },
+    });
+    fetchTeachers(); // Refresh teachers list
+  } catch (error) {
+    console.error("Error deleting teacher from class:", error.response.data.message);
+  }
+};
   const handleStudentInfo = (student) => {
   // Logic to show student info, e.g., open a modal with details
   console.log("Showing info for:", student);
@@ -154,8 +151,7 @@ const handleLG = (student) => {
                       <img alt="Avatar" className="w-6 h-6 rounded-full object-cover" src={teacher.avatar || "default-avatar-url.jpg"} />
                     </div>
                     <div className="flex gap-2">
-                      <button onClick={() => handleEditTeacher(teacher)} className="bg-green-500 text-white text-xs font-semibold rounded-md px-3 py-1">Edit</button>
-                      <button onClick={() => deleteUser(teacher.id, 'teacher')} className="bg-red-500 text-white text-xs font-semibold rounded-md px-3 py-1">Delete</button>
+                      <button onClick={() => deleteUser(teacher.id)} className="bg-red-500 text-white text-xs font-semibold rounded-md px-3 py-1">Delete</button>
                     </div>
                   </li>
                 ))}
@@ -166,7 +162,6 @@ const handleLG = (student) => {
               <h2 className="text-black font-semibold text-base mb-3 select-none">
                 Courses: <span>{courses.length}</span>
               </h2>
-              <button onClick={() => setShowCourseModal(true)} className="bg-blue-500 text-white rounded-md px-3 py-1 mb-3">Add Course</button>
               <ul className="space-y-3">
                 {Array.isArray(courses) && courses.map((course, index) => (
                   <li key={course.id} className="flex items-center justify-between bg-white shadow-md rounded-md px-3 py-2">
@@ -175,10 +170,6 @@ const handleLG = (student) => {
                       <span className="text-xs text-gray-600 select-none">By: {course.teacher.teacher_name}</span>
                       <span className="text-xs text-gray-600 select-none">Start: {course.start_day}</span>
                       <span className="text-xs text-gray-600 select-none">End: {course.end_day}</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <button onClick={() => handleEditCourse(course)} className="bg-green-500 text-white text-xs font-semibold rounded-md px-3 py-1">Edit</button>
-                      <button className="bg-red-500 text-white text-xs font-semibold rounded-md px-3 py-1">Delete</button>
                     </div>
                   </li>
                 ))}
@@ -200,10 +191,19 @@ const handleLG = (student) => {
               <img alt="Avatar" className="w-6 h-6 rounded-full object-cover" src={student.avatar || "default-avatar-url.jpg"} />
             </div>
             <div className="flex gap-2">
-              <button onClick={() => handleEditStudent(student)} className="bg-green-500 text-white text-xs font-semibold rounded-md px-3 py-1">Edit</button>
-              <button onClick={() => deleteUser(student.id, 'student')} className="bg-red-500 text-white text-xs font-semibold rounded-md px-3 py-1">Delete</button>
-              <button onClick={() => handleStudentInfo(student)} className="bg-blue-300 text-white text-xs font-semibold rounded-md px-3 py-1">Info</button>
-              <button onClick={() => handleLG(student)} className="bg-yellow-300 text-black text-xs font-semibold rounded-md px-3 py-1">LG</button>
+              <button
+                onClick={() => {
+                  console.log('Remove button clicked', student.id);
+                  deleteStudentFromClass(student.id);
+                }}
+                className="bg-red-500 text-white text-xs font-semibold rounded-md px-3 py-1"
+              >
+                Remove
+              </button>
+
+              <Link to={`/profile?studentId=${student.id}`} className="bg-blue-300 text-white text-xs font-semibold rounded-md px-3 py-1">
+                Info
+            </Link>
             </div>
           </li>
         ))}
@@ -212,12 +212,11 @@ const handleLG = (student) => {
         </main>
       </div>
 
-      {showTeacherModal && <TeacherModal onClose={() => setShowTeacherModal(false)} />}
-      {showStudentModal && <StudentModal onClose={() => setShowStudentModal(false)} />}
+      {showTeacherModal && <TeacherModal onClose={() => setShowTeacherModal(false)} classId={classId} />}
+      {showStudentModal && <StudentModal onClose={() => setShowStudentModal(false)} classId={classId} />}
       {showCourseModal && <CourseModal onClose={() => setShowCourseModal(false)} />}
       {editTeacher && <TeacherEditModal teacher={editTeacher} onClose={() => setEditTeacher(null)} onSave={saveTeacher} />}
       {editStudent && <StudentEditModal student={editStudent} onClose={() => setEditStudent(null)} onSave={saveStudent} />}
-      {editCourse && <CourseEditModal course={editCourse} onClose={() => setEditCourse(null)} onSave={saveCourse} />}
     </div>
   );
 };
