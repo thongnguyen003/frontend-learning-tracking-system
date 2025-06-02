@@ -32,7 +32,7 @@ const ClassBox = ({data,changeOposite,setDetail}) => {
         plan: editClasses.plan,
         solution: editClasses.solution,
         assessment: editClasses.assessment,
-        journal_id : id,
+        journal_id : editClasses.journal_id,
         date: editClasses.date || new Date().toISOString().split('T')[0]
 
       });
@@ -60,6 +60,7 @@ const ClassBox = ({data,changeOposite,setDetail}) => {
   const handleEditChange = (field, value) => {
   if (!editClasses) return;
   setEditClasses({ ...editClasses, [field]: value });
+  console.log(editClasses)
 };
 
   return (
@@ -97,7 +98,7 @@ const ClassBox = ({data,changeOposite,setDetail}) => {
 
 export default ClassBox;
 let currentUser= JSON.parse(sessionStorage.getItem('current_user'));
-const currentRole = currentUser.role;
+const currentRole = currentUser && currentUser.role;
 const Detail = ({
   data,
   editClasses,

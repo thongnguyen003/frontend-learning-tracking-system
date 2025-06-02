@@ -28,7 +28,7 @@ function useLoginForm() {
             }
             else if (res.role === 'student') {
                 sessionStorage.setItem('current_user',JSON.stringify({'role':'student','account':res.user}));
-                navigate('/student');
+                navigate('/student/course');
                 toast.success('Welcome student!');
             }
         } catch (err) {

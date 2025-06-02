@@ -37,8 +37,8 @@ function App() {
       <NetworkDetector />
       <ToastContainer />
           <Routes>
-            {/* student */}
             <Route path="/" element={<Login />} />
+            {/* student */}
             <Route path="/portfolio" element={<PortfolioProfile />} />
             <Route path="/student/course" element={<StudentHomepage />} />
             <Route path="/student/learningProcessTracking/:id" element={<LearningProcessTrackingPage/>}>
@@ -52,7 +52,7 @@ function App() {
                 <Route path="listStudent" element={<StudentList></StudentList> }></Route>
                 <Route path="infoCourse" element={<CourseInfo></CourseInfo> }></Route>
             </Route>
-            <Route path="/teacher/learningProcessTracking/:id" element={<LearningProcessTrackingPage/>}>
+            <Route path="/teacher/learningProcessTracking/:id" element={<LearningProcessTrackingPage2/>}>
               <Route path = 'goal' element = {<LearningGoals></LearningGoals>}></Route>
               <Route path = 'learningJournal' element = {<LearningJournal></LearningJournal>}></Route>
             </Route>
@@ -65,7 +65,7 @@ function App() {
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="Lich/:studentId" element={<LichWrapper />} />              <Route path="dashboard" element={<Dashboard />} />
               <Route path="/admin/classes" element={<ClassManagement />} />
-              <Route path="/admin/classes/detail/:id" element={<DetailCourseAdmin />} />
+              <Route path="/admin/classes/detail/" element={<DetailCourseAdmin />} />
               <Route path="/admin/subjects" element={<SubjectList/>} />
               <Route path="/admin/users/TrackUsers" element={<TrackUsers />} />
             </Route>

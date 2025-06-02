@@ -36,7 +36,7 @@ const DetailBox = ({data,setDetail,changeOposite}) => {
           evaluation: editSelf.evaluation,
           reinforcing_learning: editSelf.reinforcing_learning,
           notes: editSelf.notes,
-          journal_id : id,
+          journal_id : editSelf.journal_id,
           date: editSelf.date || new Date().toISOString().split('T')[0]  
         });
         setSelf(prevSelf => prevSelf.map(s => (s.id === updatedSelf.id ? updatedSelf : s)));

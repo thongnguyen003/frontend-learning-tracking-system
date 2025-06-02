@@ -7,8 +7,8 @@ function CreateSelfForm({changeOposite, setShowAddModal ,journalId }) {
     duration: "",
     resources: "",
     activity:"",
-    concentration: "",
-    follow_plan: "",
+    concentration: 0,
+    follow_plan: 0,
     evaluation: "",
     reinforcing_learning: "",
     notes: "",
@@ -16,7 +16,12 @@ function CreateSelfForm({changeOposite, setShowAddModal ,journalId }) {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if(e.target.name == "follow_plan" || e.target.name == "concentration"){
+      setFormData({ ...formData, [e.target.name]: parseInt(e.target.value, 10) });
+    }else{
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
+    
     console.log(formData)
   };
 
@@ -31,7 +36,7 @@ function CreateSelfForm({changeOposite, setShowAddModal ,journalId }) {
       if (res.ok){
           setShowAddModal(false)
           console.log(res.data)
-      changeOposite()
+          changeOposite()
       }else{
         throw new Error("Failed to create In Class entry");
 
@@ -88,8 +93,8 @@ function CreateSelfForm({changeOposite, setShowAddModal ,journalId }) {
             <div className="mb-3">
               <label className="form-label">Follow Plan</label>
               <select className="form-control mb-2" name="follow_plan" placeholder="Follow Plan" value={formData.follow_plan} onChange={handleChange} >
-                <option value='0'>False</option>
-                <option value='1'>True</option>
+                <option value="0">False</option>
+                <option value="1">True</option>
               </select>
             </div>
             <div className="mb-3">
