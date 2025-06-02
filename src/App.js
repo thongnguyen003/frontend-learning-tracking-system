@@ -20,10 +20,11 @@ import CourseInfo from "./features/teacher/detail-course/info-course/CourseInfo"
 import StudentList from "./features/teacher/detail-course/list-student/studentList";
 import DetailCourse from "./features/teacher/pages/DetailCoursePage";
 import CoursePageT from "./features/teacher/pages/CoursePage";
+import DetailCourseAdmin from './features/admin/DetailCourse/DetailClass';
+import SubjectList  from './features/admin/subject/Subjects';
 import Lich from "./components/common/StudentCalendar.jsx";
 import Dashboard from "./features/admin/pages/AdminDashboard.jsx";
 import TrackUsers from "./features/admin/pages/TrackUsers.jsx";
-
 import TeacherHomepage from './features/teacher/pages/TeacherHomePage'
 
 const LichWrapper = () => {
@@ -64,6 +65,8 @@ function App() {
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="Lich/:studentId" element={<LichWrapper />} />              <Route path="dashboard" element={<Dashboard />} />
               <Route path="/admin/classes" element={<ClassManagement />} />
+              <Route path="/admin/classes/detail/:id" element={<DetailCourseAdmin />} />
+              <Route path="/admin/subjects" element={<SubjectList/>} />
               <Route path="/admin/users/TrackUsers" element={<TrackUsers />} />
             </Route>
             {/* end */}
