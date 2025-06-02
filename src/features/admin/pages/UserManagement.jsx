@@ -83,8 +83,8 @@ const UserManagement = () => {
                 {message && (
                     <div
                         className={`text-center ${messageType === 'success'
-                                ? 'border-green-400 text-green-700'
-                                : 'border-red-400 text-red-700'
+                            ? 'border-green-400 text-green-700'
+                            : 'border-red-400 text-red-700'
                             }`}
                     >
                         {message}

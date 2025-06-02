@@ -1,8 +1,7 @@
-
 import React from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
 import StudentHomepage from './features/student/pages/StudentHomepage';
 import PortfolioProfile from './pages/ProfilePage';
 import Login from './features/auth/Login';
@@ -21,8 +20,16 @@ import CourseInfo from "./features/teacher/detail-course/info-course/CourseInfo"
 import StudentList from "./features/teacher/detail-course/list-student/studentList";
 import DetailCourse from "./features/teacher/pages/DetailCoursePage";
 import CoursePageT from "./features/teacher/pages/CoursePage";
+import Lich from "./components/common/StudentCalendar.jsx";
+import Dashboard from "./features/admin/pages/AdminDashboard.jsx";
+import TrackUsers from "./features/admin/pages/TrackUsers.jsx";
 
 import TeacherHomepage from './features/teacher/pages/TeacherHomePage'
+
+const LichWrapper = () => {
+  const { studentId } = useParams();
+  return <Lich studentId={studentId} />;
+};
 function App() {
   return (
     <Router>
@@ -55,8 +62,9 @@ function App() {
               <Route path="users/UserManagement" element={<UserManagement />} />
               <Route path="form/add-new-user" element={<AddUsers />} />
               <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="Lich/:studentId" element={<LichWrapper />} />              <Route path="dashboard" element={<Dashboard />} />
               <Route path="/admin/classes" element={<ClassManagement />} />
-            <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/users/TrackUsers" element={<TrackUsers />} />
             </Route>
             {/* end */}
           </Routes>
