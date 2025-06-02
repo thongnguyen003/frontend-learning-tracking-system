@@ -21,7 +21,7 @@ import CourseDetail from "./features/teacher/course/courseDetail/CourseDetail";
 import StudentList from "./features/teacher/course/studentList/studentList";
 import DetailCourse from "./features/teacher/pages/DetailCoursePage";
 import CoursePageT from "./features/teacher/pages/CoursePage";
-import DetailCourseAdmin from './features/admin/DetailCourse/DetailClass';
+import DetailCourseAdmin from './features/admin/DetailCourse/DetailCourse';
 import SubjectList  from './features/admin/subject/Subjects';
 
 import TeacherHomepage from './features/teacher/pages/TeacherHomePage'
@@ -47,7 +47,7 @@ function App() {
               <Route path="form/add-new-user" element={<AddUsers />} />
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="/admin/classes" element={<ClassManagement />} />
-              <Route path="/admin/classes/detail/:id" element={<DetailCourseAdmin />} />
+              <Route path="/admin/classes/detail" element={<DetailCourseAdmin />} />
               <Route path="/admin/subjects" element={<SubjectList/>} />
             <Route path="dashboard" element={<AdminDashboard />} />
             </Route>
