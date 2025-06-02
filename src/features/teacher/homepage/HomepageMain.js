@@ -31,10 +31,6 @@ const HomepageMain = () => {
       <div className="row">
         {Array.isArray(classe) && classe.length > 0 ? (
           classe.map((e, index) => {
-            console.log(e.class_teachers?.[0]?.id);
-
-            const teacherCount = e.teacher_count || 0;
-            const studentCount = e.students_count || 0;
 
             return (
               <Item

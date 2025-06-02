@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import JournalMessage from "../../message/JournalMessage";
 import "../../../../../../src/assets/css/globalStyle.css";
 
-const GoalBox = ({ data, onDelete, changeOposite }) => {
+const GoalBox = ({ data, onDelete, changeOposite,setDetail }) => {
   const [choosePart, setChoose] = useState(true);
   const [title, setTitle] = useState(data.title);
   const [state, setState] = useState(data.state);
@@ -58,13 +58,20 @@ const GoalBox = ({ data, onDelete, changeOposite }) => {
 
   return (
     <div className="bg-white rounded shadow-sm p-3" style={{ width: "420px" }}>
-      <div className="d-flex border-bottom mb-3">
-        <button onClick={() => setChoose(true)} className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}>
-          Detail
-        </button>
-        <button onClick={() => setChoose(false)} className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}>
-          Contact
-        </button>
+      <div className="d-flex border-bottom mb-3 justify-content-between">
+        <div>
+          <button onClick={() => setChoose(true)} className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}>
+            Detail
+          </button>
+          <button onClick={() => setChoose(false)} className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}>
+            Contact
+          </button>
+        </div>
+        <div>
+          <button onClick={() => setDetail([])} className={`flex1 btn btn-danger `}>
+            close
+          </button>
+        </div>
       </div>
       {choosePart ? (
         <Detail
@@ -84,6 +91,8 @@ const GoalBox = ({ data, onDelete, changeOposite }) => {
 };
 
 const Detail = ({ title, setTitle, state, setState, date, onEdit, onDelete }) => {
+  let currentUser= JSON.parse(sessionStorage.getItem('current_user'));
+  const currentRole = currentUser.role;
   return (
     <div>
       <label className="form-label text-muted" htmlFor="topic">
@@ -113,7 +122,8 @@ const Detail = ({ title, setTitle, state, setState, date, onEdit, onDelete }) =>
         className="form-control"
         readOnly
       />
-      <div className="d-flex gap-2 mt-3">
+      {currentRole == "student" &&(
+        <div className="d-flex gap-2 mt-3">
         <button type="button" className="btn btn-success" onClick={onEdit}>
           <i className="fas fa-pen"></i> Edit
         </button>
@@ -121,6 +131,8 @@ const Detail = ({ title, setTitle, state, setState, date, onEdit, onDelete }) =>
           <i className="fas fa-trash-alt"></i> Delete
         </button>
       </div>
+      )}
+      
     </div>
   );
 };

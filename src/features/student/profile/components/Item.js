@@ -223,34 +223,3 @@ const ImageBox = ({images,achievement_id,setImageBox,changeOposite})=>{
   );
 
 }
-const Example = ()=>{
-    return (
-    <div
-      className="modal d-block"
-      tabIndex="-1"
-      role="dialog"
-      style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
-    >
-      <div className="modal-dialog modal-dialog-centered" role="document">
-        <div className="modal-content p-3">
-          <div className="modal-header">
-            <h5 className="modal-title">Images</h5>
-            <button type="button" className="btn-close"></button>
-          </div>
-          <div className="modal-body">
-            
-          </div>
-          <div className="modal-footer">
-            <button className="btn btn-secondary" >
-              Cancel
-            </button>
-            <button className="btn btn-primary" >
-              Add
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-}

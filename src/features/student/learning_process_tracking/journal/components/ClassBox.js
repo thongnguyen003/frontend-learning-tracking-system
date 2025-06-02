@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import JournalMessage from "../../message/JournalMessage";
 import "../../../../../../src/assets/css/globalStyle.css"
 import { useApi } from "../../../../../hooks/useApi";
-const ClassBox = ({data,changeOposite}) => {
+const ClassBox = ({data,changeOposite,setDetail}) => {
   const [classes, setClasses] = useState([]);
   const [choosePart,setChoose]=useState(true);
   const [editClasses, setEditClasses] = useState();
@@ -64,9 +64,20 @@ const ClassBox = ({data,changeOposite}) => {
 
   return (
     <div className="bg-white rounded shadow-sm p-3" style={{ width: "420px"}} >
-        <div className="d-flex border-bottom mb-3">
-            <button onClick={() => setChoose(true)}  className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}> Detail </button>
-            <button onClick={() => setChoose(false)} className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}> Contact</button>
+        <div className="d-flex border-bottom mb-3 justify-content-between">
+            <div>
+              <button onClick={() => setChoose(true)} className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}>
+                Detail
+              </button>
+              <button onClick={() => setChoose(false)} className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}>
+                Contact
+              </button>
+            </div>
+            <div>
+              <button onClick={() => setDetail([])} className={`flex1 btn btn-danger `}>
+                close
+              </button>
+            </div>
         </div>
           {choosePart ? (
               <Detail data={data}
@@ -85,7 +96,8 @@ const ClassBox = ({data,changeOposite}) => {
 };
 
 export default ClassBox;
-
+let currentUser= JSON.parse(sessionStorage.getItem('current_user'));
+const currentRole = currentUser.role;
 const Detail = ({
   data,
   editClasses,
@@ -123,9 +135,9 @@ const Detail = ({
         value={currentData.assessment || ""}
         onChange={e => onEditChange("assessment", e.target.value)}
         disabled={!editClasses}> 
-        <option value='1'>1</option>
-        <option value='2'>2</option>
-        <option value='3'>3</option>
+        <option value='1'>1 No Problem!</option>
+        <option value='2'>2 Litle difficulty</option>
+        <option value='3'>3 Difficulty</option>
       </select>
       <label className="form-label text-muted" htmlFor="difficulty"> Difficult </label>
       <textarea id="difficulty" rows="2" className="form-control" 
@@ -146,27 +158,30 @@ const Detail = ({
         onChange={e => onEditChange("solution", e.target.value)}
         readOnly={!editClasses}
       ></textarea>
-       <div className="d-flex gap-2 mt-3">
-        {!editClasses ? (
-          <>
-            <button className="btn btn-success" onClick={() => onEditStart(data)}>
-              <i className="fas fa-pen"></i> Edit
-            </button>
-            <button className="btn btn-warning" onClick={onDelete}>
-              <i className="fas fa-trash-alt"></i> Delete
-            </button>
-          </>
-        ) : (
-          <>
-            <button className="btn btn-primary" onClick={onEditSave}>
-              Save
-            </button>
-            <button className="btn btn-secondary" onClick={onEditCancel}>
-              Cancel
-            </button>
-          </>
-        )}
-      </div>
+      {currentRole == "student" &&(
+        <div className="d-flex gap-2 mt-3">
+          {!editClasses ? (
+            <>
+              <button className="btn btn-success" onClick={() => onEditStart(data)}>
+                <i className="fas fa-pen"></i> Edit
+              </button>
+              <button className="btn btn-warning" onClick={onDelete}>
+                <i className="fas fa-trash-alt"></i> Delete
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="btn btn-primary" onClick={onEditSave}>
+                Save
+              </button>
+              <button className="btn btn-secondary" onClick={onEditCancel}>
+                Cancel
+              </button>
+            </>
+          )}
+        </div>
+      )}
+       
     </div>
   );
 };

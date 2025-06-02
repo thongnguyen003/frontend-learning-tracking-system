@@ -15,10 +15,12 @@ const GoalsList = ({
   onToggleStatus,
 }) => {
   const [selectedGoal, setSelectedGoal] = useState(null);
+  const [tlMes,setTlMes]= useState(false);
   const [messages, setMessages] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [newMessage, setNewMessage] = useState({ teacherId: '', content: '' });
-
+  let currentUser= JSON.parse(sessionStorage.getItem('current_user'));
+  const currentRole = currentUser.role;
   useEffect(() => {
     if (selectedGoal) {
       fetch(`http://127.0.0.1:8000/api/message/getByCourseGoal/${selectedGoal.id}`)
@@ -89,8 +91,7 @@ const GoalsList = ({
             <div
               key={goal.id}
               className={`goal-item ${selectedGoal?.id === goal.id ? 'selected' : ''}`}
-              onClick={() => setSelectedGoal(goal)}
-            >
+              onClick={() => {setSelectedGoal(goal); setTlMes(true);}}>
               <div className="goal-index">{index + 1}</div>
               <div className="goal-content">
                 {isEditing ? (
@@ -111,38 +112,51 @@ const GoalsList = ({
                 className="goal-status"
                 aria-label="Change status"
                 title="Change goal status"
+                disabled={currentRole !== "student"}readOnly = {currentRole != "student"}
               >
                 <option value="" className="text-black"></option>
                 <option value="done" className="text-black">Done</option>
                 <option value="not_done" className="text-black">Not Done</option>
                 <option value="need_to_fix" className="text-black">Need to Fix</option>
               </select>
-              {isEditing ? (
+              {currentRole == "student" && (
                 <>
-                  <button aria-label="Save" onClick={onEditSave} className="goal-button goal-button-save">
-                    Save
-                  </button>
-                  <button aria-label="Cancel" onClick={onEditCancel} className="goal-button goal-button-cancel">
-                    Cancel
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button aria-label="Edit" onClick={() => onEditStart(goal)} className="goal-button goal-button-edit">
-                    <FontAwesomeIcon icon={faPencilAlt} className="text-lg" />
-                  </button>
-                  <button aria-label="Delete" onClick={() => onDelete(goal.id)} className="goal-button goal-button-delete">
-                    <FontAwesomeIcon icon={faTrashAlt} className="text-lg" />
-                  </button>
+                  {isEditing ? (
+                  <>
+                    <button aria-label="Save" onClick={onEditSave} className="goal-button goal-button-save">
+                      Save
+                    </button>
+                    <button aria-label="Cancel" onClick={onEditCancel} className="goal-button goal-button-cancel">
+                      Cancel
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button aria-label="Edit" onClick={() => onEditStart(goal)} className="goal-button goal-button-edit">
+                      <FontAwesomeIcon icon={faPencilAlt} className="text-lg" />
+                    </button>
+                    <button aria-label="Delete" onClick={() => onDelete(goal.id)} className="goal-button goal-button-delete">
+                      <FontAwesomeIcon icon={faTrashAlt} className="text-lg" />
+                    </button>
+                  </>
+                )}
                 </>
               )}
+              
             </div>
           );
         })}
       </div>
 
-      {selectedGoal && (
-        <div className="message-section">
+      {tlMes && (
+        <div className="bg-white rounded shadow-sm p-3" style={{height:"420px",width:"300px"}}>
+            <div className="d-flex border-bottom mb-3 justify-content-between">
+              <div>
+                <button onClick={() => setTlMes(false)} className={`flex1 btn btn-danger `}>
+                  close
+                </button>
+              </div>
+            </div>
           
             <JournalMessage type={"course" } id={selectedGoal.id}> 
               

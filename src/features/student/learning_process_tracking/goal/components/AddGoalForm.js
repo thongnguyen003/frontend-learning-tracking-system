@@ -9,6 +9,8 @@ export default function AddGoalForm({
   error
 }) {
   const [showForm, setShowForm] = useState(false);
+  let currentUser= JSON.parse(sessionStorage.getItem('current_user'));
+  const currentRole = currentUser.role;
 
   const handleToggleForm = () => {
     setShowForm(!showForm);
@@ -23,6 +25,8 @@ export default function AddGoalForm({
   return (
     <div className="add-goal-form-container">
       {/* Nút + ẩn khi form đang mở */}
+      {currentRole == "student" && (
+        
       <button
         onClick={handleToggleForm}
         className={`add-goal-toggle-button ${showForm ? 'hidden' : ''}`}
@@ -30,6 +34,7 @@ export default function AddGoalForm({
       >
         +
       </button>
+      )}
 
       {/* Form modal nằm giữa màn hình */}
       {showForm && (
