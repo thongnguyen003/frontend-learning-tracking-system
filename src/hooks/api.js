@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'http://localhost:8000/api', // Adjusted baseURL to include /api prefix for Laravel API routes
+    baseURL: 'http://localhost:8000/api',
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true, // Required for session-based authentication
+    withCredentials: true,
 });
 
 api.interceptors.request.use(

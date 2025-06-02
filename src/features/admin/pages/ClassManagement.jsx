@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { useApi } from '../../../hooks/useApi';
 
 const ClassManagement = () => {
   const [classes, setClasses] = useState([]);
@@ -10,11 +11,12 @@ const ClassManagement = () => {
   const [startDay, setStartDay] = useState("");
   const [endDay, setEndDay] = useState("");
 
+  const { apiCall } = useApi();
+
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/admin/classes");
-        const data = await response.json();
+        const data = await apiCall('/admin/classes', 'GET');
 
         if (data && Array.isArray(data.data)) {
           setClasses(data.data);
@@ -27,7 +29,7 @@ const ClassManagement = () => {
     };
 
     fetchClasses();
-  }, []);
+  }, [apiCall]);
 
   const openForm = () => setShowForm(true);
   const closeForm = () => setShowForm(false);
@@ -44,20 +46,9 @@ const ClassManagement = () => {
     };
 
     try {
-      const response = await fetch(
-        "http://localhost:8000/api/admin/create-classes",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const result = await apiCall('/admin/create-classes', 'POST', payload);
 
-      const result = await response.json();
-
-      if (response.ok && result.success) {
+      if (result && result.success) {
         setClasses((prev) => [...prev, result.class]);
 
         setName("");
@@ -66,7 +57,7 @@ const ClassManagement = () => {
         setShowForm(false);
 
         setSuccessMessage("Class created successfully!");
-        setTimeout(() => setSuccessMessage(""), 3000); 
+        setTimeout(() => setSuccessMessage(""), 3000);
       } else {
         alert("Failed to create class: " + (result.message || "Unknown error"));
       }
