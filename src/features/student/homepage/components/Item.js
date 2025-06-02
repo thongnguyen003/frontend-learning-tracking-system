@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from 'react-router-dom';
 const Item = ({idh,course_name,teacher_name,start_day,students_count})=>{
     const navigate = useNavigate(); // Đưa hook useNavigate ra ngoài
-    const path = JSON.parse(sessionStorage.getItem("current_user")).role == "teacher" ? '/teacher/course/detail' : "/student/course"
+    const path = JSON.parse(sessionStorage.getItem("current_user")).role == "teacher" ? '/teacher/course/detail' : "/student/learningProcessTracking"
     const redictor = () => {
         navigate(`${path}/${idh}`); // Chuyển hướng đến đường dẫn với tham số course_student_id ->
     };

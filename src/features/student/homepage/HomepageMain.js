@@ -26,6 +26,7 @@ const  HomepageMain = ()=>{
           }
           const result = await response.json();
           setCourse(result.original || []); 
+          console.log(result.original)
         } catch (error) {
           console.error('Failed to fetch course:', error);
         }
@@ -48,7 +49,7 @@ const  HomepageMain = ()=>{
                         return((
                         <Item
                           key={index}
-                          idh = {e.course_students[0]?.id}
+                          idh = {role == "teacher" ? e.id : e.course_students[0].id}
                           course_name={e.course_name}
                           teacher_name={e.teacher?.teacher_name}
                           students_count={e.students_count}

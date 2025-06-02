@@ -2,7 +2,8 @@ import React,{useState,useEffect} from "react";
 import more from "../../../../../assets/icons/more.svg";
 const Item = ({data,changeData,setChance,settongLeDetail,tongLeDetail,tongLeUpdate,setTongLeUpdate})=>{
     let user = data.student_id ? data.student : data.teacher;
-    user = user ?? {name:"unknown"};
+    user = user ?? null;
+    console.log(data)
     let currentUser= JSON.parse(sessionStorage.getItem('current_user'));
     let role = data.student_id ? "student" : "teacher";
     let roleBoolean = currentUser.role == role;
@@ -83,7 +84,7 @@ const Item = ({data,changeData,setChance,settongLeDetail,tongLeDetail,tongLeUpda
             </div>
             <div className="ms-3 flex-1">
                 <p className="mb-0 fw-semibold" style={{ color: "#1E293B", fontSize: "0.875rem", lineHeight: "1.25rem" }}>
-                    {user.name}
+                    { user && (user.student_name ? user.student_name : user.teacher_name )}
                 </p>
                 <p className="mb-1" style={{ color: "#64748B", fontSize: "0.75rem", lineHeight: "1rem" }}>
                     {data.time}

@@ -10,7 +10,7 @@ const DetailCourse = () => {
   const [navigateBar,setNavigateBar]=useState(true);
   const navigate = useNavigate();
   useEffect(()=>{
-    navigate('')
+    navigate('infoCourse')
   },[])
 
   return (
@@ -19,22 +19,16 @@ const DetailCourse = () => {
             <div className="course-layout-inner">
                 <aside className="course-sidebar  p-3 ">
                   <nav className="d-flex flex-column gap-2">
-                    <button
-                      className={`p-2 rounded ${navigateBar ? "globalActive " : ""}`}
-                      onClick={() => setNavigateBar(true)}
-                    >
-                      <Link to="infoCourse">
-                        Course Detail
-                      </Link>
-                    </button>
-                    <button
-                      className={`p-2 rounded ${!navigateBar ? "globalActive " : ""}`}
-                      onClick={() => setNavigateBar(false)}
-                    >
-                      <Link to="listStudent" >
-                        Student List
-                      </Link>
-                    </button>
+                    <Link to="infoCourse">
+                      <button className={`p-2 rounded ${navigateBar ? "globalActive " : ""}`} onClick={() => setNavigateBar(true)} style={{width:'150px'}}>
+                          Course Detail
+                      </button>
+                    </Link>
+                    <Link to="listStudent" >
+                      <button className={`p-2 rounded ${!navigateBar ? "globalActive " : ""}`} onClick={() => setNavigateBar(false)} style={{width:'150px'}}>
+                          Student List
+                      </button>
+                    </Link>
                   </nav>
                 </aside>
                 <div className="outlet" >

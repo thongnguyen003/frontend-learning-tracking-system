@@ -130,13 +130,14 @@ const CourseInfo = () => {
         }else{
           typeDeadline = typeDeadline.filter((item)=> item != e.target.value);
         }
+        typeDeadline = typeDeadline.filter((item)=> item == "goal" || item =="class" || item =="self");
         setCourse({ ...course, accept_deadline: typeDeadline.join(',') });
     }else{
       setCourse({...course,[name]:e.target.value})
     }
   }
   return (
-    <div className="bg-[#f0f2ff] min-h-screen p-6 font-sans">
+    <div className="bg-[#f0f2ff] p-6 font-sans"  style={{width:"100%",height:"100%",overflow:"auto"}}>
       <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-6">
         <div className="flex flex-col gap-6 flex-1">
           {/* First Card */}
@@ -269,7 +270,7 @@ const RightSideCard = ({journalTimes}) => {
   }
   const handleChange = (e) => {
     const name = e.target.name;
-    if(name == "deadline"){
+    if(name == "type"){
         const isChecked = e.target.checked;
         let typeDeadline = data.accept_deadline ? data.accept_deadline.split(',') : [];
         if(isChecked){
@@ -277,8 +278,8 @@ const RightSideCard = ({journalTimes}) => {
         }else{
           typeDeadline = typeDeadline.filter((item)=> item != e.target.value);
         }
+        typeDeadline = typeDeadline.filter((item)=> item == "goal" || item =="class" || item =="self");
         setData({ ...data, accept_deadline: typeDeadline.join(',') });
-        console.log(typeDeadline);
     }else{
       setData({...data,[name]:e.target.value})
     }
@@ -305,8 +306,8 @@ const RightSideCard = ({journalTimes}) => {
       />
       <label className="block text-xs font-normal mb-1" htmlFor="endday2">Deadline</label>
       <input
-        id="deadline"
         type="time"
+        name="deadline"
         value={data.deadline}
         onChange={handleChange}
         className="w-full border border-black rounded px-2 py-1 text-xs mb-4"
@@ -315,15 +316,15 @@ const RightSideCard = ({journalTimes}) => {
       {/* Fixed checkboxes */}
       <div className="mt-4 flex gap-8 text-sm font-normal">
         <label className="flex items-center gap-2 cursor-pointer select-none">
-          <input type="checkbox" checked={typeof data.accept_deadline === "string" &&  data.accept_deadline.includes("class") } name="deadline" value="class" onChange={handleChange} className="appearance-none w-5 h-5 rounded-full border border-gray-300 checked:bg-gray-300 checked:border-transparent focus:outline-none" />
+          <input type="checkbox" checked={typeof data.accept_deadline === "string" &&  data.accept_deadline.includes("class") } name="type" value="class" onChange={handleChange} className="appearance-none w-5 h-5 rounded-full border border-gray-300 checked:bg-gray-300 checked:border-transparent focus:outline-none" />
           <span>In class</span>
         </label>
         <label className="flex items-center gap-2 cursor-pointer select-none">
-          <input type="checkbox" checked={typeof data.accept_deadline === "string" && data.accept_deadline.includes("goal") } name="deadline" value="goal" onChange={handleChange}  className="appearance-none w-5 h-5 rounded-full border border-gray-300 checked:bg-gray-300 checked:border-transparent focus:outline-none" />
+          <input type="checkbox" checked={typeof data.accept_deadline === "string" && data.accept_deadline.includes("goal") } name="type" value="goal" onChange={handleChange}  className="appearance-none w-5 h-5 rounded-full border border-gray-300 checked:bg-gray-300 checked:border-transparent focus:outline-none" />
           <span>Small goals</span>
         </label>
         <label className="flex items-center gap-2 cursor-pointer select-none">
-          <input type="checkbox" checked={typeof data.accept_deadline === "string" &&  data.accept_deadline.includes("self") } name="deadline" value="self" onChange={handleChange}  className="appearance-none w-5 h-5 rounded-full border border-gray-300 checked:bg-gray-300 checked:border-transparent focus:outline-none" />
+          <input type="checkbox" checked={typeof data.accept_deadline === "string" &&  data.accept_deadline.includes("self") } name="type" value="self" onChange={handleChange}  className="appearance-none w-5 h-5 rounded-full border border-gray-300 checked:bg-gray-300 checked:border-transparent focus:outline-none" />
           <span>Self</span>
         </label>
       </div>

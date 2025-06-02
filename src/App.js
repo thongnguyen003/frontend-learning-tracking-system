@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import StudentHomepage from './features/student/pages/StudentHomepage';
 import PortfolioProfile from './pages/ProfilePage';
 import Login from './features/auth/Login';
-import StudentProfile from "./features/student/profile/PortfolioProfile";
 import LearningProcessTrackingPage from './features/student/pages/LearningProcessTrackingPage';
+import LearningProcessTrackingPage2 from "./features/teacher/pages/LearningProcessTrackingPage";
 import LearningGoals from './features/student/learning_process_tracking/goal/Goal';
 import LearningJournal from './features/student/learning_process_tracking/journal/LearningJournal';
 import AdminLayout from './layouts/Admin';
@@ -29,15 +29,26 @@ function App() {
       <NetworkDetector />
       <ToastContainer />
           <Routes>
-            <Route path="/portfolio" element={<PortfolioProfile />} />
-            <Route path="/student" element={<StudentHomepage />} />
-            <Route path="/teacher" element={<TeacherHomepage/>}></Route>
-            <Route path="/profile" element={<StudentProfile />} />
+            {/* student */}
             <Route path="/" element={<Login />} />
-            <Route path="/student/course/:id" element={<LearningProcessTrackingPage/>}>
+            <Route path="/portfolio" element={<PortfolioProfile />} />
+            <Route path="/student/course" element={<StudentHomepage />} />
+            <Route path="/student/learningProcessTracking/:id" element={<LearningProcessTrackingPage/>}>
               <Route path = 'goal' element = {<LearningGoals></LearningGoals>}></Route>
               <Route path = 'learningJournal' element = {<LearningJournal></LearningJournal>}></Route>
             </Route>
+            {/* teacher */}
+            <Route path="/teacher/class" element={<TeacherHomepage/>}></Route>
+            <Route path="teacher/course/:id" element={<CoursePageT></CoursePageT>}></Route>
+            <Route path="teacher/course/detail/:id" element={<DetailCourse />} >
+                <Route path="listStudent" element={<StudentList></StudentList> }></Route>
+                <Route path="infoCourse" element={<CourseInfo></CourseInfo> }></Route>
+            </Route>
+            <Route path="/teacher/learningProcessTracking/:id" element={<LearningProcessTrackingPage/>}>
+              <Route path = 'goal' element = {<LearningGoals></LearningGoals>}></Route>
+              <Route path = 'learningJournal' element = {<LearningJournal></LearningJournal>}></Route>
+            </Route>
+            {/* admin */}
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<AdminDashboard />} />
               <Route path="dashboard" element={<AdminDashboard />} />
@@ -47,13 +58,7 @@ function App() {
               <Route path="/admin/classes" element={<ClassManagement />} />
             <Route path="dashboard" element={<AdminDashboard />} />
             </Route>
-            <Route path="/" element={<Login />} />
-            <Route path="/teacher" element={<TeacherHomepage/>}></Route>
-            <Route path="teacher/course/:id" element={<CoursePageT></CoursePageT>}></Route>
-            <Route path="teacher/course/detail/:id" element={<DetailCourse />} >
-                <Route path="listStudent" element={<StudentList></StudentList> }></Route>
-                <Route path="infoCourse" element={<CourseInfo></CourseInfo> }></Route>
-            </Route>
+            {/* end */}
           </Routes>
       </Router>
   );

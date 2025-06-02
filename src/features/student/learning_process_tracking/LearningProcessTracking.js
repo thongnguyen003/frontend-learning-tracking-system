@@ -19,22 +19,16 @@ const LearningProcessTracking = () => {
             <div className="course-layout-inner">
                 <aside className="course-sidebar  p-3 ">
                   <nav className="d-flex flex-column gap-2">
-                    <button
-                      className={`p-2 rounded ${navigateBar ? "globalActive " : ""}`}
-                      onClick={() => setNavigateBar(true)}
-                    >
-                      <Link to="goal">
+                    <Link to="goal">
+                      <button className={`p-2 rounded ${navigateBar ? "globalActive " : ""}`} onClick={() => setNavigateBar(true)} style={{width:'150px'}}>
                         Goals
-                      </Link>
-                    </button>
-                    <button
-                      className={`p-2 rounded ${!navigateBar ? "globalActive " : ""}`}
-                      onClick={() => setNavigateBar(false)}
-                    >
-                      <Link to="learningJournal" >
-                        Learning Journal
-                      </Link>
-                    </button>
+                      </button>
+                    </Link>
+                    <Link to="learningJournal" >
+                      <button className={`p-2 rounded ${!navigateBar ? "globalActive " : ""}`} onClick={() => setNavigateBar(false)}  style={{width:'150px'}} >                     
+                          Learning Journal
+                      </button> 
+                    </Link>
                   </nav>
                 </aside>
                 <div className="outlet" >

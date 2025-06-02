@@ -18,11 +18,11 @@ function useLoginForm() {
 
             if (res.role === 'student') {
                 sessionStorage.setItem('current_user',JSON.stringify({'role':'student','account':res.user}));
-                navigate('/student');
+                navigate('/student/course');
                 toast.success('Wellcome to website!');
             } else if (res.role === 'teacher') {
                 sessionStorage.setItem('current_user',JSON.stringify({'role':'teacher','account':res.user}));
-                navigate('/teacher');
+                navigate('/teacher/class');
                 toast.success('Welcome teacher!');
             }
         } catch (err) {
