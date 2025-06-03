@@ -9,16 +9,21 @@ function JournalMessage({type,id}) {
     const [statusForm,setStatusForm]=useState(false);
     const [tongLeDetail,settongLeDetail]= useState(0);
     const [tongLeUpdate,setTongLeUpdate]=useState(0);
+    const [studentM,setStudent]= useState(null)
+    let currentUser= JSON.parse(sessionStorage.getItem('current_user'));
+    let role = currentUser.role;
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+        const studentId =  role == "student" ? currentUser.account.id : null;
+        const teacherId = role == "teacher" ? currentUser.account.id : null;
         const course_goal_id = type === "course" ? id : null;
         const journal_class_id = type === "class" ? id : null;
         const journal_goals_id = type === "goal" ? id : null;
         const journal_self_id = type === "self" ? id : null;
         const formData = new FormData(e.target);
         const content = formData.get("content");
-        const teacher_id = formData.get("teacher_id");
+        const teacher_id = role == "student" ? formData.get("teacher_id") :  currentUser.account.id ;
         const response = await fetch('http://127.0.0.1:8000/api/message/', {
             method: 'POST',
             headers: {
@@ -26,8 +31,8 @@ function JournalMessage({type,id}) {
             },
             body: JSON.stringify({
             view_teacher_id : teacher_id,
-            teacher_id:null,
-            student_id : 6,
+            teacher_id: teacherId,
+            student_id : studentId,
             content: content,
             journal_class_id : journal_class_id,
             journal_goal_id : journal_goals_id,
@@ -51,6 +56,8 @@ function JournalMessage({type,id}) {
     const handleSubmitDetail = async (e) => {
         e.preventDefault();
         try {
+        const studentId = role == "student" ? currentUser.account.id : null;
+        const teacherId = role == "teacher" ? currentUser.account.id : null;
         let formData = new FormData(e.target);
         let content = formData.get("content");
         let message_id = formData.get("message_id");
@@ -60,8 +67,8 @@ function JournalMessage({type,id}) {
             'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-            teacher_id : null,
-            student_id : 6,
+            teacher_id : teacherId,
+            student_id : studentId,
             content: content,
             message_id: message_id,
             }),
@@ -90,6 +97,7 @@ function JournalMessage({type,id}) {
             console.log(data)
             setTeacher(data.teacher);
             setMessage(data.message);
+            setStudent(data.student)
         } catch (error) {
             console.error("Lỗi khi tải dữ liệu:", error);
         }
@@ -102,20 +110,24 @@ function JournalMessage({type,id}) {
             (<div className="position-sticky top-0 right-0 p-4 bg-light rounded-3 shadow-sm" style={{ width: "300px" }}>
                 <form onSubmit={handleSubmit}>
                     <h1 className="fw-semibold">Add new commit</h1>
-                    <label className="form-label  fw-normal mb-2" htmlFor="topic">
-                        Choose Teacher
-                    </label>
-                    <select name="teacher_id" className="form-select mb-3">
-                        {listTeacher && listTeacher.length > 0 ? (
-                            listTeacher.map((e) => (
-                                <option key={e.teacher.id} value={e.teacher.id}>
-                                    {e.teacher.teacher_name}
-                                </option>
-                            ))
-                        ) : (
-                            <option  value="1">Don't have data</option>
-                        )}
-                    </select>
+                    {role == "student" && (
+                        <>
+                            <label className="form-label  fw-normal mb-2" htmlFor="topic">
+                                Choose Teacher
+                            </label>
+                            <select name="teacher_id" className="form-select mb-3">
+                                {listTeacher && listTeacher.length > 0 ? (
+                                    listTeacher.map((e) => (
+                                        <option key={e.teacher.id} value={e.teacher.id}>
+                                            {e.teacher.teacher_name}
+                                        </option>
+                                    ))
+                                ) : (
+                                    <option  value="1">Don't have data</option>
+                                )}
+                            </select>
+                        </>
+                    )}
                     <label className="form-label fw-normal mb-2" htmlFor="content">
                         Message
                     </label>

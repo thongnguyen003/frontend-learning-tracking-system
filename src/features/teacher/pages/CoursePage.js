@@ -1,6 +1,6 @@
 import React from "react";
 import { useState,useEffect } from "react";
-import StudentLayout from "../../../layouts/StudentLayout";
+import TeacherLayout from "../../../layouts/TeacherLayout";
 import HomepageMain from "../../student/homepage/HomepageMain";
 import { Link } from "react-router-dom";
 const HeaderElement = ()=>{
@@ -12,9 +12,9 @@ const HeaderElement = ()=>{
 }
 const CoursePageT = ()=>{
   return(
-    <StudentLayout  HeaderElement={<HeaderElement/> }>
+    <TeacherLayout  HeaderElement={<HeaderElement/> }>
       <HomepageMain ></HomepageMain>
-    </StudentLayout>
+    </TeacherLayout>
   );
 }
 export default CoursePageT;

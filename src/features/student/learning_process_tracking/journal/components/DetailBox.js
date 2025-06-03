@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import JournalMessage from "../../message/JournalMessage";
 import "../../../../../../src/assets/css/globalStyle.css"
 import { useApi } from "../../../../../hooks/useApi";
-const DetailBox = ({data}) => {
+const DetailBox = ({data,setDetail,changeOposite}) => {
   const [self, setSelf] = useState([]);
     const [choosePart,setChoose]=useState(true);
     const [editSelf, setEditSelf] = useState();
@@ -36,11 +36,12 @@ const DetailBox = ({data}) => {
           evaluation: editSelf.evaluation,
           reinforcing_learning: editSelf.reinforcing_learning,
           notes: editSelf.notes,
-          journal_id : id,
+          journal_id : editSelf.journal_id,
           date: editSelf.date || new Date().toISOString().split('T')[0]  
         });
         setSelf(prevSelf => prevSelf.map(s => (s.id === updatedSelf.id ? updatedSelf : s)));
         setEditSelf(null);
+        changeOposite();
       } catch {
         setErrorMessage('Error saving goal changes. Please try again.');
       }
@@ -53,6 +54,7 @@ const DetailBox = ({data}) => {
       await apiCall(`/journal/journal-selfs/${data.id}`, 'DELETE');
       // Sau khi xoá, bạn có thể redirect hoặc reload lại danh sách nếu ở view lớn hơn
       alert("Class deleted successfully.");
+      changeOposite();
     } catch (error) {
       alert("Failed to delete class.");
     }
@@ -61,13 +63,25 @@ const DetailBox = ({data}) => {
     const handleEditChange = (field, value) => {
     if (!editSelf) return;
     setEditSelf({ ...editSelf, [field]: value });
+    console.log(editSelf)
   };
   
   return (
     <div className="bg-white rounded shadow-sm p-3" style={{ width: "420px"}} >
-        <div className="d-flex border-bottom mb-3">
-            <button onClick={() => setChoose(true)}  className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}> Detail </button>
-            <button onClick={() => setChoose(false)} className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}> Contact</button>
+        <div className="d-flex border-bottom mb-3 justify-content-between">
+            <div>
+              <button onClick={() => setChoose(true)} className={`flex1 btn btn-light ${choosePart ? "globalActive" : ""}`}>
+                Detail
+              </button>
+              <button onClick={() => setChoose(false)} className={`flex1 btn btn-light ${!choosePart ? "globalActive" : ""}`}>
+                Contact
+              </button>
+            </div>
+            <div>
+              <button onClick={() => setDetail([])} className={`flex1 btn btn-danger `}>
+                close
+              </button>
+            </div>
         </div>
           {choosePart ? (
               <Detail data={data} 
@@ -99,10 +113,11 @@ const Detail = ({
   onEditCancel,
   onEditSave,
   onEditChange,
-  onDelete
+  onDelete,
 }) => {
   const currentData = editSelf || data;
-
+  let currentUser= JSON.parse(sessionStorage.getItem('current_user'));
+  const currentRole = currentUser.role;
   return(
     <div>
         <label className="form-label text-muted" htmlFor="date">
@@ -186,8 +201,8 @@ const Detail = ({
         value={currentData.concentration || ""}
         onChange={e => onEditChange("concentration", e.target.value)}
         disabled={!editSelf}>
-        <option value='0'>true</option>
-        <option value='1'>false</option>
+        <option value='0'>False</option>
+        <option value='1'>True</option>
       </select>
 
       <label className="form-label text-muted" htmlFor="follow_plan">
@@ -197,8 +212,8 @@ const Detail = ({
         value={currentData.follow_plan || ""}
         onChange={e => onEditChange("follow_plan", e.target.value)}
         disabled={!editSelf}>
-        <option value='0'>true</option>
-        <option value='1'>false</option>
+        <option value='0'>False</option>
+        <option value='1'>True</option>
       </select>
 
       <label className="form-label text-muted" htmlFor="evaluation">
@@ -238,27 +253,30 @@ const Detail = ({
         readOnly={!editSelf}
       >
       </textarea>
-      <div className="d-flex gap-2 mt-3">
-        {!editSelf ? (
-          <>
-            <button className="btn btn-success" onClick={ () => onEditStart(data) }>
-              <i className="fas fa-pen"></i> Edit
-            </button>
-            <button className="btn btn-warning" onClick={onDelete}>
-              <i className="fas fa-trash-alt"></i> Delete
-            </button>
-          </>
-        ) : (
-          <>
-            <button className="btn btn-primary" onClick={onEditSave}>
-              Save
-            </button>
-            <button className="btn btn-secondary" onClick={onEditCancel}>
-              Cancel
-            </button>
-          </>
-        )}
-      </div>
+      {currentRole == "student" && (
+        <div className="d-flex gap-2 mt-3">
+          {!editSelf ? (
+            <>
+              <button className="btn btn-success" onClick={ () => onEditStart(data) }>
+                <i className="fas fa-pen"></i> Edit
+              </button>
+              <button className="btn btn-warning" onClick={onDelete}>
+                <i className="fas fa-trash-alt"></i> Delete
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="btn btn-primary" onClick={onEditSave}>
+                Save
+              </button>
+              <button className="btn btn-secondary" onClick={onEditCancel}>
+                Cancel
+              </button>
+            </>
+          )}
+        </div>
+      )}
+      
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState,useEffect } from "react";
-import TeacherLayout from "../../../layouts/TeacherLayout";
+import StudentLayout from "../../../layouts/StudentLayout";
+
 import Classes from "../classes/Classes";
 import { Link } from "react-router-dom";
 const HeaderElement = ()=>{
@@ -30,9 +31,9 @@ useEffect(()=>{
   fetchClasses();
 },[]);
   return(
-    <TeacherLayout HeaderElement={<HeaderElement/>}>
+    <StudentLayout HeaderElement={<HeaderElement/>}>
       <Classes></Classes>
-    </TeacherLayout>
+    </StudentLayout>
   );
 }
 export default ClassesPage;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const TeacherModal = ({ onClose, classId }) => {
+const TeacherModal = ({ onClose, classId, onTeacherAdded }) => {
   const [teachers, setTeachers] = useState([]);
   const [selectedTeacherId, setSelectedTeacherId] = useState('');
   const [error, setError] = useState('');
@@ -10,7 +10,7 @@ const TeacherModal = ({ onClose, classId }) => {
     const fetchTeachers = async () => {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/admin/teachers');
-        setTeachers(response.data.teachers); // Giả sử API trả về danh sách giáo viên
+        setTeachers(response.data.teachers);
       } catch (error) {
         console.error('Error fetching teachers:', error);
       }
@@ -19,27 +19,24 @@ const TeacherModal = ({ onClose, classId }) => {
     fetchTeachers();
   }, []);
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!selectedTeacherId) {
-        setError('Please select a teacher.');
-        return;
+      setError('Please select a teacher.');
+      return;
     }
 
     try {
-        await axios.post('http://127.0.0.1:8000/api/class-teachers/', {
-            class_id: classId,
-            teacher_id: selectedTeacherId,
-        });
-        onClose(); // Đóng modal sau khi thêm thành công
+      await axios.post('http://127.0.0.1:8000/api/class-teachers/', {
+        class_id: classId,
+        teacher_id: selectedTeacherId,
+      });
+      onTeacherAdded(); // Gọi hàm cập nhật danh sách giáo viên
+      onClose(); // Đóng modal
     } catch (error) {
-        if (error.response.status === 409) {
-            setError(error.response.data.message); // Hiển thị thông báo khi giáo viên đã tồn tại
-        } else {
-            setError('Error adding teacher to class: ' + error.response.data.message);
-        }
+      setError('Error adding teacher to class: ' + error.response.data.message);
     }
-};
+  };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">

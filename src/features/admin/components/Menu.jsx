@@ -4,8 +4,6 @@ import {
   LayoutDashboard,
   AppWindow,
   BarChart,
-  Globe,
-  Plug,
   Box,
   ClipboardList,
   Table,
@@ -44,17 +42,17 @@ const menuItems = [
         path: '/admin/users',
         icon: AppWindow,
         subItems: [
-          { name: 'UserManagement', path: '/admin/users/UserManagement' },
-          { name: 'Email', path: '/admin/users/email' },
+          { name: 'Users Management', path: '/admin/users/UserManagement' },
+          { name: 'Track Users', path: '/admin/users/TrackUsers' },
         ],
       },
       { name: 'Charts', path: '/admin/charts', icon: BarChart },
     ],
   },
   {
-    section: 'TABLE',
+    section: 'SUBJECT',
     items: [
-      { name: 'Table', path: '/admin/table', icon: Table },
+      { name: 'SUBJECT', path: '/admin/subjects', icon: Table },
     ],
   },
   {
