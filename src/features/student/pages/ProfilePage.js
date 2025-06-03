@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import StudentLayout from "../layouts/StudentLayout";
-import Portfolio from '../features/student/profile/PortfolioProfile';
+import StudentLayout from "../../../layouts/StudentLayout";
+import Portfolio from  "../profile/PortfolioProfile.js"
 const HeaderElement = () => {
   return (
     <div className="d-flex align-items-center">

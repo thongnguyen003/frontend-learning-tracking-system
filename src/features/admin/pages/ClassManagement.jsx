@@ -47,7 +47,7 @@ const ClassManagement = () => {
       start_day: startDay,
       end_day: endDay,
       quantity: 0,
-      state: 0,
+      state: 1,
     };
 
     try {

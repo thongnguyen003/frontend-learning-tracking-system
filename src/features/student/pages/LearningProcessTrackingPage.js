@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 const HeaderElement = ()=>{
   return(
     <div className="d-flex align-items-center">
-      <span className="me-3  fs-5" style={{ cursor: "pointer" }}><Link to='/student'>&larr; Back</Link></span>
-      <span className=" fs-5">IT English</span>
+      <span className="me-3  fs-5" style={{ cursor: "pointer" }}><Link to='/student/course'>&larr; Back</Link></span>
     </div>
   );
 }

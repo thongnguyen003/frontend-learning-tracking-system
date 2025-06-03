@@ -1,13 +1,17 @@
 import React from "react";
 import { useState,useEffect } from "react";
 import DetailCourse from "../detail-course/DetailCourse";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import TeacherLayout from "../../../layouts/TeacherLayout";
 const HeaderElement = ()=>{
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate(-1); 
+  };
   return(
     <div className="d-flex align-items-center">
-      <span className="me-3  fs-5" style={{ cursor: "pointer" }}><Link to='/student'>&larr; Back</Link></span>
-      <span className=" fs-5">IT English</span>
+      <span className="me-3  fs-5" style={{ cursor: "pointer" }}><div onClick={handleBack} > Back</div></span>
     </div>
   );
 }

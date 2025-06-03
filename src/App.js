@@ -3,7 +3,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
 import StudentHomepage from './features/student/pages/StudentHomepage';
-import PortfolioProfile from './pages/ProfilePage';
+import PortfolioPage from "./features/student/pages/ProfilePage.js";
 import Login from './features/auth/Login';
 import LearningProcessTrackingPage from './features/student/pages/LearningProcessTrackingPage';
 import LearningProcessTrackingPage2 from "./features/teacher/pages/LearningProcessTrackingPage";
@@ -39,9 +39,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             {/* student */}
-            <Route path="/portfolio" element={<PortfolioProfile />} />
+            <Route path="/portfolio" element={<PortfolioPage />} />
             <Route path="/student/course" element={<StudentHomepage />} />
             <Route path="/student/learningProcessTracking/:id" element={<LearningProcessTrackingPage/>}>
+              <Route index element={<LearningGoals />} />
               <Route path = 'goal' element = {<LearningGoals></LearningGoals>}></Route>
               <Route path = 'learningJournal' element = {<LearningJournal></LearningJournal>}></Route>
             </Route>
@@ -49,10 +50,12 @@ function App() {
             <Route path="/teacher/class" element={<TeacherHomepage/>}></Route>
             <Route path="teacher/course/:id" element={<CoursePageT></CoursePageT>}></Route>
             <Route path="teacher/course/detail/:id" element={<DetailCourse />} >
+                <Route index element={<CourseInfo />} />
                 <Route path="listStudent" element={<StudentList></StudentList> }></Route>
                 <Route path="infoCourse" element={<CourseInfo></CourseInfo> }></Route>
             </Route>
             <Route path="/teacher/learningProcessTracking/:id" element={<LearningProcessTrackingPage2/>}>
+              <Route index element={<LearningGoals />} />
               <Route path = 'goal' element = {<LearningGoals></LearningGoals>}></Route>
               <Route path = 'learningJournal' element = {<LearningJournal></LearningJournal>}></Route>
             </Route>
@@ -63,7 +66,7 @@ function App() {
               <Route path="users/UserManagement" element={<UserManagement />} />
               <Route path="form/add-new-user" element={<AddUsers />} />
               <Route path="dashboard" element={<AdminDashboard />} />
-              <Route path="Lich/:studentId" element={<LichWrapper />} />              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="Lich/:studentId" element={<LichWrapper />} />              
               <Route path="/admin/classes" element={<ClassManagement />} />
               <Route path="/admin/classes/detail/:classId" element={<DetailCourseAdmin />} />
               <Route path="/admin/subjects" element={<SubjectList/>} />

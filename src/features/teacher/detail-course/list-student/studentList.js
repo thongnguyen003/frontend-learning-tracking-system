@@ -96,9 +96,9 @@ const StudentList = ({ classId }) => {
                   <span className="flex-1"> {student.course_students[0].journals.reduce((pre, e) => pre + e.journal_goals_count, 0)}/{student.course_students[0].journals.reduce((pre, e) => pre + e.active_journal_goals_count, 0)}</span>
                 </div>
                 <div className="flex-1 d-flex align-items-center justify-content-center">
-                  <button onClick={()=>rediretor("/student/course")} className="bg-[#00b33c] text-white text-sm font-semibold rounded-md px-3 py-1 mr-2">
+                  {/* <button onClick={()=>rediretor("/student/course")} className="bg-[#00b33c] text-white text-sm font-semibold rounded-md px-3 py-1 mr-2">
                     Info
-                  </button>
+                  </button> */}
                   <button onClick={()=>rediretor(`/teacher/learningProcessTracking/${student.course_students[0].id}`)} className="bg-[#00b33c] text-white text-sm font-semibold rounded-md px-3 py-1">
                     LG
                   </button>

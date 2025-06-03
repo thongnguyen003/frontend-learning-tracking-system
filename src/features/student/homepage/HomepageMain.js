@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import { useParams } from "react-router-dom";
 import Item from "./components/Item";
 import AddForm from "./components/AddForm";
-const  HomepageMain = ()=>{
+const  HomepageMain = ({setName})=>{
     const [course,setCourse] = useState([]);
     const [stateAddForm,setAddForm]=useState(false);
     const [change,setChange]=useState(false);
@@ -26,7 +26,7 @@ const  HomepageMain = ()=>{
           }
           const result = await response.json();
           setCourse(result.original || []); 
-          console.log(result.original)
+          setName(result.class.name)
         } catch (error) {
           console.error('Failed to fetch course:', error);
         }

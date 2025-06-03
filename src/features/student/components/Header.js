@@ -11,9 +11,10 @@ const Header = ({children}) => {
         navigate("/");
         toast.error('Please login to your account!');
       }else{
-      setUser(findUser.account);
+      setUser(findUser);
+      console.log(JSON.parse(sessionStorage.getItem('current_user')))
       }
-  },[sessionStorage.getItem('current_user')])
+  },[])
   return (
     <header className="d-flex justify-content-between align-items-center py-2 border-bottom " style={{minHeight:"5rem"}}>
         {children}
@@ -22,7 +23,7 @@ const Header = ({children}) => {
         {/* add Image */}
       </div>
         <div className="me-2 text-start">
-          <div className="fw-semibold">{user?.name}</div>
+          <div className="fw-semibold">{user && (user.role == "student"  ? user.account.student_name : user.account.teacher_name)}</div>
           <small className="text-muted">Student</small>
         </div>
         

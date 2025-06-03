@@ -23,7 +23,6 @@ const Header = ({children}) => {
         <div className="me-2 text-start">
           <div className="fw-semibold">{user?.name}</div>
           <small className="text-muted">Teacher</small>
-          <small className="text-muted">Student</small>
         </div>
         
       </div>

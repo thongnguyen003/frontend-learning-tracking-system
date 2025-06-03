@@ -199,7 +199,7 @@ const UserManagement = () => {
                                         <td className="p-3 space-x-2">
                                             <button onClick={() => handleUpdate(user)} className="text-blue-600 hover:underline">Edit</button>
                                             <button onClick={() => handleDelete(user.id, user.role)} className="text-red-600 hover:underline">Delete</button>
-                                            <button onClick={() => viewProfile(user)} className="text-green-600 hover:underline">Profile</button>
+                                            {/* <button onClick={() => viewProfile(user)} className="text-green-600 hover:underline">Profile</button> */}
                                         </td>
                                     </tr>
                                 ))

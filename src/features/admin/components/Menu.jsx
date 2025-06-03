@@ -17,48 +17,19 @@ const menuItems = [
     section: 'MAIN MENU',
     items: [
       { name: 'Dashboard', path: '/admin/dashboard', icon: LayoutDashboard },
-      { name: 'Classes', path: '/admin/classes', icon: Box },
-    ],
-  },
-  {
-    section: 'FORMS',
-    items: [
-      {
-        name: 'Forms',
-        path: '/admin/forms',
-        icon: ClipboardList,
-        subItems: [
-          { name: 'Form Elements', path: '/admin/forms/elements' },
-          { name: 'Multi User Form', path: '/admin/form/add-new-user', icon: ClipboardList }
+      { name: 'Classes', path: '/admin/classes', icon: Box,
+         subItems: [
+          { name: 'Class List', path: '/admin/classes' },
+          { name: 'Subject', path: '/admin/subjects' },
         ],
       },
-    ],
-  },
-  {
-    section: 'USERS',
-    items: [
-      {
-        name: 'Users',
-        path: '/admin/users',
-        icon: AppWindow,
+      { name: 'Users',path: '/admin/users', icon: AppWindow,
         subItems: [
           { name: 'Users Management', path: '/admin/users/UserManagement' },
           { name: 'Track Users', path: '/admin/users/TrackUsers' },
+          { name: 'Multi User Form', path: '/admin/form/add-new-user', icon: ClipboardList }
         ],
-      },
-      { name: 'Charts', path: '/admin/charts', icon: BarChart },
-    ],
-  },
-  {
-    section: 'SUBJECT',
-    items: [
-      { name: 'SUBJECT', path: '/admin/subjects', icon: Table },
-    ],
-  },
-  {
-    section: 'EXTRA',
-    items: [
-      { name: 'Pages', path: '/admin/pages', icon: FileText },
+      }
     ],
   },
 ];

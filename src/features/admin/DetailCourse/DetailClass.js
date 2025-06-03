@@ -297,14 +297,14 @@ const DetailClass = () => {
                   <FaUserGraduate className="text-green-600" />
                   Students <span className="text-green-600">({students.length})</span>
                 </h2>
-                <button
+                {/* <button
                   onClick={() => setShowStudentModal(true)}
                   className="bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-md text-sm flex items-center gap-1 transition-colors duration-200"
                   disabled={isProcessing}
                 >
                   <FaPlus className="text-xs" />
                   Add Student
-                </button>
+                </button> */}
               </div>
             </div>
             <div className="divide-y divide-gray-200">{renderStudents()}</div>
