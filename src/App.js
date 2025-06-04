@@ -33,7 +33,7 @@ function App() {
             <Route path="/student" element={<StudentHomepage />} />
             <Route path="/teacher" element={<TeacherHomepage/>}></Route>
             <Route path="/profile" element={<StudentProfile />} />
-            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/course/:id" element={<CoursePage/>}>
               <Route path = 'goal' element = {<LearningGoals></LearningGoals>}></Route>
               <Route path = 'learningJournal' element = {<LearningJournal></LearningJournal>}></Route>
@@ -49,6 +49,7 @@ function App() {
             </Route>
             <Route path="/" element={<Login />} />
             <Route path="/teacher" element={<TeacherHomepage/>}></Route>
+            {/* <Route path="/teacher/profile" element={<TeacherProfile/>}></Route> */}
             <Route path="teacher/course/:id" element={<CoursePageT></CoursePageT>}></Route>
             <Route path="student/course/detail" element={<DetailCourse />} >
                 <Route path="studentlist" element={<StudentList></StudentList> }></Route>

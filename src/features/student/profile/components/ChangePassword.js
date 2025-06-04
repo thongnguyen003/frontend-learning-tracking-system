@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { json } from "react-router-dom";
 
-const ChangePassword = ({  }) => {
+const ChangePassword = ({ setChange }) => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const studentId = JSON.parse(sessionStorage.getItem("current_user")).account.id;
+  const user = JSON.parse(sessionStorage.getItem("current_user"));
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
@@ -16,8 +16,10 @@ const ChangePassword = ({  }) => {
       return;
     }
     try {
+      const path = user.role == "student" ? "student" : "teacher";
+      const id = user.account.id;
       const response = await fetch(
-        `http://localhost:8000/api/student/change-password/${studentId}`, 
+        `http://localhost:8000/api/${path}/change-password/${id}`, 
         {
           method: "PUT",
           headers: {
@@ -37,6 +39,7 @@ const ChangePassword = ({  }) => {
 
       const data = await response.json();
       setMessage(data.message);
+      setChange();
     } catch (error) {
       setMessage(error.message || "Failed to change password.");
     }
