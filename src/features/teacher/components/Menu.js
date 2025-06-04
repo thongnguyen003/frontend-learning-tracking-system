@@ -17,7 +17,7 @@ const Menu = ()=>{
                     <img src={homeIcon} alt="My Icon" style={{width:"100%",height:"100%"}} onClick={() => navigate('/teacher/class')} />
                 </li>
                 <li className="d-flex justify-content-center align-items-center p-2" style={{height:"60px",width:"100%"}} >
-                    <img src={clasIcon} alt="My Icon" style={{width:"100%",height:"100%"}} />
+                    <img src={clasIcon} alt="My Icon" style={{width:"100%",height:"100%"}} onClick={() => navigate('/teacher/portfolio')}/>
                 </li>
                 {/* <li className="d-flex justify-content-center align-items-center p-2" style={{height:"70px",width:"100%"}}>
                     <img src={routineIcon} alt="My Icon" style={{width:"100%",height:"100%"}} />

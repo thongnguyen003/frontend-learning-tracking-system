@@ -135,17 +135,17 @@ function  LearningJournal() {
 
 
 return (
-    <div className="w-100 h-100 d-flex flex-column position-relative" style={{overflowY: "auto"}} >
+    <div className="w-100 h-100 d-flex justify-content-start  flex-column  position-relative" style={{overflowY: "auto"}} >
         {(showAddModal=='goal' && journalId>-1) && (<AddGoalModal changeOposite={changeOposite} setShowAddModal ={setShowAddModal} journalId={journalId}></AddGoalModal>)}
-        <div className=" mb-4 mt-3 position-sticky top-0" style={{}} >
-            <div className="d-flex gap-2">
+        <div className=" mb-1 mt-1  position-sticky top-0" >
+            <div className="d-flex justify-content-start  align-items-center gap-2">
                 <div>Processes: <span>{journalTimes ? journalTimes.length : 0}/{data ? data.length : 0}</span> </div>
                 {currentRole == "student" && (
                     <button onClick={AddJournalSubmit} className="btn-sm ml-2 btn-outline-dark mr-6" type="button" >
                         <i className="fas fa-plus"></i>
                     </button>
                 )}
-                <div className="d-flex align-items-center gap-2">
+                <div className="d-flex justify-content-start  gap-2">
                     <select onChange={changeTable} className="rounded border-dark px-2 ">
                         <option value="goal">Goal</option>
                         <option value="class">Class</option>
@@ -159,7 +159,7 @@ return (
                     </div>
                 </div> 
             </div>
-            <div className="d-flex mt-3">
+            <div className="d-flex justify-content-start mt-3">
                 {data.map((week,index) => (
                 <TabButton
                     key={week.id}
@@ -172,8 +172,8 @@ return (
             </div>
             
         </div>     
-        <div className="d-flex pb-0 flex-1"  style={{flex:1}}  >
-            <div className="flex-grow d-flex flex-column gap-3 pb-0 rounded-3" style={{flex:1,overflowY: "auto"}}>
+        <div className="d-flex pb-0 flex-1 justify-content-start"  >
+            <div className="flex-grow d-flex justify-content-start flex-column  gap-3 pb-0 rounded-3" style={{flex:1,overflowY: "auto"}}>
                 {typeTable == "goal"?(
                 <TableSection
                     journalTime = {journalTimes && journalTimes.length > 0 ? journalTimes[indexProcess] : null}

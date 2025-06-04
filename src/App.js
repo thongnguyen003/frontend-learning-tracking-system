@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Routes, Route, useParams } from "react-router-dom";
 import StudentHomepage from './features/student/pages/StudentHomepage';
 import PortfolioPage from "./features/student/pages/ProfilePage.js";
+import PortfolioPage1 from "./features/teacher/pages/ProfilePage.js";
 import Login from './features/auth/Login';
 import LearningProcessTrackingPage from './features/student/pages/LearningProcessTrackingPage';
 import LearningProcessTrackingPage2 from "./features/teacher/pages/LearningProcessTrackingPage";
@@ -47,6 +48,7 @@ function App() {
               <Route path = 'learningJournal' element = {<LearningJournal></LearningJournal>}></Route>
             </Route>
             {/* teacher */}
+            <Route path="/teacher/portfolio" element={<PortfolioPage1 />} />
             <Route path="/teacher/class" element={<TeacherHomepage/>}></Route>
             <Route path="teacher/course/:id" element={<CoursePageT></CoursePageT>}></Route>
             <Route path="teacher/course/detail/:id" element={<DetailCourse />} >

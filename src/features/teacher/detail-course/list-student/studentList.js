@@ -27,6 +27,7 @@ const StudentList = ({ classId }) => {
           console.log(data.error)
         }else{
           setStudents(data.student);
+          console.log(data)
           setOtherStudents(data.allStudent)
           setQuantityProcess(data.journalTimes)
         }
@@ -82,8 +83,8 @@ const StudentList = ({ classId }) => {
                 <div className="flex-1 d-flex align-items-center justify-content-center" >
                   <div className=" d-flex align-items-center justify-content-center" style={{width:"40px",height:"40px"}}>
                     <img
-                      src={student.image || 'default-image-url'} 
-                      alt={`Image of ${student.name}`}
+                      src={student.avatar || 'default-image-url'} 
+                      alt={`Image of ${student.avatar}`}
                       className="rounded-full w-10 h-10 mr-3"
                       style={{width:"100%",height:'100%', verticalAlign: 'middle' }} 
                     />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import StudentLayout from "../../../layouts/StudentLayout";
-import Portfolio from  "../profile/PortfolioProfile.js"
+import TeacherLayout from "../../../layouts/TeacherLayout.js";
+import Portfolio from  "../../student/profile/PortfolioProfile.js"
 const HeaderElement = () => {
   return (
     <div className="d-flex align-items-center">
@@ -9,7 +9,7 @@ const HeaderElement = () => {
   );
 };
 
-const PortfolioPage = () => {
+const PortfolioPage1 = () => {
   const [profile, setProfile] = useState(null);
   const [change, setChange] = useState(true);
   const changeOposite = () => {
@@ -34,10 +34,10 @@ const PortfolioPage = () => {
   }, [change]);
 
   return (
-    <StudentLayout HeaderElement={<HeaderElement />}>
+    <TeacherLayout HeaderElement={<HeaderElement />}>
       <Portfolio profile={profile} setChange={changeOposite} />
-    </StudentLayout>
+    </TeacherLayout>
   );
 };
 
-export default PortfolioPage;
+export default PortfolioPage1;
