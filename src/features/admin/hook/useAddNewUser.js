@@ -16,20 +16,21 @@ export function useAddNewUser() {
 
     const handleChange = ({ target: { name, value } }) => {
         if (name === 'role' && value !== 'student') {
-            // Khi chọn role khác student thì reset class_id
+            // Reset class_id when role is not student
             setFormData((prev) => ({
                 ...prev,
                 role: value,
                 class_id: '',
             }));
         } else {
-            // Bình thường cập nhật trường theo name
+            // Update field based on name
             setFormData((prev) => ({
                 ...prev,
                 [name]: value,
             }));
         }
     };
+
     const validateEmails = (emails) =>
         emails
             .split('\n')
@@ -40,14 +41,14 @@ export function useAddNewUser() {
         e.preventDefault();
         if (!e.currentTarget.checkValidity()) {
             setValidated(true);
-            setMessage('Vui lòng điền đầy đủ và đúng định dạng các trường!');
+            setMessage('Please fill in all fields correctly!');
             setMessageType('danger');
             return false;
         }
 
         const emails = validateEmails(formData.emails);
         if (emails.length === 0) {
-            setMessage('Vui lòng nhập ít nhất một email hợp lệ!');
+            setMessage('Please enter at least one valid email!');
             setMessageType('danger');
             return false;
         }
@@ -64,16 +65,16 @@ export function useAddNewUser() {
             const res = await apiCall('/admin/add-user', 'POST', { users });
 
             if (res.created > 0 && !res.errors) {
-                setMessage(`Đã thêm ${res.created} tài khoản với vai trò ${formData.role}!`);
+                setMessage(`Successfully added ${res.created} ${formData.role} account(s)!`);
                 setMessageType('success');
             } else if (res.errors && res.errors.length > 0) {
-                setMessage(`Không thêm được tài khoản: ${res.errors.join(', ')}`);
+                setMessage(`Failed to add accounts: ${res.errors.join(', ')}`);
                 setMessageType('danger');
             } else if (res.message) {
                 setMessage(res.message);
                 setMessageType('warning');
             } else {
-                setMessage('Lỗi không xác định: Không có thông tin lỗi');
+                setMessage('Unknown error: No error information provided');
                 setMessageType('danger');
             }
 
@@ -82,32 +83,32 @@ export function useAddNewUser() {
             return true;
         } catch (err) {
             const { response, request, message: errMsg } = err;
-            let errorMessage = 'Không thể kết nối đến server';
+            let errorMessage = 'Unable to connect to the server';
 
             if (response) {
                 const { status, data } = response;
                 if (status === 422) {
                     errorMessage = data.errors
                         ? Object.values(data.errors).flat().join(', ')
-                        : data.message || 'Dữ liệu đầu vào không hợp lệ';
+                        : data.message || 'Invalid input data';
                 } else if (status === 207 || status === 400 || status === 500) {
                     errorMessage = data.errors
                         ? data.errors.join(', ')
-                        : data.message || 'Lỗi xử lý yêu cầu';
+                        : data.message || 'Error processing request';
                 } else {
-                    errorMessage = `Lỗi không xác định: Mã trạng thái ${status}`;
+                    errorMessage = `Unknown error: Status code ${status}`;
                 }
             } else if (request) {
-                errorMessage = 'Không nhận được phản hồi từ server. Vui lòng kiểm tra kết nối mạng.';
+                errorMessage = 'No response received from server. Please check your network connection.';
             } else {
-                errorMessage = `Lỗi: ${errMsg}`;
+                errorMessage = `Error: ${errMsg}`;
             }
 
-            setMessage(`Lỗi: ${errorMessage}`);
+            setMessage(`Error: ${errorMessage}`);
             setMessageType('danger');
             return false;
         }
-            };
+    };
 
     return {
         formData,

@@ -82,6 +82,7 @@ function Login() {
                                 <select value={role} onChange={(e) => setRole(e.target.value)} required>
                                     <option value="student">Student</option>
                                     <option value="teacher">Teacher</option>
+                                    <option value="admin">Admin</option>
                                 </select>
                             </div>
 

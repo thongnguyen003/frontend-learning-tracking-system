@@ -113,11 +113,11 @@ const AddForm = ({changeOposite,setAddForm})=>{
           <div className="modal-body">
             <form onSubmit={handleSubmit}>
                 <div className=" my-2">
-                    <label className="form-label" style={{width:"150px"}}>Choose image</label>
+                    <label className="form-label" style={{width:"150px"}}>Title</label>
                     <input name="title" type="text" className="form-control" ></input>
                 </div>
                 <div className=" my-2">
-                    <label className="form-label" style={{width:"150px"}}>Choose image</label>
+                    <label className="form-label" style={{width:"150px"}}>Detail</label>
                     <textarea  name="description" type="text" className="form-control" ></textarea>
                 </div>
                 <div className="d-flex my-2">
