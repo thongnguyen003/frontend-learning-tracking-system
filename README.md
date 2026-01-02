@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# Frontend – Learning Tracking System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 1 Giới thiệu
 
-## Available Scripts
+Đây là Frontend của dự án Learning Tracking System, phục vụ cho mục đích học tập tại trường.
 
-In the project directory, you can run:
+Frontend được xây dựng bằng ReactJS, dùng để hiển thị giao diện và tương tác với backend Laravel.
 
-### `npm start`
+Dự án có sử dụng Cloudinary để lưu trữ hình ảnh (ảnh minh chứng, thành tích học tập,…).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 2 Công nghệ sử dụng
 
-### `npm test`
+- ReactJS  
+- NodeJS  
+- ExpressJS  
+- Cloudinary  
+- Multer  
+- Axios  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+### 3 Mục đích sử dụng Cloudinary
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Cloudinary được sử dụng để:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Lưu trữ hình ảnh online  
+- Tránh lưu ảnh trực tiếp trong project  
+- Giảm dung lượng server  
+- Dễ quản lý và truy xuất hình ảnh  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Sau khi upload, Cloudinary sẽ trả về URL ảnh, URL này được lưu vào database thông qua backend Laravel.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 4 Cấu hình môi trường
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Dự án sử dụng file .env để lưu cấu hình Cloudinary.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Các thành viên trong nhóm cần:
+- Tạo file .env
+- Nhập thông tin Cloudinary của mình
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Không commit file .env lên GitHub.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 5 Cách chạy dự án
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Cài đặt thư viện:
+npm install
 
-### Code Splitting
+Chạy server upload ảnh:
+node server/upload.js
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Server upload chạy tại:
+http://localhost:5000
 
-### Analyzing the Bundle Size
+Chạy frontend:
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Truy cập:
+http://localhost:3000
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 6 Ghi chú
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Frontend và backend hoạt động độc lập  
+- Ảnh không lưu trong project  
+- Dữ liệu hình ảnh được lưu trên Cloudinary  
+- Dự án phục vụ mục đích học tập  
